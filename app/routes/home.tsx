@@ -1,25 +1,20 @@
-import HomePage from "@/components/home/HomePage";
+import BriefPage from "@/components/brief/BriefPage";
 import { APP_TITLE } from "@/lib/app-config";
 
-const SEO_TITLE = `${APP_TITLE} - Open Source AI app starter with actions`;
+const SEO_TITLE = `${APP_TITLE} — pre-meeting briefings you can trust`;
 const SEO_DESCRIPTION =
-  "Open Source starter for agent-native apps with durable chat, shared actions, UI state, tools, and a backend your agent can extend.";
+  "Research any company or person in the 30 days before your meeting and get a one-page, fully cited briefing with verified vs. uncertain findings.";
 
 export function meta() {
   return [
     { title: SEO_TITLE },
-    {
-      name: "description",
-      content: SEO_DESCRIPTION,
-    },
+    { name: "description", content: SEO_DESCRIPTION },
     { property: "og:title", content: SEO_TITLE },
     { property: "og:description", content: SEO_DESCRIPTION },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: SEO_TITLE },
-    { name: "twitter:description", content: SEO_DESCRIPTION },
   ];
 }
 
 export default function HomeRoute() {
-  return <HomePage />;
+  return <BriefPage />;
 }

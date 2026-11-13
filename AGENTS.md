@@ -1,3 +1,20 @@
+# Meeting Brief Agent — Agent Guide
+
+This app produces one-page, fully cited pre-meeting briefings for a company or person, covering the N days (default 30) before a meeting. The UI lives at `/home` (`app/components/brief/BriefPage.tsx`); chat at `/chat` uses the same actions.
+
+## Key actions
+
+| Action | Use it to | Notes |
+| --- | --- | --- |
+| `generate-briefing` | Produce the briefing (TL;DR, key developments, people changes, talking points, open questions, uncertain items, sources) | Runs `research-target` first unless `research` is passed. LLM via Bifrost (`BIFROST_URL`), fallback OpenAI → Anthropic → extractive. Preserve `sourceIds`, `confidence`, `confidenceReason`, `demoData`. |
+| `research-target` | Inspect raw evidence: planned queries + date-windowed, de-duplicated Tavily sources `S1..Sn` | Read-only. |
+| `export-briefing` | Turn a briefing object into Markdown with citation links | Read-only. |
+| `briefing-status` | See whether mock mode, Tavily and which LLM chain are configured | Never returns secrets. |
+
+Rules for the agent: never state a fact that is not in a briefing's cited sources; keep verified and uncertain findings separate; say so when `demoData` is true. Pipeline code: `server/lib/briefing/` (planner, tavily, sources, llm, synthesize, verify, pipeline). Shared contracts: `shared/briefing/schema.ts`.
+
+---
+
 # Chat — Agent Guide
 
 Chat is the minimal chat-first agent-native app. `/` redirects to shared sign-in, then `/home`, the editable Get started page. Chat lives at `/chat`; new chats start there. Actions carry capabilities; screens exist only for durable workflows.

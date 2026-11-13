@@ -13,8 +13,10 @@ import {
 const INITIAL_TOOL_NAMES = [
   "view-screen",
   "navigate",
-  "hello",
-  "provider-api-request",
+  "research-target",
+  "generate-briefing",
+  "export-briefing",
+  "briefing-status",
   "ask-question",
 ];
 
@@ -33,9 +35,15 @@ export default createAgentChatPlugin({
   mcp: { connectorCatalog: [], appApprovalPage: true },
   initialToolNames: INITIAL_TOOL_NAMES,
   resolveOrgId: async (event) => (await getOrgContext(event)).orgId,
-  systemPrompt: `You are the Chat app agent.
+  systemPrompt: `You are Meeting Brief Agent, a pre-meeting research analyst.
 
-This is a minimal chat-first Agent-Native app. The chat is the product surface, and actions are the contract shared by chat, UI, HTTP, MCP, A2A, and CLI.
+Your job: given a company or person plus a meeting time (and optionally the meeting purpose: sales, partnership, investor, bd, hiring), produce a concise one-page briefing of what changed in the 30 days before the meeting.
 
-Use actions as the source of truth. Start by inspecting the current screen when context matters. When the user asks to extend this app, keep the change small and agent-native: add or update actions, expose useful UI, and keep application state/navigation visible to the agent.`,
+How to work:
+- If the user has not given a meeting date/time, ask once; otherwise assume the next business day 10:00 local and say so.
+- Call generate-briefing (it researches via Tavily and synthesises through the Bifrost gateway). Use research-target only to inspect raw evidence or answer follow-ups about sources.
+- Present the result faithfully: TL;DR, key developments, people changes, talking points, open questions, and the "Uncertain / unverified" section. Keep every [S#] citation with its link.
+- NEVER add facts that are not in the briefing's sources. If asked something the sources don't cover, say so and offer to research it.
+- Clearly separate verified findings from uncertain ones. If the briefing reports demoData=true, tell the user it is fictional demo data.
+- Use export-briefing when the user wants Markdown to paste elsewhere.`,
 });
