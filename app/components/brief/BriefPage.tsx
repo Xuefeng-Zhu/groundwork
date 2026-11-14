@@ -230,7 +230,7 @@ function Progress({ stage, research, error }: { stage: Stage; research: Research
       key: "search",
       label: research?.searchMode === "mock" ? "Search (demo fixtures)" : "Search Tavily (date-windowed)",
       detail: research
-        ? `${research.stats.rawResults} results → ${research.stats.kept} sources · ${research.stats.duplicates} dupes · ${research.stats.outOfWindow} outside window${research.stats.extracted ? ` · ${research.stats.extracted} full-text` : ""}`
+        ? `${research.stats.rawResults} results → ${research.stats.kept} sources · ${research.stats.duplicates} dupes · ${research.stats.outOfWindow} outside window${research.stats.extracted ? ` · ${research.stats.extracted} full-text` : ""}${research.stats.sitePages ? ` · ${research.stats.sitePages} newsroom page (Map)` : ""}`
         : undefined,
     },
     {
