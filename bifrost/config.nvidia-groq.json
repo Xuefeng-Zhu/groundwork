@@ -1,0 +1,21 @@
+{
+  "$schema": "https://www.getbifrost.ai/schema",
+  "client": {
+    "drop_excess_requests": false,
+    "enforce_governance_header": false,
+    "enforce_auth_on_inference": false
+  },
+  "providers": {
+    "nvidia": {
+      "keys": [{ "name": "nvidia-build", "value": "env.NVIDIA_API_KEY", "models": ["*"], "weight": 1.0 }],
+      "network_config": { "base_url": "https://integrate.api.nvidia.com", "default_request_timeout_in_seconds": 90 },
+      "custom_provider_config": {
+        "base_provider_type": "openai",
+        "allowed_requests": { "chat_completion": true, "chat_completion_stream": true, "list_models": true }
+      }
+    },
+    "groq": {
+      "keys": [{ "name": "groq-free", "value": "env.GROQ_API_KEY", "models": ["*"], "weight": 1.0 }]
+    }
+  }
+}

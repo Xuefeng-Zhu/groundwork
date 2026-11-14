@@ -10,6 +10,8 @@ export interface BriefingConfig {
   bifrostUrl?: string | undefined;
   bifrostApiKey?: string | undefined;
   bifrostModel: string;
+  /** Bifrost failover chain, e.g. groq/openai/gpt-oss-120b. Comma-separated in BIFROST_FALLBACKS. */
+  bifrostFallbacks: string[];
   openaiKey?: string | undefined;
   openaiBaseUrl: string;
   openaiModel: string;
@@ -39,6 +41,7 @@ export function getConfig(env: NodeJS.ProcessEnv = process.env): BriefingConfig 
     bifrostUrl: clean(env.BIFROST_URL)?.replace(/\/+$/, ""),
     bifrostApiKey: clean(env.BIFROST_API_KEY),
     bifrostModel: clean(env.BIFROST_MODEL) ?? "openai/gpt-4o-mini",
+    bifrostFallbacks: (clean(env.BIFROST_FALLBACKS) ?? "").split(",").map((s) => s.trim()).filter(Boolean),
     openaiKey: clean(env.OPENAI_API_KEY),
     // When the in-app chat is pointed at Bifrost via OPENAI_BASE_URL we reuse it.
     openaiBaseUrl: (clean(env.OPENAI_DIRECT_BASE_URL) ?? "https://api.openai.com/v1").replace(/\/+$/, ""),
@@ -58,7 +61,7 @@ export function describeConfig(c: BriefingConfig) {
     llmChain: c.mock
       ? ["mock"]
       : [
-          ...(c.bifrostUrl ? [`bifrost:${c.bifrostModel}`] : []),
+          ...(c.bifrostUrl ? [`bifrost:${[c.bifrostModel, ...c.bifrostFallbacks].join(" -> ")}`] : []),
           ...(c.openaiKey ? [`openai:${c.openaiModel}`] : []),
           ...(c.anthropicKey ? [`anthropic:${c.anthropicModel}`] : []),
           "heuristic",

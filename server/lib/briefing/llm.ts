@@ -35,7 +35,8 @@ async function openAiCompatible(
   messages: ChatMessage[],
   timeoutMs: number,
   extraHeaders: Record<string, string> = {},
-): Promise<string> {
+  extraBody: Record<string, unknown> = {},
+): Promise<{ text: string; servedBy?: string | undefined }> {
   return withTimeout(timeoutMs, async (signal) => {
     const res = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
@@ -49,14 +50,21 @@ async function openAiCompatible(
         messages,
         temperature: 0.1,
         response_format: { type: "json_object" },
+        ...extraBody,
       }),
       signal,
     });
     if (!res.ok) throw new Error(`${baseUrl} ${res.status}: ${(await res.text()).slice(0, 300)}`);
-    const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const data = (await res.json()) as {
+      model?: string;
+      choices?: Array<{ message?: { content?: string } }>;
+      extra_fields?: { provider?: string };
+    };
     const text = data.choices?.[0]?.message?.content;
     if (!text) throw new Error("Empty completion");
-    return text;
+    // Bifrost reports which provider actually answered (after any failover).
+    const servedBy = data.extra_fields?.provider && data.model ? `${data.extra_fields.provider}/${data.model}` : undefined;
+    return { text, servedBy };
   });
 }
 
@@ -102,22 +110,27 @@ export async function completeJson(
 ): Promise<LlmResult | null> {
   if (cfg.bifrostUrl) {
     try {
-      const text = await openAiCompatible(
+      const { text, servedBy } = await openAiCompatible(
         cfg.bifrostUrl,
         undefined, // provider keys live inside Bifrost; optional virtual key below
         cfg.bifrostModel,
         messages,
         cfg.llmTimeoutMs,
         cfg.bifrostApiKey ? { "x-bf-vk": cfg.bifrostApiKey } : {},
+        // Bifrost-native failover: tried in order if the primary model errors or is rate-limited.
+        cfg.bifrostFallbacks.length ? { fallbacks: cfg.bifrostFallbacks } : {},
       );
-      return { provider: "bifrost", model: cfg.bifrostModel, text };
+      if (servedBy && servedBy !== cfg.bifrostModel) {
+        warnings.push(`Bifrost failed over from ${cfg.bifrostModel} to ${servedBy}.`);
+      }
+      return { provider: "bifrost", model: servedBy ?? cfg.bifrostModel, text };
     } catch (e) {
       warnings.push(`Bifrost call failed (${(e as Error).message}); trying direct provider.`);
     }
   }
   if (cfg.openaiKey) {
     try {
-      const text = await openAiCompatible(cfg.openaiBaseUrl, cfg.openaiKey, cfg.openaiModel, messages, cfg.llmTimeoutMs);
+      const { text } = await openAiCompatible(cfg.openaiBaseUrl, cfg.openaiKey, cfg.openaiModel, messages, cfg.llmTimeoutMs);
       return { provider: "openai", model: cfg.openaiModel, text };
     } catch (e) {
       warnings.push(`OpenAI call failed (${(e as Error).message}).`);
