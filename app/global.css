@@ -277,7 +277,7 @@
   background: hsl(var(--muted-foreground) / 0.34);
 }
 
-/* ---- Meeting Brief Agent: print the briefing as a single page ---- */
+/* ---- Groundwork: print the briefing as a single page ---- */
 @media print {
   @page {
     size: auto;

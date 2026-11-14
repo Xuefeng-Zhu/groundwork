@@ -1,7 +1,7 @@
 {
-  "name": "Meeting Brief Agent",
-  "short_name": "Meeting Brief Agent",
-  "description": "Workspace app for Meeting Brief Agent.",
+  "name": "Groundwork",
+  "short_name": "Groundwork",
+  "description": "Workspace app for Groundwork.",
   "start_url": "./home",
   "background_color": "#111111",
   "theme_color": "#18181B",

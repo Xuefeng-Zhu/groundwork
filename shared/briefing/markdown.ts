@@ -79,7 +79,7 @@ export function briefingToMarkdown(b: Briefing): string {
   }
   lines.push("");
   lines.push(
-    `_Generated ${b.generatedAt} by Meeting Brief Agent. ✅ = verified (2+ independent sources or a primary source, key terms found in source text). ⚠️ = single secondary source, undated, or not fully supported by source text._`,
+    `_Generated ${b.generatedAt} by Groundwork. ✅ = verified (2+ independent sources or a primary source, key terms found in source text). ⚠️ = single secondary source, undated, or not fully supported by source text._`,
   );
   return lines.join("\n");
 }

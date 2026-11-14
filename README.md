@@ -1,11 +1,13 @@
-# Meeting Brief Agent
+# Groundwork
+
+_Verified briefs before every meeting._
 
 **Walk into every meeting knowing what changed — with a source for every line.**
 
 Geek Room Global AI Hackathon · Problem Statement 05 — *Build a Pre-Meeting Briefing Agent* · Tavily track
 Built with [BuilderIO Agent-Native](https://www.agent-native.com/docs/), [Tavily](https://docs.tavily.com) and [Bifrost](https://github.com/maximhq/bifrost) by Maxim AI.
 
-![Meeting Brief Agent screenshot](docs/screenshot.png)
+![Groundwork screenshot](docs/screenshot.png)
 
 Sample output (demo data): [`docs/sample-brief.md`](docs/sample-brief.md) · one-page print: [`docs/sample-brief.pdf`](docs/sample-brief.pdf)
 

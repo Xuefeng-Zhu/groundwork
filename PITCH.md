@@ -1,7 +1,7 @@
-# Meeting Brief Agent — pitch outline (9 slides)
+# Groundwork — pitch outline (9 slides)
 
 ## 1. Title
-**Meeting Brief Agent: walk into every meeting knowing what changed, with a source for every line.**
+**Groundwork: walk into every meeting knowing what changed, with a source for every line.**
 - Geek Room Global AI Hackathon · PS05 Pre-Meeting Briefing Agent · Tavily track
 - Built on Agent-Native, Tavily and Bifrost
 - *Talking point:* "In 60 seconds, a cited one-pager on anyone you're about to meet."

@@ -1,5 +1,5 @@
-const rawAppName = "meeting-brief-agent";
-const rawAppTitle = "Meeting Brief Agent";
+const rawAppName = "groundwork";
+const rawAppTitle = "Groundwork";
 
 const APP_NAME_PLACEHOLDER = "{" + "{APP_NAME}}";
 const APP_TITLE_PLACEHOLDER = "{" + "{APP_TITLE}}";

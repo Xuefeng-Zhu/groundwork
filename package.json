@@ -1,8 +1,8 @@
 {
-  "name": "meeting-brief-agent",
-  "displayName": "Meeting Brief Agent",
+  "name": "groundwork",
+  "displayName": "Groundwork",
   "private": true,
-  "description": "Workspace app for Meeting Brief Agent.",
+  "description": "Workspace app for Groundwork.",
   "type": "module",
   "scripts": {
     "migrate:production": "tsx scripts/migrate-production.ts",

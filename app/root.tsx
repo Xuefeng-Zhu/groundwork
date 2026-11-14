@@ -41,7 +41,7 @@ import stylesheet from "./global.css?url";
 configureTracking({
   getDefaultProps: (_name, properties) => ({
     ...properties,
-    app: "meeting-brief-agent",
+    app: "groundwork",
     template: "chat",
   }),
 });

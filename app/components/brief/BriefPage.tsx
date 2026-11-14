@@ -36,7 +36,7 @@ import {
 
 type Stage = "idle" | "plan" | "search" | "synth" | "done" | "error";
 
-const HISTORY_KEY = "meeting-brief-agent:history";
+const HISTORY_KEY = "groundwork:history";
 
 function defaultMeetingLocal(): string {
   const d = new Date(Date.now() + 86_400_000);

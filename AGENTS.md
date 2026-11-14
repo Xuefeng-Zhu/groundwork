@@ -1,4 +1,4 @@
-# Meeting Brief Agent — Agent Guide
+# Groundwork — Agent Guide
 
 This app produces one-page, fully cited pre-meeting briefings for a company or person, covering the N days (default 30) before a meeting. The UI lives at `/home` (`app/components/brief/BriefPage.tsx`); chat at `/chat` uses the same actions.
 

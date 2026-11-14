@@ -21,7 +21,7 @@ const INITIAL_TOOL_NAMES = [
 ];
 
 export default createAgentChatPlugin({
-  appId: "meeting-brief-agent",
+  appId: "groundwork",
   mentionProviders: {
     chats: {
       label: "composerSources.group",
@@ -35,7 +35,7 @@ export default createAgentChatPlugin({
   mcp: { connectorCatalog: [], appApprovalPage: true },
   initialToolNames: INITIAL_TOOL_NAMES,
   resolveOrgId: async (event) => (await getOrgContext(event)).orgId,
-  systemPrompt: `You are Meeting Brief Agent, a pre-meeting research analyst.
+  systemPrompt: `You are Groundwork, a pre-meeting research analyst.
 
 Your job: given a company or person plus a meeting time (and optionally the meeting purpose: sales, partnership, investor, bd, hiring), produce a concise one-page briefing of what changed in the 30 days before the meeting.
 

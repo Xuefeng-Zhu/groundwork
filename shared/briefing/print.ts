@@ -37,6 +37,6 @@ ${b.demoData ? `<div class="demo">DEMO MODE — fictional fixture data on .examp
 <div><h2>Open questions</h2><ul>${list(b.openQuestions.map((q) => `<li>${esc(q.text)}${q.why ? ` <span class="m">(${esc(q.why)})</span>` : ""}${cite(q.sourceIds)}</li>`), "—")}</ul></div></div>
 <h2>Uncertain / unverified — confirm before relying on these</h2><div class="u"><ul>${list(b.uncertain.map((c) => claim(c, true)), "Nothing flagged.")}</ul></div>
 <h2>Sources</h2><ol class="src">${b.sources.map((s) => `<li><b>[${s.id}]</b> <a href="${esc(s.url)}">${esc(s.title)}</a> — ${esc(s.domain)}, ${formatDay(s.publishedAt)}${s.isPrimary ? ", primary" : ""}</li>`).join("")}</ol>
-<div class="f">✓ verified = 2+ independent outlets or a primary source, with every figure and key term found in the cited text. ⚠ = single secondary source, hedged, undated, or not fully supported. Generated ${esc(new Date(b.generatedAt).toLocaleString())} by Meeting Brief Agent.</div>
+<div class="f">✓ verified = 2+ independent outlets or a primary source, with every figure and key term found in the cited text. ⚠ = single secondary source, hedged, undated, or not fully supported. Generated ${esc(new Date(b.generatedAt).toLocaleString())} by Groundwork.</div>
 </body></html>`;
 }
