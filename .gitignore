@@ -44,3 +44,6 @@ data/*.lock
 
 # local CLI output
 out/
+
+# local Bifrost state
+.bifrost/

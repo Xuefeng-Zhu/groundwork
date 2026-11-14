@@ -24,7 +24,7 @@ export interface Draft {
 
 // ---------------------------------------------------------------- LLM prompt
 
-export function buildMessages(req: BriefingRequest, window: DateWindow, sources: Source[]) {
+export function buildMessages(req: BriefingRequest, window: DateWindow, sources: Source[], sourceChars = 1400) {
   const sys = `You are a meticulous pre-meeting research analyst. You write one-page briefings that busy people read in 2 minutes.
 HARD RULES:
 - Use ONLY the numbered sources provided. Never use outside knowledge. Never invent names, numbers, dates or events.
@@ -54,7 +54,7 @@ Limits: tldr 3 bullets, claims <= 12, talkingPoints <= 5, openQuestions <= 5.`;
   const src = sources
     .map(
       (s) =>
-        `[${s.id}] ${s.title}\nURL: ${s.url}\nOutlet: ${s.domain}${s.isPrimary ? " (PRIMARY/official)" : ""}\nPublished: ${s.publishedAt?.slice(0, 10) ?? "unknown"}\nText: ${(s.content || s.snippet).slice(0, 1400)}`,
+        `[${s.id}] ${s.title}\nURL: ${s.url}\nOutlet: ${s.domain}${s.isPrimary ? " (PRIMARY/official)" : ""}\nPublished: ${s.publishedAt?.slice(0, 10) ?? "unknown"}\nText: ${(s.content || s.snippet).slice(0, sourceChars)}`,
     )
     .join("\n\n");
 

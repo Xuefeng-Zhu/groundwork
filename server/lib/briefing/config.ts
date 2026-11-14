@@ -16,6 +16,9 @@ export interface BriefingConfig {
   anthropicKey?: string | undefined;
   anthropicModel: string;
   llmTimeoutMs: number;
+  /** Prompt budget: how many sources, and how many characters of each, go to the model. Lower for small free tiers (e.g. Groq 8k TPM). */
+  llmMaxSources: number;
+  llmSourceChars: number;
 }
 
 function truthy(v: string | undefined): boolean {
@@ -43,6 +46,8 @@ export function getConfig(env: NodeJS.ProcessEnv = process.env): BriefingConfig 
     anthropicKey: clean(env.ANTHROPIC_API_KEY),
     anthropicModel: clean(env.ANTHROPIC_MODEL) ?? "claude-sonnet-4-5",
     llmTimeoutMs: Number(env.LLM_TIMEOUT_MS ?? 60000) || 60000,
+    llmMaxSources: Number(env.LLM_MAX_SOURCES ?? 30) || 30,
+    llmSourceChars: Number(env.LLM_SOURCE_CHARS ?? 1400) || 1400,
   };
 }
 

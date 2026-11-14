@@ -1,0 +1,53 @@
+# Pre-meeting brief: Snowflake
+
+**Meeting:** Fri, 20 Nov 2026 23:00:00 GMT · **Type:** Sales call · **Target:** Snowflake (company)
+**Research window:** 2026-10-21 → 2026-11-20 · **Sources reviewed:** 40 · **Engine:** tavily + bifrost (groq/openai/gpt-oss-120b)
+
+## TL;DR
+- Snowflake unveiled a suite of AI‑agent tools—including Business Ontology, Cortex AI Gateway, CoCo, CoWork and autonomous data‑engineering agents—at its Expedition 2026 event in early November. [S1](https://snowflake.com/en/news/press-releases/expedition-2026-business-ontology-ai-gateway) [S2](https://snowflake.com/en/news/press-releases/expedition-2026-coco-cowork) [S3](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering) [S5](https://snowflake.com/en/blog/ai-agents-governed-data-business-context)
+- The company announced strategic integrations with SAP (zero‑copy) and an expanded Oracle partnership to bring its AI Data Cloud to OCI, both slated for future rollout. [S8](https://snowflake.com/de/blog/sap-snowflake-zero-copy-integration-enterprise-ai) [S7](https://oracle.com/news/announcement/ai-world-oracle-expands-native-ai-and-data-services-on-oci-with-snowflake-2026-10-27) [S12](https://snowflake.com/en/blog/snowflake-oracle-partnership-ai-data-cloud-oci)
+- Fiscal 2026 revenue hit $4.7 B (+29.2% YoY) but the firm posted a $1.3 B net loss; Q2 FY2027 revenue rose 35% to $1.55 B, while insiders sold >$370 M of stock in the past 90 days. [S6](https://fool.com/coverage/better-buy/2026/11/11/adobe-systems-vs-snowflake-which-technology-stock-is-a-better-buy-for-2027) [S9](https://tradingview.com/news/prnewswire:983c43b87b388:0-an-ai-developer-starts-its-ipo-roadshow-and-its-filing-names-chip-and-cloud-partners) [S10](https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111) [S11](https://marketbeat.com/instant-alerts/filing-snowflake-inc-snow-shares-sold-by-allspring-global-investments-holdings-llc-2026-11-11)
+
+## Key developments (verified)
+- ✅ **2026-11-07** · _Product_ — Snowflake’s AI agents are designed to keep data pipelines healthy and provide live data for immediate business action. [S3](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering)
+- ✅ **2026-11-04** · _Partnerships_ — On 2026-11-04 Snowflake and SAP announced a zero‑copy integration to enable enterprise AI with trusted, context‑rich data. [S8](https://snowflake.com/de/blog/sap-snowflake-zero-copy-integration-enterprise-ai)
+
+## People & org changes
+- None found in the window.
+
+## Talking points
+- Highlight how Business Ontology and Cortex AI Gateway ensure AI outputs are consistent, traceable, and actionable for the prospect’s use cases. [S1](https://snowflake.com/en/news/press-releases/expedition-2026-business-ontology-ai-gateway)
+- Discuss the CoCo and CoWork agents’ ability to automate routine tasks while preserving human oversight for critical decisions. [S2](https://snowflake.com/en/news/press-releases/expedition-2026-coco-cowork) [S3](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering)
+- Emphasize the strategic value of Snowflake’s integrations with SAP and Oracle for seamless, zero‑copy data flow across enterprise ecosystems. [S8](https://snowflake.com/de/blog/sap-snowflake-zero-copy-integration-enterprise-ai) [S7](https://oracle.com/news/announcement/ai-world-oracle-expands-native-ai-and-data-services-on-oci-with-snowflake-2026-10-27) [S12](https://snowflake.com/en/blog/snowflake-oracle-partnership-ai-data-cloud-oci)
+- Address Snowflake’s strong top‑line growth (29% FY2026, 35% Q2 FY2027) while acknowledging recent insider sell‑off as a market sentiment factor. [S6](https://fool.com/coverage/better-buy/2026/11/11/adobe-systems-vs-snowflake-which-technology-stock-is-a-better-buy-for-2027) [S9](https://tradingview.com/news/prnewswire:983c43b87b388:0-an-ai-developer-starts-its-ipo-roadshow-and-its-filing-names-chip-and-cloud-partners) [S10](https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111)
+- Explore the upcoming features announced on the blog (e.g., App Runtime, Skills/Plugins sharing) as potential differentiators for the prospect’s AI initiatives. [S5](https://snowflake.com/en/blog/ai-agents-governed-data-business-context)
+
+## Open questions
+- When will the native Snowflake AI Data Cloud offering be generally available on OCI? _(The partnership announcement is forward‑looking and the timeline is unclear, affecting deployment planning.)_ [S7](https://oracle.com/news/announcement/ai-world-oracle-expands-native-ai-and-data-services-on-oci-with-snowflake-2026-10-27) [S12](https://snowflake.com/en/blog/snowflake-oracle-partnership-ai-data-cloud-oci)
+- What pricing model will Snowflake apply to the new CoCo Cloud Agents and App Runtime services? _(Understanding cost structure is critical for budgeting AI‑agent projects.)_ [S3](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering) [S5](https://snowflake.com/en/blog/ai-agents-governed-data-business-context)
+- How many enterprise customers have already adopted the CoWork personal work agents, and what measurable productivity gains have they reported? _(Quantifying adoption and ROI will help justify the solution to stakeholders.)_ [S2](https://snowflake.com/en/news/press-releases/expedition-2026-coco-cowork) [S5](https://snowflake.com/en/blog/ai-agents-governed-data-business-context)
+- Will the zero‑copy SAP integration support all SAP modules, and are there any data latency considerations? _(Scope and performance details are needed to assess fit with the prospect’s SAP landscape.)_ [S8](https://snowflake.com/de/blog/sap-snowflake-zero-copy-integration-enterprise-ai)
+- Do the recent insider sales indicate potential strategic shifts or concerns about Snowflake’s long‑term growth? _(Investor sentiment may impact future partnership and investment decisions.)_ [S10](https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111)
+
+## Uncertain / unverified — confirm before relying on these
+- ⚠️ **2026-11-12** · _Risk_ — Insider filings disclosed that directors sold over $370 million of Snowflake shares in the past 90 days. [S10](https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111) — _single secondary source_
+- ⚠️ **2026-11-11** · _Financials_ — In fiscal year ending Jan 31 2026 Snowflake reported revenue of $4.7 billion, up 29.2% YoY, and a net loss of $1.3 billion (≈‑28.4% margin). [S6](https://fool.com/coverage/better-buy/2026/11/11/adobe-systems-vs-snowflake-which-technology-stock-is-a-better-buy-for-2027) — _single secondary source_
+- ⚠️ **2026-11-11** · _Financials_ — For Q2 FY2027 (quarter ended July 31 2026) Snowflake posted revenue of $1.55 billion, up 35% YoY, and product revenue of $1.49 billion, up 37%. [S9](https://tradingview.com/news/prnewswire:983c43b87b388:0-an-ai-developer-starts-its-ipo-roadshow-and-its-filing-names-chip-and-cloud-partners) — _single secondary source_
+- ⚠️ **2026-11-11** · _Financials_ — Snowflake reported EPS of $0.62 for the quarter, beating consensus estimates of $0.45. [S11](https://marketbeat.com/instant-alerts/filing-snowflake-inc-snow-shares-sold-by-allspring-global-investments-holdings-llc-2026-11-11) — _single secondary source_
+- ⚠️ **2026-11-07** · _Product_ — On 2026-11-07 Snowflake announced CoCo and CoWork bots that operate in the background and request sign‑off only when a decision is required. [S2](https://snowflake.com/en/news/press-releases/expedition-2026-coco-cowork) — _figure(s) 11, 07 not found in cited sources_
+- ⚠️ **2026-11-07** · _Product_ — On 2026-11-07 Snowflake unveiled autonomous data‑engineering tools, including CoCo Cloud Agents and CoCo Automations for self‑healing pipelines. [S3](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering) — _figure(s) 11, 07 not found in cited sources_
+
+## Sources
+- **[S1]** [Snowflake Helps Enterprises Deploy Trusted AI Agents](https://snowflake.com/en/news/press-releases/expedition-2026-business-ontology-ai-gateway) — snowflake.com, 2026-11-03 · primary source
+- **[S2]** [Snowflake CoCo and CoWork Power the Agentic Enterprise](https://snowflake.com/en/news/press-releases/expedition-2026-coco-cowork) — snowflake.com, 2026-11-07 · primary source
+- **[S3]** [Autonomous Data Engineering for the Agentic Enterprise](https://snowflake.com/en/news/press-releases/expedition-2026-autonomous-data-engineering) — snowflake.com, 2026-11-07 · primary source
+- **[S5]** [Build Faster, Work Smarter with AI Agents and Apps Grounded in Data | Snowflake](https://snowflake.com/en/blog/ai-agents-governed-data-business-context) — snowflake.com, 2026-11-07 · primary source
+- **[S6]** [Adobe Systems vs. Snowflake: Which Technology Stock Is a Better Buy for 2027? | The Motley Fool](https://fool.com/coverage/better-buy/2026/11/11/adobe-systems-vs-snowflake-which-technology-stock-is-a-better-buy-for-2027) — fool.com, 2026-11-11
+- **[S7]** [Oracle Expands Native AI and Data Services on OCI with Snowflake](https://oracle.com/news/announcement/ai-world-oracle-expands-native-ai-and-data-services-on-oci-with-snowflake-2026-10-27) — oracle.com, 2026-10-27
+- **[S8]** [SAP and Snowflake Unleash a New Era of Enterprise AI with Zero-Copy Integration](https://snowflake.com/de/blog/sap-snowflake-zero-copy-integration-enterprise-ai) — snowflake.com, 2026-11-04 · primary source
+- **[S9]** [An AI Developer Starts Its IPO Roadshow, and Its Filing Names Chip and Cloud Partners — TradingView News](https://tradingview.com/news/prnewswire:983c43b87b388:0-an-ai-developer-starts-its-ipo-roadshow-and-its-filing-names-chip-and-cloud-partners) — tradingview.com, 2026-11-11
+- **[S10]** [Snowflake Inc Stock (SNOW) Moved Up by 3.07% on Nov 11: A Full Analysis](https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111) — tradingkey.com, 2026-11-12
+- **[S11]** [Snowflake Inc. $SNOW Shares Sold by Allspring Global Investments Holdings LLC](https://marketbeat.com/instant-alerts/filing-snowflake-inc-snow-shares-sold-by-allspring-global-investments-holdings-llc-2026-11-11) — marketbeat.com, 2026-11-11
+- **[S12]** [Snowflake and Oracle: Bringing the AI Data Cloud to OCI](https://snowflake.com/en/blog/snowflake-oracle-partnership-ai-data-cloud-oci) — snowflake.com, 2026-10-27 · primary source
+
+_Generated 2026-11-14T18:57:09.448Z by Meeting Brief Agent. ✅ = verified (2+ independent sources or a primary source, key terms found in source text). ⚠️ = single secondary source, undated, or not fully supported by source text._

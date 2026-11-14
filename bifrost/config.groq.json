@@ -1,0 +1,13 @@
+{
+  "$schema": "https://www.getbifrost.ai/schema",
+  "client": {
+    "drop_excess_requests": false,
+    "enforce_governance_header": false,
+    "enforce_auth_on_inference": false
+  },
+  "providers": {
+    "groq": {
+      "keys": [{ "name": "groq-free", "value": "env.GROQ_API_KEY", "models": ["*"], "weight": 1.0 }]
+    }
+  }
+}

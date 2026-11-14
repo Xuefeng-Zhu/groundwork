@@ -123,6 +123,26 @@ BIFROST_MODEL=openai/gpt-4o-mini     # any provider/model you configured in Bifr
 pnpm dev
 ```
 
+#### Free option: Groq through Bifrost (tested end to end)
+
+No paid key needed. Get a free key at console.groq.com, then start Bifrost with the bundled config:
+
+```bash
+export GROQ_API_KEY=gsk_...
+mkdir -p .bifrost && cp bifrost/config.groq.json .bifrost/config.json
+npx -y @maximhq/bifrost -app-dir .bifrost     # serves http://localhost:8080
+
+# .env
+MOCK=0
+TAVILY_API_KEY=tvly-...
+BIFROST_URL=http://localhost:8080/v1
+BIFROST_MODEL=groq/openai/gpt-oss-120b
+LLM_MAX_SOURCES=12        # Groq free tier allows 8k tokens/min for this model
+LLM_SOURCE_CHARS=450
+```
+
+A real run (Snowflake, sales call) took about 6 seconds: 40 sources reviewed, 11 cited, every claim checked by the verifier. Output: [docs/real-brief-snowflake.md](docs/real-brief-snowflake.md). On Groq's free tier, `qwen/qwen3.8-27b` is capped at 1,000 output tokens/min, too low for a full brief.
+
 ### Environment variables
 
 | Variable | Default | Purpose |
@@ -136,6 +156,8 @@ pnpm dev
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | — / `gpt-4o-mini` | Fallback if Bifrost is unset or fails |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | — / `claude-sonnet-4-5` | Second fallback |
 | `LLM_TIMEOUT_MS` | `60000` | Per-call model timeout |
+| `LLM_MAX_SOURCES` | `30` | Sources sent to the model (lower for small free tiers) |
+| `LLM_SOURCE_CHARS` | `1400` | Characters of each source sent to the model |
 | `AUTH_DISABLED` | `true` in `.env.example` | Local dev without sign-in |
 | `OPENAI_BASE_URL` | — | (Framework) route the built-in chat agent through Bifrost |
 

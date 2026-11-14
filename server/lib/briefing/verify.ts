@@ -36,6 +36,10 @@ export function sourceText(srcs: Source[]): string {
 /** Figures like $120M, 1.4 billion, 500, 30% -> their digit core ("120", "1.4", "500", "30"). */
 export function extractFigures(text: string): string[] {
   const out = new Set<string>();
+  // Dates (2026-11-07, Nov 7 2026) are checked separately against the source date, not as figures.
+  text = text
+    .replace(/\b(19|20)\d{2}-\d{1,2}-\d{1,2}\b/g, " ")
+    .replace(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b/gi, " ");
   for (const m of text.matchAll(/\d[\d,]*(?:\.\d+)?/g)) {
     const core = m[0].replace(/,/g, "");
     // Ignore years and day-of-month style numbers; dates are checked separately.

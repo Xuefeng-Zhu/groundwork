@@ -13,7 +13,7 @@ import {
   type BriefingRequestInput,
   type ResearchResult,
 } from "../../../shared/briefing/schema";
-import { getConfig, type BriefingConfig } from "./config";
+import { describeConfig, getConfig, type BriefingConfig } from "./config";
 import { fixtureOrg, mockSearch } from "./fixtures";
 import { completeJson, parseJsonLoose } from "./llm";
 import { computeWindow, planQueries } from "./planner";
@@ -122,7 +122,7 @@ export async function generateBriefing(
   } else if (!sources.length) {
     draft = { tldr: [], claims: [], talkingPoints: [], openQuestions: [] };
   } else {
-    const llm = await completeJson(cfg, buildMessages(req, research.window, sources.slice(0, 30)), warnings);
+    const llm = await completeJson(cfg, buildMessages(req, research.window, sources.slice(0, cfg.llmMaxSources), cfg.llmSourceChars), warnings);
     if (llm) {
       try {
         draft = parseJsonLoose(llm.text) as Draft;
@@ -132,7 +132,11 @@ export async function generateBriefing(
         draft = heuristicDraft(req, sources);
       }
     } else {
-      warnings.push("No LLM configured (set BIFROST_URL or a provider key) — used extractive fallback.");
+      warnings.push(
+        describeConfig(cfg).llmChain.length > 1
+          ? "All configured models failed (see warnings above) — used extractive fallback."
+          : "No LLM configured (set BIFROST_URL or a provider key) — used extractive fallback.",
+      );
       draft = heuristicDraft(req, sources);
     }
   }
