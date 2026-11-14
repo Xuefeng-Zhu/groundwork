@@ -240,8 +240,10 @@ export function filterCitations(
 export interface VerifyOutcome {
   claim: Claim | null;
   droppedReason?: string;
-  /** citations the drift guard removed from this claim */
+  /** citations the drift guard rejected (removed, or kept only as reference on a downgraded claim) */
   removedCitations?: Array<{ id: string; reason: string }>;
+  /** true when no citation supported the claim and it was downgraded to uncertain */
+  downgraded?: boolean;
 }
 
 export function verifyClaim(
@@ -309,6 +311,7 @@ export function verifyClaim(
         : reasons.join("; "),
       grounding: g.score,
     },
-    removedCitations: f.removed.filter((r) => !ids.includes(r.id)),
+    removedCitations: f.removed,
+    downgraded: unsupported,
   };
 }

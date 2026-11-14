@@ -1,0 +1,303 @@
+{
+  "id": "69de1b35-8bdf-4f47-99cb-d864ac7fc4fa",
+  "title": "Pre-meeting brief: Stripe",
+  "request": {
+    "target": "Stripe",
+    "targetType": "company",
+    "meetingAt": "2026-11-20T15:00:00-08:00",
+    "purpose": "sales",
+    "officialDomain": "stripe.com",
+    "windowDays": 30
+  },
+  "window": {
+    "start": "2026-10-21T23:00:00.000Z",
+    "end": "2026-11-20T23:00:00.000Z"
+  },
+  "generatedAt": "2026-11-14T22:36:15.028Z",
+  "engine": {
+    "search": "tavily",
+    "llm": "bifrost",
+    "model": "groq/openai/gpt-oss-120b"
+  },
+  "tldr": [
+    {
+      "text": "Stripe has accelerated its AI and crypto strategy, acquiring Bridge for $1.1 billion (Feb 4 2025), Metronome (Jan 14 2026) and agreeing to buy OpenRouter (Aug 19 2026).",
+      "sourceIds": [
+        "S1",
+        "S7"
+      ]
+    },
+    {
+      "text": "Stripe launched Global Payouts, enabling US businesses to send USDC and OUSD to crypto wallets in over 160 markets across nine blockchains.",
+      "sourceIds": [
+        "S2",
+        "S8",
+        "S9"
+      ]
+    },
+    {
+      "text": "New products Stripe Pay and multi‑currency stablecoin cards aim to bring instant B2B payments and cross‑border financing to SMBs.",
+      "sourceIds": [
+        "S3",
+        "S6"
+      ]
+    }
+  ],
+  "keyDevelopments": [
+    {
+      "id": "C4",
+      "text": "Stripe launched Global Payouts, allowing US businesses to send USDC and OUSD to crypto wallets in more than 160 markets.",
+      "category": "product",
+      "date": "2026-11-04T21:00:00.000Z",
+      "sourceIds": [
+        "S2",
+        "S8",
+        "S9"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "3 independent outlets",
+      "grounding": 1
+    },
+    {
+      "id": "C6",
+      "text": "Stripe introduced Stripe Pay, an instant B2B payments solution targeting SMBs.",
+      "category": "product",
+      "date": "2026-10-28T00:00:00.000Z",
+      "sourceIds": [
+        "S3",
+        "S6"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 0.57
+    },
+    {
+      "id": "C3",
+      "text": "Stripe agreed to acquire OpenRouter, a service that routes AI requests across model providers, on August 19 2026.",
+      "category": "news",
+      "date": "2026-08-19T00:00:00.000Z",
+      "sourceIds": [
+        "S1",
+        "S3"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 1
+    },
+    {
+      "id": "C1",
+      "text": "Stripe acquired Bridge, a stablecoin issuance and orchestration platform, for $1.1 billion, closing on February 4 2025.",
+      "category": "news",
+      "date": "2025-02-04T00:00:00.000Z",
+      "sourceIds": [
+        "S1",
+        "S7"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 0.91
+    }
+  ],
+  "peopleChanges": [],
+  "uncertain": [
+    {
+      "id": "C5",
+      "text": "Global Payouts supports USDC on nine blockchains: Arbitrum, Avalanche C‑Chain, Base, Ethereum, Optimism, Polygon, Solana, Stellar and Tempo.",
+      "category": "product",
+      "date": "2026-11-04T21:00:00.000Z",
+      "sourceIds": [
+        "S2"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed; single secondary source",
+      "grounding": 1
+    },
+    {
+      "id": "C7",
+      "text": "Stripe partnered with Plasma to create multi‑currency stablecoin cards for easier cross‑currency spending.",
+      "category": "partnerships",
+      "date": "2026-10-28T00:00:00.000Z",
+      "sourceIds": [
+        "S6"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.82
+    },
+    {
+      "id": "C2",
+      "text": "Stripe acquired Metronome, adding usage metering and billing capabilities, with the deal closing on January 14 2026.",
+      "category": "news",
+      "date": "2026-01-14T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.82
+    }
+  ],
+  "talkingPoints": [],
+  "openQuestions": [],
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://insights4vc.substack.com/p/the-economics-of-stripes-ai-strategy",
+      "title": "Stripe Wants to Become the Financial Operating System for AI",
+      "domain": "insights4vc.substack.com",
+      "publishedAt": "2026-10-31T22:00:00.000Z",
+      "snippet": "Stripe’s recent acquisitions cover several points in that process. Bridge, acquired in a deal completed on February 4, 2025, handles stablecoin issuance and orchestration. Privy joined in 2025 with wallet, signing and programmable-control software. The Metronome acquisition closed on January 14, 2026, adding usage metering and billing. On August 19, Stripe agreed to buy OpenRouter, a service that routes AI requests across model providers. As of the October 28 research cutoff, the companies had announced the agreement but had not announced its completion. ( ( [...] 1. Noah Shinn, Instinct launch; Stripe Crypto, launch architecture and Behind Link balance, October 26–27, 2026.\n2. Link, Agent wallet balance, FAQ and Terms, live documentation.\n3. Stripe, Bridge acquisition, February 2025; Metronome acquisition, January 2026.\n4. Stripe, 2025 Annual Update and financial results, February 24, 2026.\n5. Stripe, OpenRouter acquisition agreement; OpenRouter, Joining Stripe, August 19, 2026.\n6. OpenRouter, Platform metrics, live.\n7. OpenRouter, Pricing and billing, live.\n8. OpenRouter, Series B announcement, May–August 2026.\n9. OpenRouter, Stripe Projects integration, April–June 2026.\n10. Scott Woody, Stripe, Why I tried to kill token billing, October 1, 2026.\n11. Patrick Collison, Privy integration update, October 15, 2026. [...] On October 13, Privy announced a partnership with Ripple covering XRPL wallet creation, transaction signing and agent payments. The announcement described poli",
+      "queryIds": [
+        "Q2",
+        "Q4",
+        "Q5"
+      ],
+      "categories": [
+        "product",
+        "funding",
+        "partnerships"
+      ],
+      "score": 0.7295198,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "The Economics of Stripe's AI Strategy Instinct rolled out a funded shopping agent to eligible US users on October 26. Customers load a Link balance and set a limit for each purchase. Within that limit, the agent can check out without asking again. New York was excluded from the initial rollout. Stripe Crypto described the payment architecture on October 27, a day after Instinct's launch. ( Stripe Crypto@StripeCrypto Stripe Crypto brings together everything needed to enable agentic commerce. From stablecoins on @tempo to secure non-custodial wallets powered by @privy\\_io, here's what's powering Link balance for AI agents, starting with @instinct. 4:21 PM · Oct 27, 2026 · 49.7K Views 42 Replies · 50 Reposts · 286 Likes In Instinct's launch flow, Stripe's onramp converts dollars funded by a debit card into stablecoins on Tempo. A Privy noncustodial wallet holds the balance. Link enforces the customer's spending rules, and Stripe Issuing supplies a virtual debit card for checkout. The merchant receives a card payment without integrating crypto. Link's terms specify USDC for the noncustodial agent-wallet balance, despite OUSD being the default elsewhere in Stripe's stablecoin offering. ( ( Source: @rdominguezibar Purchases above the limit require customer approval. Below it, Instinct can complete an order using permission already granted. An agent can therefore stay within its budget and still buy the wrong item. Link’s terms generally make the user responsible for those purchasing decisions, while treating payment-execution errors separately and preserving applicable rights. Stripe also offers protections for qualifying agent purchases, initially through Muse. Their availability depends on the agent and transaction; the announcement did not establish coverage for Instinct orders. ( Instinct puts a Privy wallet and Stripe’s card-issuing infrastructure in the same checkout flow. The card still does the work at the merchant end. For Stripe, the commercial question is how much of the activity before checkout it can turn into a paid service: model selection, billing, spending authorization and the movement of funds. YC is looking for crypto startups Y Combinator has named agentic commerce, stablecoin applications, trading and institutional financial products among the crypto businesses it wants to fund. Visiting partner Nemil Dalal’s request for startups offers a useful counterpart to Stripe’s strategy: the infrastructure is being assembled, while the products built on top still have to prove demand. The on-time application deadline for YC’s Winter 2027 batch is November 2, 2026, at 8 p.m. PT. Apply to YC. Stripe: The acquisitions behind the strategy Stripe reported $1.9 trillion in total volume for 2025, up 34%. An employee tender in February 2026 valued the company at $159 billion. The first figure measures payments processed and the second values its equity; neither measures revenue. Axios reported 41% revenue growth and 43% free-cash-flow growth for the first half. Stripe has not disclosed profit by product in these announcements. ( ( Stripe’s recent acquisitions cover several points in that process. Bridge, acquired in a deal completed on February 4, 2025, handles stablecoin issuance and orchestration. Privy joined in 2025 with wallet, signing and programmable-control software. The Metronome acquisition closed on January 14, 2026, adding usage metering and billing. On August 19, Stripe agreed to buy OpenRouter, a service that routes AI requests across model providers. As of the October 28 research cutoff, the companies had announced the agreement but had not announced its completion. ( ( Reuters reported a price slightly above $8 billion for OpenRouter, citing a source familiar with the transaction. The companies did not publish the consideration. In May, OpenRouter had announced a $113 million Series B led by CapitalG; reporting at the time put its valuation around $1.3 billion. Public financial disclosures contain too little det",
+      "extracted": true
+    },
+    {
+      "id": "S2",
+      "url": "https://crypto.news/stripe-us-stablecoin-payouts-160-markets",
+      "title": "Stripe offers US stablecoin payouts to wallets in 160+ markets",
+      "domain": "crypto.news",
+      "publishedAt": "2026-11-04T21:00:00.000Z",
+      "snippet": "The October announcement placed Global Payouts alongside Treasury and Issuing in a shared financial services offering. Stripe said the products can share customer verification information and work with Open Standard’s OUSD stablecoin and the Tempo blockchain.\n\n## USDC payouts support nine blockchain networks\n\nThe supported USDC networks are Arbitrum, Avalanche C-Chain, Base, Ethereum, Optimism, Polygon, Solana, Stellar and Tempo. OUSD payouts are available on Base, Ethereum, Solana and Tempo.\n\nBefore sending funds, Stripe instructs businesses to check that the recipient’s wallet supports both the selected stablecoin and the chosen network. [...] At the time, Stripe said businesses could send instant stablecoin payouts to recipients in 160 markets and traditional currency payouts to more than 100 markets directly through its Dashboard.\n\nThe announcement described hosted forms and APIs for fintech companies that want to build payouts into their own products. Named uses included loan disbursements, remittances, investment withdrawals and neobank cash-outs.\n\nYou might also like:   Stripe launches free instant B2B payments through business handles\n\nStripe’s current documentation provides the operational details, including supported tokens, networks, and the restriction on New York businesses. [...] RailThe payment rail for your crypto. One card. Every chain. No KYC. Spend with Apple Pay or Google Pay in 180+ countries.\n\nShare\n\nStripe has made stablecoin payouts to crypto wallets a",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q5"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "partnerships"
+      ],
+      "score": 0.68056023,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "Skip to content crypto.news Lucky Rollers Vavada Thrill Rail Bitcoin Bitcoin (BTC) $71,414.00 -3.69% Bitcoin price Ethereum Ethereum (ETH) $2,011.79 -2.59% Ethereum price XRP XRP (XRP) $1.04 -2.03% XRP price BNB BNB (BNB) $653.15 -4.39% BNB price Solana Solana (SOL) $81.38 -3.31% Solana price Hyperliquid Hyperliquid (HYPE) $71.99 -0.14% Hyperliquid price Cardano Cardano (ADA) $0.173285 -1.41% Cardano price Chainlink Chainlink (LINK) $10.08 -1.67% Chainlink price POL (ex-MATIC) POL (ex-MATIC) (POL) $0.088241 0.73% POL (ex-MATIC) price Gram (prev. Toncoin) Gram (prev. Toncoin) (GRAM) $1.14 -2.11% Gram (prev. Toncoin) price Pons Pons (PONS) $0.15135 -1.22% Bitcoin Bitcoin (BTC) $71,414.00 -3.69% Bitcoin price Ethereum Ethereum (ETH) $2,011.79 -2.59% Ethereum price XRP XRP (XRP) $1.04 -2.03% XRP price BNB BNB (BNB) $653.15 -4.39% BNB price Solana Solana (SOL) $81.38 -3.31% Solana price Hyperliquid Hyperliquid (HYPE) $71.99 -0.14% Hyperliquid price Cardano Cardano (ADA) $0.173285 -1.41% Cardano price Chainlink Chainlink (LINK) $10.08 -1.67% Chainlink price POL (ex-MATIC) POL (ex-MATIC) (POL) $0.088241 0.73% POL (ex-MATIC) price Gram (prev. Toncoin) Gram (prev. Toncoin) (GRAM) $1.14 -2.11% Gram (prev. Toncoin) price Pons Pons (PONS) $0.15135 -1.22% Bitcoin Bitcoin (BTC) $71,414.00 -3.69% Bitcoin price Ethereum Ethereum (ETH) $2,011.79 -2.59% Ethereum price XRP XRP (XRP) $1.04 -2.03% XRP price BNB BNB (BNB) $653.15 -4.39% BNB price Solana Solana (SOL) $81.38 -3.31% Solana price Hyperliquid Hyperliquid (HYPE) $71.99 -0.14% Hyperliquid price Cardano Cardano (ADA) $0.173285 -1.41% Cardano price Chainlink Chainlink (LINK) $10.08 -1.67% Chainlink price POL (ex-MATIC) POL (ex-MATIC) (POL) $0.088241 0.73% POL (ex-MATIC) price Gram (prev. Toncoin) Gram (prev. Toncoin) (GRAM) $1.14 -2.11% Gram (prev. Toncoin) price Pons Pons (PONS) $0.15135 -1.22% Bitcoin Bitcoin (BTC) $71,414.00 -3.69% Bitcoin price Ethereum Ethereum (ETH) $2,011.79 -2.59% Ethereum price XRP XRP (XRP) $1.04 -2.03% XRP price BNB BNB (BNB) $653.15 -4.39% BNB price Solana Solana (SOL) $81.38 -3.31% Solana price Hyperliquid Hyperliquid (HYPE) $71.99 -0.14% Hyperliquid price Cardano Cardano (ADA) $0.173285 -1.41% Cardano price Chainlink Chainlink (LINK) $10.08 -1.67% Chainlink price POL (ex-MATIC) POL (ex-MATIC) (POL) $0.088241 0.73% POL (ex-MATIC) price Gram (prev. Toncoin) Gram (prev. Toncoin) (GRAM) $1.14 -2.11% Gram (prev. Toncoin) price Pons Pons (PONS) $0.15135 -1.22% Stripe offers US stablecoin payouts to wallets in 160+ markets Lawrence Mondal By Lawrence Mondal Rony Roy Edited by Rony Roy News Stripe offers US stablecoin payouts to wallets in 160+ markets - 1 RailThe payment rail for your crypto. One card. Every chain. No KYC. Spend with Apple Pay or Google Pay in 180+ countries. Share Stripe has made stablecoin payouts to crypto wallets available to eligible U.S. businesses across more than 160 recipient markets, with New York companies excluded from the public preview. Summary U.S. businesses can send USDC or OUSD directly to recipients’ external crypto wallets. Nine networks support USDC payouts, while OUSD is available across four supported chains. Stripe’s published stablecoin payout fee is $0.50 plus 0.5% of the transfer amount. The company announced 160-market stablecoin payouts on Oct. 16, before the latest social media coverage. According to Stripe’s documentation, businesses can fund the transfers from a USD or USDC balance in their financial account, with recipients receiving stablecoins through a supported blockchain. Payments typically arrive within minutes, although network conditions can delay delivery. The service is listed as a public preview, and businesses based in New York can register to be notified when access becomes available. Stripe announced 160-market payouts in October The company had already described the international payout capability in an Oct. 16 announcement, written by Neetika Bansal, its business lead for Money as a Service. At the tim",
+      "extracted": true
+    },
+    {
+      "id": "S3",
+      "url": "https://paymentsjournal.com/stripe-unveils-b2b-payments-that-mirror-the-p2p-experience",
+      "title": "Stripe Unveils B2B Payments that Mirror the P2P Experience - PaymentsJournal",
+      "domain": "paymentsjournal.com",
+      "publishedAt": "2026-10-28T16:58:15.000Z",
+      "snippet": "## A Strategic Building Block\n\nFor Stripe, the launch comes amid a broader push into new areas of financial technology. The company has expanded beyond its core payments business through moves involving AI and digital assets, including its deal involving OpenRouter and its acquisition of stablecoin firm Bridge. Stripe Pay is another step in the company’s effort to extend its reach across the business payments ecosystem.\n\n“Stripe is moving beyond payment acceptance and deeper into business money movement,” Riley said. “Its broader strategy includes financial accounts, wallets, and tools designed for automated transactions. This is a well-thought-out loss leader.” [...] The rise of embedded finance has led businesses to expect payments to fit seamlessly into the platforms and workflows they already use. Yet business-to-business payments often remain time-consuming and costly.\n\nStripe is looking to simplify the process with a service that resembles the consumer peer-to-peer payment experience. Businesses could search for a vendor’s profile and transfer funds via the Stripe Pay plug-in. For companies that lack a recipient’s full payment details, Stripe also offers a business directory. [...] “Stripe is trying to make paying another business as easy as sending money to a handle,” said Brian Riley, Director of Credit at Javelin Strategy & Research. “Businesses can identify recipients through their Stripe profiles instead of entering traditional bank details. The real headline may b",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q4"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "funding"
+      ],
+      "score": 0.7512834,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "PaymentsJournal No Result View All Result SIGN UP Commercial Credit Debit Digital Assets & Crypto Digital Banking Emerging Payments Fraud & Security Merchant Prepaid PaymentsJournal Commercial Credit Debit Digital Assets & Crypto Digital Banking Emerging Payments Fraud & Security Merchant Prepaid No Result View All Result PaymentsJournal No Result View All Result Stripe Unveils B2B Payments that Mirror the P2P Experience By Wesley Grant October 28, 2026 in Analysts Coverage, B2B Payments, Commercial Payments 0 0 SHARES 0 VIEWS Share on LinkedIn stripe b2b Business concept. Business people discussing the charts and graphs showing the results of their successful teamwork. Selective focus. The rise of embedded finance has led businesses to expect payments to fit seamlessly into the platforms and workflows they already use. Yet business-to-business payments often remain time-consuming and costly. Stripe is looking to simplify the process with a service that resembles the consumer peer-to-peer payment experience. Businesses could search for a vendor’s profile and transfer funds via the Stripe Pay plug-in. For companies that lack a recipient’s full payment details, Stripe also offers a business directory. “Stripe is trying to make paying another business as easy as sending money to a handle,” said Brian Riley, Director of Credit at Javelin Strategy & Research. “Businesses can identify recipients through their Stripe profiles instead of entering traditional bank details. The real headline may be ‘free’ not ‘instant,’ as Stripe Pay is advertising these business-to-business transfers with no transfer fee.” Providing Clarity and Control Several trends are driving demand for better B2B payment solutions. The growth of vertical software-as-a-service platforms has given businesses of all sizes access to industry-specific tools, with seamless payment acceptance central to the model. Meanwhile, the consumer payments experience has raised expectations for B2B transactions to be digital-first and easy to use. Beyond convenience, payment efficiency has implications for cash flow and working capital. This is one reason virtual cards have gained traction. They give organizations greater control over payment timing and more visibility into spending and liquidity. Whether Stripe Pay can deliver similar advantages will depend on how businesses use the service and how it integrates with their existing payment processes. A Strategic Building Block For Stripe, the launch comes amid a broader push into new areas of financial technology. The company has expanded beyond its core payments business through moves involving AI and digital assets, including its deal involving OpenRouter and its acquisition of stablecoin firm Bridge. Stripe Pay is another step in the company’s effort to extend its reach across the business payments ecosystem. “Stripe is moving beyond payment acceptance and deeper into business money movement,” Riley said. “Its broader strategy includes financial accounts, wallets, and tools designed for automated transactions. This is a well-thought-out loss leader.” “But this is also a building block for agentic payments,” he said. “Stripe Pay supports command-line payments and authenticated workflows for software agents.” 0 SHARES 0 VIEWS Share on LinkedIn Tags: B2BB2B PaymentsCommercialFintechSmall BusinessStripe Must Reads Secured Credit Cards, Biometrics Integration Smart Cards, digital banking transformation Turning Digital Banking Into a Lending Opportunity November 13, 2026 ai synthetic identity fraud Identity Crisis: The AI-Powered Rise of Synthetic Identity Fraud November 12, 2026 first-party fraud prevention How Automation Is Changing the Fight Against First-Party Fraud November 11, 2026 agentic payments governance From Know Your Agent to Govern Your Agent: Building the Control Layer for B2B Agentic Payments November 10, 2026 merchant management APIs How Merchant Management APIs Are Streamlining Operations November 9, 2026 digital wa",
+      "extracted": true
+    },
+    {
+      "id": "S6",
+      "url": "https://pymnts.com/news/b2b-payments/2026/stripe-pay-targets-instant-b2b-payments",
+      "title": "PYMNTS | Stripe Pay Targets Instant B2B Payments",
+      "domain": "pymnts.com",
+      "publishedAt": "2026-10-28T01:34:37.000Z",
+      "snippet": "In some other recent moves reported by PYMNTS, Stripe teamed with Plasma to introduce multi-currency stablecoin cards designed to give people and businesses an easier time spending across currencies and markets; announced it plans to work with FedEx Dataworks to leverage their respective platforms to expand access to financing for small and medium-sized businesses; and said it plans to strengthen its support for platforms by acquiring embedded financial products platform Parafin, which provides platforms with credit offerings for their small business customers.\n\n## Recommended\n\nNew York Proposes $3 Million Daily Fines for AI Safety Violations\n\nDigital Money Pushes Banks to Rethink Their Investment Priorities\n\nFICO Unveils Resilience Index Amid Uncertain Economic Conditions [...] Affirm and Nuvei Seek Bigger Roles in Merchants’ Payment Operations\n\nOctober CPI Shows Grocery Bills Rising as Inflation Slows\n\nBanks Could Hold the Advantage in Corporate Stablecoin Payments\n\nHow Banks Can Spot Scams That Pass Authentication\n\n### Subscribe\n\nGet PYMNTS Today, AI, B2B and more.\n\nStrategic B2B Partnerships\n\n### Partner With PYMNTS\n\nOwn the conversation. Drive demand.\n\nStart a Conversation → [...] PYMNTS IntelligenceThe Prompt EconomyNewswireEventsSUBSCRIBEPartner With PYMNTS\n\nAboutContact\n\nPYMNTS.com home page\n\n# Stripe Pay Targets Instant B2B Payments\n\nBy  PYMNTS   |  October 27, 2026\n\n|\n\nStripe agentic commerce\n\nStripe now enables instant B2B transfers through a “stripe pay” plug-in, ",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q5"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "partnerships"
+      ],
+      "score": 0.68098474,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S7",
+      "url": "https://shattered.io/hyperliquid-1b-revenue-stripe-bridge-revenue-first-crypto-2026",
+      "title": "Hyperliquid Revenue Near $1B; Stripe Bought Bridge [2026]",
+      "domain": "shattered.io",
+      "publishedAt": "2026-11-02T12:46:19.000Z",
+      "snippet": "### How much did Stripe pay for Bridge?\n\nStripe acquired Bridge, a stablecoin orchestration platform, for $1.1 billion. The acquisition closed in February 2025, and one source specifies February 4, 2025.\n\n### Has Stripe bought Privy?\n\nReports describe a Stripe acquisition of Privy, a crypto-wallet company. The purchase price and completion date remain unconfirmed in the sources we reviewed, so we do not state either.\n\n### Is the OpenRouter deal done?\n\nReports describe an agreement, not a completed acquisition. The estimated value of $7 billion to $8 billion is unconfirmed. Watch for an official announcement before treating the number as settled.\n\n### Is crypto really moving to revenue first with no tokens? [...] | Claim | Status | Named source |\n --- \n| Hyperliquid annualized revenue near $1 billion at points | Reported, not confirmed as exactly $1 billion | Fortune |\n| Hyperliquid Labs has only a handful of staffers | Reported | Fortune |\n| Stripe bought Bridge for $1.1 billion | Confirmed, completed February 2025 | Reports (one source gives February 4, 2025) |\n| Stripe acquired Privy | Reported, price and date unconfirmed | Reports |\n| Stripe bought Metronome for roughly $1 billion | Unconfirmed | Reports |\n| Stripe agreed to buy OpenRouter for $7 billion to $8 billion | Agreement reported, amount unconfirmed, not completed | Reports |\n| Crypto is moving to revenue first, never issue tokens | Interpretation, not an on-record fact | None |\n\n## Why the $1 Billion Figure Needs",
+      "queryIds": [
+        "Q1",
+        "Q4"
+      ],
+      "categories": [
+        "news",
+        "funding"
+      ],
+      "score": 0.7318259,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S8",
+      "url": "https://kucoin.com/news/flash/stripe-launches-usdc-ousd-payouts-to-160-markets-cuts-costs-vs-swift",
+      "title": "Stripe Launches USDC/OUSD Payouts to 160+ Markets, Cuts Costs vs. SWIFT",
+      "domain": "kucoin.com",
+      "publishedAt": "2026-11-05T06:56:21.000Z",
+      "snippet": "Stripe is rolling out US stablecoin payouts to crypto wallets in more than 160 recipient markets — making instant, on‑chain payouts a mainstream option for eligible U.S. businesses (New York companies are excluded from the current public preview). What’s new - Eligible U.S. businesses can fund payouts from a USD or USDC balance in their Stripe financial account and send recipients USDC or OUSD on supported blockchains. Stripe lists the feature as a public preview; New York-based firms can register to be notified when access is available. - Stripe says payouts typically arrive within minutes, though delivery depends on blockchain network conditions. How it works [...] - In October, Stripe also launched free instant business transfers via Stripe Pay (using business profile handles) and expanded its stablecoin‑linked card issuing to 27 EU countries — more than 65 countries overall — with a goal of reaching 100 countries by the end of 2026. Stripe’s cards can draw from custodial wallets, noncustodial wallets or Stripe financial accounts and convert balances to local currency at point of sale. Bottom line [...] Image 17: AI summary iconSummary Image 18 Stripe has launched a public preview of stablecoin payouts to 160+ markets, offering on-chain news for eligible U.S. businesses (excluding New York) to send USDC or OUSD to crypto wallets. The service cuts costs versus SWIFT, with a $0.50 flat fee plus 0.5% of the payout amount. Stripe supports multiple blockchains for USDC and OUSD",
+      "queryIds": [
+        "Q2"
+      ],
+      "categories": [
+        "product"
+      ],
+      "score": 0.7512834,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S9",
+      "url": "https://cryptonews.net/news/market/33711777",
+      "title": "Stripe Launches Global Payouts, Allowing USDC Transfers",
+      "domain": "cryptonews.net",
+      "publishedAt": "2026-11-06T03:52:00.000Z",
+      "snippet": "source-logo coinfomania.com 1 h image Stripe’s recent announcement reveals that US businesses can now utilize Global Payouts to send $USDC and $OUSD to crypto wallets in over 160 markets. This significant capability, highlighted by CryptoTwitter commentator @base, could further integrate cryptocurrency into mainstream financial transactions. The move positions Stripe as a key player in the evolving crypto landscape, indicating a shift towards wider digital currency adoption. ## Inside the Move [...] logo en ru de es ar Latest news Video Bitcoin DeFi NFT Ethereum Altcoins Blockchain Mining Finance Metaverse Legal Security Analytics Exchange Other GameFi ICO More... + Latest news + Video + Bitcoin + DeFi + NFT + Ethereum + Altcoins + Blockchain + Mining + Finance + Metaverse + Legal + Security + Analytics + Exchange + Other + GameFi + ICO Back to the list # Stripe Launches Global Payouts, Allowing USDC Transfers source-logo coinfomania.com 1 h image [...] ## Key Levels to Watch Traders are likely to keep an eye on $USDC’s performance following this announcement, particularly its potential to increase transaction volumes as businesses adopt the new payout feature. The interaction between $USDC and competing stablecoins like $OUSD will be crucial, as market dynamics could shift based on how businesses respond to the expanded capabilities. Risks include regulatory scrutiny and market volatility, which could impact adoption rates in the near term. coinfomania.com",
+      "queryIds": [
+        "Q1"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.72056496,
+      "isPrimary": false,
+      "origin": "search"
+    }
+  ],
+  "stats": {
+    "sourcesReviewed": 40,
+    "sourcesCited": 7,
+    "claimsVerified": 4,
+    "claimsUncertain": 3,
+    "claimsDropped": 0,
+    "citationsRemoved": 0,
+    "sitePages": 4,
+    "tavilyCalls": 12,
+    "tavilyCredits": 21,
+    "durationMs": 17708
+  },
+  "warnings": [
+    "Citation check: removed 0 off-topic/unsupported citation(s) (lexical + entity check)."
+  ],
+  "demoData": false
+}

@@ -1,0 +1,370 @@
+{
+  "id": "02430f96-538b-4b87-90b9-d2a2194f50b9",
+  "title": "Pre-meeting brief: Snowflake",
+  "request": {
+    "target": "Snowflake",
+    "targetType": "company",
+    "meetingAt": "2026-11-20T15:00:00-08:00",
+    "purpose": "sales",
+    "officialDomain": "snowflake.com",
+    "windowDays": 30
+  },
+  "window": {
+    "start": "2026-10-21T23:00:00.000Z",
+    "end": "2026-11-20T23:00:00.000Z"
+  },
+  "generatedAt": "2026-11-14T22:33:36.890Z",
+  "engine": {
+    "search": "tavily",
+    "llm": "bifrost",
+    "model": "groq/openai/gpt-oss-120b"
+  },
+  "tldr": [
+    {
+      "text": "Snowflake unveiled Cortex AI Gateway and new AI agent features (CoCo, CoWork, Marketplace) to help enterprises govern and scale AI workloads.",
+      "sourceIds": [
+        "S1",
+        "S4",
+        "S7"
+      ]
+    },
+    {
+      "text": "The company deepened its Oracle partnership, planning a native Snowflake AI Data Cloud service on OCI.",
+      "sourceIds": [
+        "S9"
+      ]
+    }
+  ],
+  "keyDevelopments": [
+    {
+      "id": "C3",
+      "text": "Snowflake added CoCo mode in Snowsight, Cloud Agents for autonomous coding, CoWork Profiles, and an Agentic Marketplace for conversational data sourcing.",
+      "category": "product",
+      "date": "2026-11-07T00:00:00.000Z",
+      "sourceIds": [
+        "S4",
+        "S7"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source + 2 outlets",
+      "grounding": 0.94
+    },
+    {
+      "id": "C1",
+      "text": "Snowflake launched Cortex AI Gateway, letting enterprises such as Glean and Kargo scale AI agents while preserving security, compliance, and spend controls.",
+      "category": "product",
+      "date": "2026-11-03T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 0.87
+    },
+    {
+      "id": "C2",
+      "text": "Partner Uniphore extends Cortex AI Gateway controls to the agents it orchestrates for joint customers.",
+      "category": "partnerships",
+      "date": "2026-11-03T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 1
+    },
+    {
+      "id": "C8",
+      "text": "USA Cycling selected Snowflake to support its LA28 race strategy.",
+      "category": "partnerships",
+      "date": "2026-11-03T00:00:00.000Z",
+      "sourceIds": [
+        "S12"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 1
+    }
+  ],
+  "peopleChanges": [],
+  "uncertain": [
+    {
+      "id": "C5",
+      "text": "Directors Michael Speiser and Benoit Dageville sold more than $370 million of Snowflake shares in the past 90 days, per Form 144 and Form 4 filings.",
+      "category": "financials",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S3"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.93
+    },
+    {
+      "id": "C7",
+      "text": "Snowflake’s Q2 FY27 results (quarter ended July 31) showed revenue $1.55 billion (+35% YoY), product revenue $1.49 billion (+37%), and remaining performance obligations $9.00 billion.",
+      "category": "financials",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S7"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.88
+    },
+    {
+      "id": "C6",
+      "text": "Analysts expect Snowflake to report Q3 FY27 earnings on Dec 2, 2026, with consensus EPS $0.6 and revenue $1.65 billion, up 71.43% and 36.08% YoY.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S5"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "figure(s) 27 not found in cited sources; reported as rumour / unconfirmed; single secondary source",
+      "grounding": 0.9
+    },
+    {
+      "id": "C4",
+      "text": "Snowflake expanded its partnership with Oracle to deliver Snowflake’s AI Data Cloud as a native first‑party service on Oracle Cloud Infrastructure.",
+      "category": "partnerships",
+      "date": "2026-10-27T00:00:00.000Z",
+      "sourceIds": [
+        "S9"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed",
+      "grounding": 0.85
+    },
+    {
+      "id": "C9",
+      "text": "Snowflake issued a press release confirming Q3 FY27 earnings will be announced on Dec 2, 2026.",
+      "category": "financials",
+      "date": null,
+      "sourceIds": [
+        "S11"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "source has no publication date",
+      "grounding": 0.63
+    }
+  ],
+  "talkingPoints": [
+    {
+      "text": "Discuss how Cortex AI Gateway’s agent abuse detection can address customer security concerns.",
+      "sourceIds": [
+        "S1"
+      ]
+    },
+    {
+      "text": "Highlight the benefits of the Oracle OCI native offering for customers on Oracle Cloud.",
+      "sourceIds": [
+        "S9"
+      ]
+    },
+    {
+      "text": "Leverage the momentum from CoCo and CoWork enhancements to position Snowflake as an AI‑centric data platform.",
+      "sourceIds": [
+        "S4",
+        "S7"
+      ]
+    },
+    {
+      "text": "Address potential investor sentiment issues due to insider sell‑off and outline mitigation strategies.",
+      "sourceIds": [
+        "S3"
+      ]
+    },
+    {
+      "text": "Use the USA Cycling case study to illustrate Snowflake’s capabilities in sports event analytics.",
+      "sourceIds": [
+        "S12"
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "text": "When will the Snowflake on OCI native service become generally available?",
+      "why": "To assess timeline for customers on Oracle Cloud.",
+      "sourceIds": [
+        "S9"
+      ]
+    },
+    {
+      "text": "What pricing model will be applied to Cortex AI Gateway and its Agent Abuse Detection feature?",
+      "why": "To understand cost implications for enterprise buyers.",
+      "sourceIds": [
+        "S1"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://snowflake.com/en/news/press-releases/expedition-2026-business-ontology-ai-gateway",
+      "title": "Snowflake Helps Enterprises Deploy Trusted AI Agents",
+      "domain": "snowflake.com",
+      "publishedAt": "2026-11-03T15:03:00.000Z",
+      "snippet": "Enterprises including Glean and Kargo are already using Cortex AI Gateway to scale AI agents across their business without losing control of security, compliance, or spend. Partners including Uniphore extend Cortex AI Gateway controls to the agents they orchestrate for joint customers. [...] Detect agent overreach and insider misuse before it becomes an incident: Cortex AI Gateway's Agent Abuse Detection4analyzes complete agent trajectories, not individual prompts, to catch agents operating beyond their permissions and employees using agents to bypass approvals or exfiltrate sensitive data. A two-stage engine pairs efficient screening with context-aware reasoning, so security teams receive explainable findings instead of alert noise. Snowflake also served as a technical design partner with OpenAI on Private Safety Processing (PSP)5 which will enrich dangerous agent activity detection analysis with privacy-preserving safety signals from OpenAI and improve its effectiveness. [...] “Enterprises don’t just need more agents. They need to industrialize AI across the business. Snowflake gives our joint customers a governed data foundation,” said Frank Petterson, Chief Product and Technology Officer, Uniphore. \"Uniphore's zero-copy Data & AI Orchestration Platform gives the customer the ability to autonomously create the data ontology, fine-tune SLMs and build agents while data stays in-place, and governance carries through to every agent we deploy. Cortex AI Gateway keeps that model",
+      "queryIds": [
+        "Q1",
+        "Q5",
+        "Q6"
+      ],
+      "categories": [
+        "news",
+        "partnerships"
+      ],
+      "score": 0.7472472,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Skip to content ###### < ALL PRESS RELEASES Snowflake Helps Enterprises Deploy AI Agents with Trusted Business Context and Built-In Controls Snowflake Business Ontology, a part of Snowflake Horizon Catalog, grounds enterprise AI agents in trusted, pre-approved definitions, so every answer is consistent, traceable, and ready for action Snowflake Cortex AI Gateway PR image Cortex AI Gateway, a part of Snowflake Horizon Catalog, brings every agent under a unified set of controls, giving enterprises the visibility to secure and govern AI connections, track usage, and keep AI spending in check Definitions Agents Can't Argue With: Business Ontology gives organizations one governed place to record what their business terms officially mean across their data estate, and serves only approved definitions to agents Every Agent Under One Centralized Control: Cortex AI Gateway extends Snowflake's security and governance capabilities to all agents to help teams govern and use right-sized models for managing budgets Proof Across the Enterprise: Industry leaders including Glean and Kargo rely on Cortex AI Gateway to govern every AI agent across their business, while companies like dentsu and Merkle use Business Ontology to ground those agents in definitions the business has approved. SNOWFLAKE EXPEDITION 2026 – Nov. 3, 2026 – Snowflake (NYSE: SNOW), the AI Data Cloud company, today at Snowflake Expedition 2026 announced new innovations that put context, security, and governance at the foundation of every AI agent, not bolted on after the fact. Snowflake is interoperable by design, connecting an organization's entire data estate across catalogs and clouds, providing the universal governance controls and context that agents and analytics depend on. To bring that same governance and context to autonomous agents, Snowflake is bringing new capabilities to Horizon Context, the home for governed business context inside Snowflake Horizon Catalog. Snowflake’s new Business Ontology3 allows these agents to operate with a shared, pre-approved understanding of core business definitions to enable reliable answers. While Cortex AI Gateway1 governs how the agents access models, invoke tools, and take action across enterprise systems. As a result, every decision and operation remains secure, fully auditable, and bound to a single set of policies, on a single data copy, regardless of which cloud, catalog, or engine the data sits in. Trusted and reliable agents are hard to build. Not because of model limitations, but because enterprise context is inherently fractured. According to a recent MIT Technology Review Insights report sponsored by Snowflake, 55% of executives cite a lack of business context as the primary cause of low-quality AI agent insights, with fragmented or inaccessible data ranking second at 45%.\". As these agents spread across the business, connecting to models, MCP servers, and enterprise systems, they’re multiplying faster than IT and security can keep up. Companies are left with an impossible choice between scaling AI quickly while absorbing inaccuracies, vulnerabilities, and runaway costs, and slamming the brakes on the very momentum they are trying to build. Snowflake eliminates that tradeoff by giving organizations the confidence to move fast without losing control. With shared business context grounded in an organization’s entire data estate, active execution guardrails, and unified policies governed across every cloud and engine, teams no longer have to choose between agent velocity and enterprise security. The agentic enterprise runs on more than data access, it runs on data companies can govern, agents they can control, and answers they can trust. \"For decades, governance gave organizations the confidence to make decisions with correctness, security and compliance. In the agentic era, governance is no different, it promotes trust and accelerates AI adoption.\" said Christian Kleinerman, EVP of Product, Snowflake. \"The enterprises that w",
+      "extracted": true
+    },
+    {
+      "id": "S3",
+      "url": "https://tradingkey.com/news/market-movers/262301206-market-movers-snow-20261111",
+      "title": "Snowflake Inc Stock (SNOW) Moved Up by 3.07% on Nov 11: A Full Analysis",
+      "domain": "tradingkey.com",
+      "publishedAt": "2026-11-11T22:00:00.000Z",
+      "snippet": "Substantial Insider Liquidation Pressure: Recent regulatory Form 144 and Form 4 filings highlighted heavy, persistent insider unloading—including multi-million-dollar sales by Director Michael Speiser and Director Benoit Dageville, bringing recent 90-day insider sales above $370 million—fueling institutional caution and dampening sentiment ahead of the company's fiscal Q3 earnings report.\n Intensifying R&D and Margin Compression from AI Race: Aggressive competitive pressure from Databricks and native hyperscaler platforms is compelling Snowflake to escalate capital expenditure and promotional investments behind its newly unveiled agentic AI and autonomous bot services (such as CoCo, CoWork, and Cortex), posing near-term operating margin risk while monetization remains in nascent stages. [...] Severe Valuation Vulnerability and GAAP Unprofitability: Snowflake continues to trade at elevated valuation multiples despite persistent GAAP unprofitability (negative net margins exceeding -20% and negative return on equity of -46.3%), leaving the stock exceptionally fragile to multiple contraction, institutional portfolio de-risking, and consumption volatility.\n Enterprise Credential Scrutiny and Deployment Delays: Sustained enterprise focus on cybersecurity liabilities and unauthorized client credential breaches reported across customer environments poses reputational headwinds that threaten to elongate enterprise sales cycles and increase contract friction for high-value data lake mi",
+      "queryIds": [
+        "Q1",
+        "Q7"
+      ],
+      "categories": [
+        "news",
+        "risk"
+      ],
+      "score": 0.7509182,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "tradingkey.logo Search Stock Screener  Scan to Download One powerful score. Smarter investment decisions. 繁体中文ไทยTiếng việt简体中文EspañolPortuguêsDeutsch한국어日本語 Log in tradingkey.logo Search   NewsMarket Movers Snowflake Inc Stock (SNOW) Moved Up by 3.07% on Nov 11: A Full Analysis Nov 11, 2026 7:15 PM facebooktwitterlinkedin View all comments（0）  • Snowflake shares gained momentum amid strengthened enterprise software sentiment and AI optimism. • Institutional demand grew following enterprise adoption of AI tools like Cortex AI. • Annual revenue reached $4.68 billion alongside a net loss of $1.33 billion. Snowflake Inc (SNOW) moved up by 3.07%. The Software & IT Services sector is up by 0.71%. The company outperformed the industry. Top 3 stocks by turnover in the sector: Microsoft Corp (MSFT) down 2.35%; CoreWeave Inc (CRWV) up 23.72%; Meta Platforms Inc (META) down 0.91%. What is driving Snowflake Inc (SNOW)’s stock price up today? Snowflake demonstrated solid upward momentum and heightened intraday trading activity as enterprise software sentiment strengthened and investors revisited high-quality cloud data infrastructure assets. Following recent consolidation across the broader infrastructure software cohort, market participants stepped in to absorb recent selling pressure, driven by renewed confidence in consumption-oriented data and artificial intelligence workloads. A primary catalyst supporting the advance is sustained institutional optimism regarding Snowflake's evolving artificial intelligence product roadmap. The rapid enterprise adoption of first-party agentic tools, such as Cortex AI, CoCo, and CoWork, alongside deeper integration across major hyperscale environments like Oracle Cloud Infrastructure, has reinforced the platform's positioning as foundational infrastructure for corporate generative AI deployment. Positive sell-side sentiment has amplified this narrative, with recent research notes reiterating constructive ratings and highlighting robust net revenue retention trends, suggesting that core platform utilization remains resilient despite broader enterprise cost governance. Additionally, technical dynamics and positioning ahead of the upcoming fiscal third-quarter earnings cycle played a key role in today's price action. After testing key technical support levels earlier in the week, buying interest accelerated as algorithmic and fundamental accounts recognized a favorable risk-reward setup. Market participants also effectively looked past routine scheduled insider divestitures filed under Rule 10b5-1 trading plans, treating them as programmatic liquidity events rather than fundamental inflection points. While the broader macroeconomic landscape continues to present valuation sensitivity due to elevated forward revenue multiples, the current session underscores strong dip-buying demand for mission-critical enterprise cloud architectures. In the near term, institutional focus will remain squarely on forward product revenue guidance, enterprise consumption trajectory, and gross margin evolution within AI-heavy compute workloads. Technical Analysis of Snowflake Inc (SNOW) Technically, Snowflake Inc (SNOW) shows a MACD (12,26,9) value of -3.198, indicating a sell signal. The RSI at 47.049 suggests neutral condition and the Williams %R at 50.081 suggests neutral condition. Please monitor closely. Fundamental Analysis of Snowflake Inc (SNOW) Snowflake Inc (SNOW) is in the Software & IT Services industry. Its latest annual revenue is $4.68B, ranking 70 in the industry. The net profit is $-1.33B, ranking 605 in the industry. Company Profile Over the past month, multiple analysts have rated the company as Buy, with an average price target of $426.71, a high of $525.00, and a low of $110.00. More details about Snowflake Inc (SNOW) Company Specific Risks: Substantial Insider Liquidation Pressure: Recent regulatory Form 144 and Form 4 filings highlighted heavy, persistent insider unloading—including multi-million",
+      "extracted": true
+    },
+    {
+      "id": "S4",
+      "url": "https://snowflake.com/en/blog/ai-agents-governed-data-business-context",
+      "title": "Build Faster, Work Smarter with AI Agents and Apps Grounded in Data | Snowflake",
+      "domain": "snowflake.com",
+      "publishedAt": "2026-11-07T22:00:00.000Z",
+      "snippet": "Key announcements include CoCo mode in Snowsight, Cloud Agents for autonomous coding workflows, CoWork Profiles for team-specific agent routing, Snowflake Dashboards in CoWork, Cortex Training for customizing open-weight models, App Runtime with serverless compute, Skills and Plugins Sharing for organizational reuse, and Agentic Marketplace Discovery for conversational data sourcing. #### How does Snowflake make AI agents more reliable? [...] New capabilities make shared and external data agentic as well. The AI Data Package (public preview), with more than 60 curated external data sets across key industries, comes complete with semantic views and a ready-to-use Snowflake CoWork agent as a managed service. Agentic Marketplace Discovery (public preview), powered by Snowflake CoCo, lets users source data, apps and AI through conversation. Agents for Shared Data (public preview) automatically generates a Cortex Agent and semantic view for any data shared, so recipients can use it conversationally. Together, these capabilities enable users to discover, query and use shared and external data entirely through natural language. ## Act: Hand agents real work, wherever teams work [...] Gif of Snowflake CoWork profiles feature Next, Snowflake Dashboards (public preview) enable anyone on the team to talk to their dashboard through CoWork: summarize it, ask what drove a change or filter to a segment. Analysts build the dashboards by describing them to CoCo and sharing them with the corre",
+      "queryIds": [
+        "Q2"
+      ],
+      "categories": [
+        "product"
+      ],
+      "score": 0.73753643,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Skip to content Blog/Product and Technology/Build Faster and Work Smarter with AI Agents and Apps Grounded in Data Nov 3, 2026/9 min readProduct and Technology Build Faster and Work Smarter with AI Agents and Apps Grounded in Data Arun Agarwal Arun Agarwal +2 Image of Expedition mountain icon Only 11% of organizations have agents in production despite 38% piloting them, according to Deloitte's 2026 Tech Trends report. We see this gap between pilots and production deployments happening across industries and companies of all sizes: Teams build a compelling demo and deploy it against real data, only to have it confidently return the wrong revenue number or miss a policy constraint that a junior analyst would have caught. The problem is a lack of context. Agents need to know which metric definition is authoritative, which data is current, what permissions each user holds and what happened in the last conversation. Without that grounding, even the most capable model operates on guesswork. And even when agents get the answer right, it can be difficult to share those insights with the rest of the business. At Expedition 2026, Snowflake is announcing capabilities across three dimensions that strengthen how agents and apps run alongside your data, with full governance and context: Ground: Connect agents to your governed data, metrics and business logic so they answer questions from authoritative definitions, not guesswork. Act: Allow agents to execute real work following each user's own permissions, in the tools teams already use, with clear auditability. Quickly and securely ship Snowflake apps on governed data so people and agents can extract insights and take action. Compound: Share proven skills, profiles and memory across the organization so every new agent starts off better than the last. Ground: Give every agent relevant data and business context from Day 1 The a16z research team put it plainly in their March 2026 analysis: \"A crucial reason agents didn’t work well was a lack of proper data context.\" An agent answering the question \"What was revenue growth last quarter?\" can write competent SQL against a plausible-looking table yet return wrong numbers with full confidence because nobody told it which field carries the authoritative definition of “revenue.” Snowflake's approach starts from the principle that agents should inherit the context your organization has already built: the schemas, metrics, business logic, governance policies and permissions that define how your data works. Several new and enhanced capabilities make this practical. Snowflake Cortex Sense (public preview soon) autobuilds context from your existing schemas, metric definitions and business logic, so you don’t spend weeks setting up and defining connections. Cortex Sense works across your own data, shared data and data you purchase through Snowflake Marketplace — so agents understand the entire picture, not just one team's slice of it. When agents need to reason over large volumes of unstructured information, Analytical Search (public preview) lets them count, compare and find trends across thousands of documents at once, from contracts and support tickets to internal reports. This is not keyword search; Analytical Search applies AI functions across document collections to answer questions such as \"How many contracts contain a price escalation clause?\" or \"Which support tickets mention the same root cause?\" And because Cortex Search now enforces row access and masking policies on source tables (private preview), the documents an agent can see follow the same rules as the structured data it queries. As agents move from finding documents to understanding them, Snowflake’s new embedding model Arctic Embed 3S (generally available soon) improves retrieval quality over Arctic Embed L-v2.0 by 3% in English, 6% in multilingual retrieval, and 23% for structured tables and columns, while keeping the same compact size class. As frontier models become commoditized, the",
+      "extracted": true
+    },
+    {
+      "id": "S5",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-market-dipped-snowflake-inc-214503744.html",
+      "title": "Why the Market Dipped But Snowflake Inc. (SNOW) Gained Today",
+      "domain": "finance.yahoo.com",
+      "publishedAt": "2026-11-10T22:00:00.000Z",
+      "snippet": "Market participants will be closely following the financial results of Snowflake Inc. in its upcoming release. The company plans to announce its earnings on December 2, 2026. The company is predicted to post an EPS of $0.6, indicating a 71.43% growth compared to the equivalent quarter last year. Simultaneously, our latest consensus estimate expects the revenue to be $1.65 billion, showing a 36.08% escalation compared to the year-ago quarter. For the entire fiscal year, the Zacks Consensus Estimates are projecting earnings of $2.23 per share and a revenue of $6.3 billion, representing changes of +78.4% and +34.52%, respectively, from the prior year. [...] 1. Deirdre Bosa Live! Deirdre Bosa Live! 2. AI Trending October inflation data Stock market today Wall Street's $1.6T rebound Nvidia live updates Zacks # Why the Market Dipped But Snowflake Inc. (SNOW) Gained Today Zacks Equity Research 3 min read SNOW +1.82% ^GSPC -0.38% ^DJI -0.30% ^IXIC -0.74% In the latest close session, Snowflake Inc. (SNOW) was up +1.59% at $295.76. This change outpaced the S&P 500's 0.38% loss on the day. At the same time, the Dow lost 0.3%, and the tech-heavy Nasdaq lost 0.74%. Shares of the company witnessed a loss of 19.21% over the previous month, trailing the performance of the Computer and Technology sector with its loss of 13.13%, and the S&P 500's loss of 3.31%. [...] It is also important to note the recent changes to analyst estimates for Snowflake Inc. These latest adjustments often mirror th",
+      "queryIds": [
+        "Q1",
+        "Q7"
+      ],
+      "categories": [
+        "news",
+        "risk"
+      ],
+      "score": 0.72671664,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S7",
+      "url": "https://tradingview.com/news/prnewswire:6e9052089ac40:0-an-ai-developer-starts-its-ipo-roadshow-and-its-filing-names-chip-and-cloud-partners",
+      "title": "An AI Developer Starts Its IPO Roadshow, and Its Filing Names Chip and Cloud Partners — TradingView News",
+      "domain": "tradingview.com",
+      "publishedAt": "2026-11-11T14:10:00.000Z",
+      "snippet": "Latest numbers: Its second quarter fiscal 2027 results, released September 2 for the quarter ended July 31, showed revenue of $1.55 billion, up 35% year over year, product revenue of $1.49 billion, up 37%, and remaining performance obligations of $9.00 billion. Latest update: At Snowflake Expedition 2026 on November 3, Snowflake announced updates to Snowflake CoCo, its coding agent for data teams, and Snowflake CoWork, its personal work agent for knowledge workers. \"AI agents are reshaping how companies operate, and the difference between agents that guess and agents that know comes down to data,\" said Christian Kleinerman, EVP of Product, Snowflake.",
+      "queryIds": [
+        "Q1"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.76942694,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S9",
+      "url": "https://snowflake.com/en/blog/snowflake-oracle-partnership-ai-data-cloud-oci",
+      "title": "Snowflake and Oracle: Bringing the AI Data Cloud to OCI",
+      "domain": "snowflake.com",
+      "publishedAt": "2026-10-27T17:00:00.000Z",
+      "snippet": "Christian Kleinerman Christian Kleinerman Snowflake and Oracle are announcing the expansion of their partnership with Snowflake on OCI. When available, Snowflake on OCI will be a native, first-party offering that brings Snowflake's AI Data Cloud to Oracle Cloud Infrastructure (OCI). The offering would bring Snowflake's capabilities across AI, analytics, data engineering and transactions, as well as applications and collaboration, closer to enterprise data in Oracle databases, applications and OCI services, with purchasing and billing directly through Oracle. [...] ## Integrated connectivity to Oracle applications and databases It matters where customers process data, particularly when operational and analytical systems exchange information frequently. Customers already connect Oracle data sources to Snowflake today through native and partner connectors. This partnership expands on that strong foundation. The planned offering would use native integrations to bring data from supported Oracle applications and databases into Snowflake on OCI, reducing the need for custom pipelines and accelerating the use of that data for analytics and AI. [...] For Oracle customers, the opportunity extends beyond adding another platform to their environment. With this partnership, Oracle and Snowflake aim to help teams connect data from Oracle Fusion Cloud Applications, Oracle NetSuite and Oracle database environments with other enterprise sources, build AI applications on governed information a",
+      "queryIds": [
+        "Q5"
+      ],
+      "categories": [
+        "partnerships"
+      ],
+      "score": 0.71780384,
+      "isPrimary": true,
+      "origin": "search"
+    },
+    {
+      "id": "S11",
+      "url": "https://snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement",
+      "title": "Snowflake to Announce Q3 FY27 Results on December 2, 2026",
+      "domain": "snowflake.com",
+      "publishedAt": null,
+      "snippet": "#### Media Contact Eszter Szikora Vice President, External Communications, Snowflake press@snowflake.com #### Investor Contact Katherine McCracken Head of Investor Relations, Snowflake IR@snowflake.com ###### SHARE PRESS RELEASE Subscribe to our monthly newsletter Stay up to date on Snowflake’s latest products, expert insights and resources—right in your inbox! Product Platform Snowflake CoWork Data Engineering Analytics AI Applications & Collaboration Pricing [...] MENLO PARK, Calif. – November 2, 2026 – Snowflake (NYSE: SNOW), the AI Data Cloud company, today announced it will release its financial results for the third quarter of fiscal year 2027, which ended October 31, 2026, following the close of the U.S. markets on Wednesday, December 2, 2026. Snowflake will host a conference call to discuss the financial results. [...] Skip to content ###### < ALL PRESS RELEASES # Snowflake to Announce Financial Results for the Third Quarter of Fiscal 2027 on December 2, 2026 Impact on the workforce graphic",
+      "queryIds": [
+        "Q6"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.6861598,
+      "isPrimary": true,
+      "origin": "search"
+    },
+    {
+      "id": "S12",
+      "url": "https://snowflake.com/en/news/press-releases/expedition-2026-usa-cycling-la28-games",
+      "title": "USA Cycling Selects Snowflake for LA28 Race Strategy",
+      "domain": "snowflake.com",
+      "publishedAt": "2026-11-03T14:00:00.000Z",
+      "snippet": "Olivia Kealey Corporate PR Senior Lead, Snowflake press@snowflake.com Katherine Santos Director of Marketing, USA Cycling sponsorship@usacycling.org ###### SHARE PRESS RELEASE Subscribe to our monthly newsletter Stay up to date on Snowflake’s latest products, expert insights and resources—right in your inbox! Product Platform Snowflake CoWork Data Engineering Analytics AI Applications & Collaboration Pricing Support Priority Support Status [...] Skip to content ###### < ALL PRESS RELEASES # USA Cycling Selects Snowflake to Accelerate Race Strategy on the Road to the LA28 Games Snowflake USA Cycling will use Snowflake to turn training and race data into faster feedback, better-informed daily decisions, and a clearer path to the podium at LA28 [...] SNOWFLAKE EXPEDITION 2026 – Nov. 3, 2026 – Snowflake (NYSE: SNOW), the AI Data Cloud company, today announced at Snowflake Expedition 2026 that USA Cycling has selected Snowflake as its Official AI Data Cloud & Collaboration Partner. As USA Cycling prepares athletes across track, road, mountain bike, and BMX disciplines for international competition and the road to the LA28 Olympic and Paralympic Games, Snowflake will help the team unite its training and race data on a secure, governed platform",
+      "queryIds": [
+        "Q6"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.6006569,
+      "isPrimary": true,
+      "origin": "search"
+    }
+  ],
+  "stats": {
+    "sourcesReviewed": 40,
+    "sourcesCited": 8,
+    "claimsVerified": 4,
+    "claimsUncertain": 5,
+    "claimsDropped": 1,
+    "citationsRemoved": 0,
+    "sitePages": 0,
+    "tavilyCalls": 12,
+    "tavilyCredits": 15,
+    "durationMs": 42108
+  },
+  "warnings": [
+    "No newsroom pages found on snowflake.com with Tavily Map.",
+    "Dropped unsupported statement — TL;DR not supported by its sources: \"Analysts forecast strong Q3 FY27 results (EPS $0.6, revenue $1.65 B) despite rec\"",
+    "Citation check: removed 0 off-topic/unsupported citation(s) (lexical + entity check)."
+  ],
+  "demoData": false
+}

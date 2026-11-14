@@ -1,0 +1,262 @@
+{
+  "id": "acf61b01-e9be-4d7f-825b-69f647bbfd2e",
+  "title": "Pre-meeting brief: Databricks",
+  "request": {
+    "target": "Databricks",
+    "targetType": "company",
+    "meetingAt": "2026-11-20T15:00:00-08:00",
+    "purpose": "sales",
+    "officialDomain": "databricks.com",
+    "windowDays": 30
+  },
+  "window": {
+    "start": "2026-10-21T23:00:00.000Z",
+    "end": "2026-11-20T23:00:00.000Z"
+  },
+  "generatedAt": "2026-11-14T22:35:05.523Z",
+  "engine": {
+    "search": "tavily",
+    "llm": "bifrost",
+    "model": "groq/openai/gpt-oss-120b"
+  },
+  "tldr": [
+    {
+      "text": "Databricks is investing $3 B across Europe and the Middle East and over $500 M in the Netherlands, expanding engineering hubs and opening four new EMEA offices.",
+      "sourceIds": [
+        "S1",
+        "S4"
+      ]
+    },
+    {
+      "text": "The company launched an always‑on Genie autonomous AI coworker, generally available, that cuts ad‑winner identification time on Meta by 75% and runs continuously per the CEO.",
+      "sourceIds": [
+        "S2",
+        "S6"
+      ]
+    },
+    {
+      "text": "Databricks opened a new 235,000‑sq‑ft San Francisco headquarters, added senior EMEA leaders Nico Gaviola and Daniel Holz, and aims to train 500,000 EMEA professionals by 2030.",
+      "sourceIds": [
+        "S3",
+        "S5"
+      ]
+    }
+  ],
+  "keyDevelopments": [
+    {
+      "id": "C1",
+      "text": "Databricks announced a $3 billion investment across Europe and the Middle East to accelerate enterprise AI adoption.",
+      "category": "financials",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 1
+    },
+    {
+      "id": "C2",
+      "text": "As part of the $3 billion plan, Databricks expanded engineering hubs in Amsterdam, Berlin, Belgrade and Aarhus and opened four new EMEA offices over the past year.",
+      "category": "news",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 1
+    },
+    {
+      "id": "C3",
+      "text": "Databricks committed to invest more than $500 million in the Netherlands to accelerate enterprise Data + AI initiatives.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S4"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 0.8
+    }
+  ],
+  "peopleChanges": [],
+  "uncertain": [
+    {
+      "id": "C4",
+      "text": "Databricks appointed Nico Gaviola and Daniel Holz to its senior EMEA leadership team to drive regional growth.",
+      "category": "people",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S5"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed; single secondary source",
+      "grounding": 0.92
+    },
+    {
+      "id": "C5",
+      "text": "Databricks aims to train 500,000 people across EMEA in data and AI by 2030.",
+      "category": "people",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S5"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed; single secondary source",
+      "grounding": 1
+    }
+  ],
+  "talkingPoints": [],
+  "openQuestions": [],
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://databricks.com/company/newsroom/press-releases/databricks-invest-3-billion-across-europe-and-middle-east",
+      "title": "Databricks to Invest ~$3 Billion Across Europe and the Middle East to Accelerate Enterprise AI Adoption - Databricks",
+      "domain": "databricks.com",
+      "publishedAt": "2026-11-11T08:20:00.000Z",
+      "snippet": "Engineering closer to customers: Core components of the Databricks Data + AI Platform are built at engineering hubs in Amsterdam, Berlin, Belgrade and Aarhus, all of which expanded over the past year. Engineers working alongside EMEA customers can turn local priorities for governance, model choice and cost control into product capabilities faster.\n More experts on the ground: Databricks opened four new EMEA offices over the past year, in Amsterdam, Milan, Zurich and Frankfurt, and now has more than 2,000 employees in the region. It expects to grow its EMEA team by approximately 50% over the next three years, giving customers more specialists in their own markets to help them scale AI throughout the business. [...] Q: Where does Databricks build its platform in Europe?  \nA: Core components of the Databricks Data + AI Platform are built at engineering hubs in Amsterdam, Berlin, Belgrade and Aarhus, all of which expanded over the past year. Engineers working alongside EMEA customers can turn local priorities for governance, model choice and cost control into product capabilities faster.\n\nQ: How is Databricks expanding its team in EMEA?  \nA: Databricks has more than 2,000 employees in EMEA. Over the past year it opened four new offices, in Amsterdam, Milan, Zurich and Frankfurt. It expects to grow its EMEA team by approximately 50% over the next three years. [...] Frequently Asked Questions (FAQs)\n\nQ: What is the news?  \nA: Databricks, the Data and AI company, announced plans to ",
+      "queryIds": [
+        "Q1",
+        "Q5",
+        "Q6",
+        "Q7"
+      ],
+      "categories": [
+        "news",
+        "partnerships",
+        "risk"
+      ],
+      "score": 0.7892337,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Databricks to Invest ~$3 Billion Across Europe and the Middle East to Accelerate Enterprise AI Adoption November 11, 2026 Scales adoption for Lakebase, Genie and Unity Gateway: Gives businesses across the region the context, control, choice and cost optimization needed to scale agents Helps organizations get real value from AI: Adds engineers, AI experts and customer teams across EMEA to help enterprises such as adidas, Danone, Heineken, and startups such as Linkup and Xoople build AI that understands their business context Plans to train ~ 500,000 people by 2030 and expand European R&D hubs: Will train half a million students and professionals across EMEA in data and AI skills, and grow its local engineering hubs where core parts of the Databricks Data + AI Platform are built LONDON, UNITED KINGDOM - NOVEMBER 11, 2026 - Databricks, the Data and AI company, today announced plans to invest approximately $3 billion across Europe and the Middle East over the next three years, its largest regional investment outside North America. This will expand Databricks' R&D teams and put more experts alongside customers and partners as they scale AI impact across their organizations with Lakebase, Genie, and Unity Gateway. Databricks also plans to train ~ 500,000 students and professionals in data and AI skills across Europe, the Middle East and Africa (EMEA) by 2030 and to deepen its support for the region's startups. Databricks works with many of EMEA's largest organizations, including ABN Amro, adidas, Danone, Heineken, HelloFresh, Mercedes-Benz and Nationwide, to build AI that understands their business context. From AI Pilots to Business Impact As European organizations move AI from pilots to company-wide use, four challenges determine whether it pays off: context, grounding agents in real business knowledge; control, governing what agents can access and do; choice, avoiding platform lock-in; and cost, managing spend as usage grows. The Databricks Data + AI Platform addresses all four. Key capabilities include: Lakebase, a serverless Postgres database built for AI apps and agents. Genie, an AI coworker that turns business data into trusted answers and actions, grounded by Genie Ontology, a self-improving context layer built on the definitions, metrics, and sources the business already trusts. Unity Gateway, a multi-AI control plane delivering governance, smart routing, and cost controls. “Trusted data is the foundation for better decisions and the successful adoption of AI. By modernizing our data platform on Databricks, we've created a governed environment that gives colleagues faster access to high-quality data and insight. As we continue to introduce AI-enabled capabilities such as Genie, we're making it easier for more people to explore data, understand our business and take informed action, all while maintaining the controls and trust that are central to Nationwide,” said Sri Kanisapakkam, Chief Data & Analytics Officer, Nationwide Building Society. How Databricks is Supporting EMEA Organizations: Engineering closer to customers: Core components of the Databricks Data + AI Platform are built at engineering hubs in Amsterdam, Berlin, Belgrade and Aarhus, all of which expanded over the past year. Engineers working alongside EMEA customers can turn local priorities for governance, model choice and cost control into product capabilities faster. More experts on the ground: Databricks opened four new EMEA offices over the past year, in Amsterdam, Milan, Zurich and Frankfurt, and now has more than 2,000 employees in the region. It expects to grow its EMEA team by approximately 50% over the next three years, giving customers more specialists in their own markets to help them scale AI throughout the business. Data and AI training for students and professionals: European organizations cite a lack of AI skills as a barrier to AI adoption. Databricks plans to train half a million people across EMEA by 2030 on the latest data and AI technologie",
+      "extracted": true
+    },
+    {
+      "id": "S2",
+      "url": "https://databricks.com/company/newsroom/press-releases/databricks-launches-new-always-genie-autonomous-ai-complex",
+      "title": "Databricks Launches New Always-on Genie: Autonomous AI for Complex Enterprise Work - Databricks",
+      "domain": "databricks.com",
+      "publishedAt": "2026-11-11T02:06:00.000Z",
+      "snippet": "“With Genie constantly analyzing performance signals, we’ve improved programmatic ad ROI and reduced the time to identify ad winners on Meta by 75%. Unity Gateway gives us the flexibility to use the best model for each job without managing separate integrations.” —Alan Khalil, Associate Director, Data Science and Engineering, HelloFresh\n\nAvailability   \nGenie and Genie Ontology are generally available to all customers. Genie Search, Ontology Manager and the new always-on Genie are coming soon to preview and beta programs. Read more about Genie on the Databricks blog.\n\nTune in to Data + AI Live on November 11, 2026 at 9 AM PT to watch Ali Ghodsi introduce the new Genie and discuss frontier intelligence in the enterprise with OpenAI’s Greg Brockman. Watch on LinkedIn Live and YouTube. [...] Genie now operates in autonomous mode, running in the background using its own compute. This means Genie can help with daily personal tasks like staying on top of email or Slack and prepping for meetings, or it can take on bigger responsibilities like keeping a quarterly forecast on track. Users share a goal and clear boundaries, and Genie will manage the task and proactively reach out when it needs their input. Marketers can ask Genie to monitor GEO performance and suggest relevant content. Customer success teams can ask Genie to monitor customer usage patterns and notify the account team of meaningful shifts. Executives can ask Genie to track revenue trends and top customer feature request",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q5",
+        "Q6"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "partnerships"
+      ],
+      "score": 0.77063745,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Databricks Launches New Always-on Genie: Autonomous AI for Complex Enterprise Work November 11, 2026 Proactive, Always-on Assistant Brings Enterprise-grade Security and Context New second-generation Genie is an always-on enterprise agent that works autonomously, manages long-running work, and proactively brings decisions to people through a new priority inbox and email Genie Ontology, the agentic ontology for enterprise AI, automatically maintains understanding of how a company operates across its data, people, and processes to provide horizontal context and deliver accurate, trustworthy answers and actions Genie Search expands to 100+ enterprise data sources via Genie and Genie Ontology, including the lakehouse and key business apps like Google Drive, Jira, and Confluence SAN FRANCISCO — November 11, 2026 — Databricks, the Data and AI company, today announced the second generation of Genie that changes how people get work done: Genie is now an always-on, autonomous agent for enterprise work. Employees can give Genie a goal and trust it to keep work moving. Genie takes ownership of the work, delegates to subagents when needed, tracks progress, follows up on missing inputs, and reaches out when a person needs to make a decision. A new inbox highlights what needs attention, and Genie emails users when they are away. Work is moving faster, and enterprises now expect AI to take real tasks off their plates. But much of what it takes to do complex projects well lives across multiple platforms and even in people’s heads: which accounts need attention, what triggers an escalation, who approves a change. An enterprise assistant can only take that on if it knows the business, can reach the systems teams already use, and follows correct permissions and access controls. Genie is built for how companies actually work. Every action is grounded in Genie Ontology, an agentic ontology which captures a company’s horizontal context, from definitions and metrics to the people and processes behind them, and keeps it current as the business changes. Genie proactively works across all data, structured or unstructured, analytical or operational, inside or outside Databricks to recommend the next best action. Since it runs within a company's existing Databricks environment, Genie is governed by Unity Catalog and Unity Gateway, so every action stays within the controls companies already have in place. “Genie has made me a 10x more productive CEO, and now it doesn't wait for me to ask,” said Ali Ghodsi, Co-founder and CEO of Databricks. “Every day, Genie keeps up with my inbox, preps me for meetings, and runs in the background, coming back only when it needs a decision. It can do that because it knows how our company works: what we mean by revenue, which numbers are official, and who can see what. That's the power of horizontal context, and Genie delivers it.” Genie: Always-On Jobs, Proactive Work and Governed Actions Genie now operates in autonomous mode, running in the background using its own compute. This means Genie can help with daily personal tasks like staying on top of email or Slack and prepping for meetings, or it can take on bigger responsibilities like keeping a quarterly forecast on track. Users share a goal and clear boundaries, and Genie will manage the task and proactively reach out when it needs their input. Marketers can ask Genie to monitor GEO performance and suggest relevant content. Customer success teams can ask Genie to monitor customer usage patterns and notify the account team of meaningful shifts. Executives can ask Genie to track revenue trends and top customer feature requests and deliver a weekly brief on what's changing and why. Key features include: Sub-agents: Genie delegates tasks to multiple sub-agents to manage work in parallel. Priority inbox: Genie now opens to an inbox of items that need attention, so users can easily see what needs a decision instead of digging through past conversations. Email alerts: Each new a",
+      "extracted": true
+    },
+    {
+      "id": "S3",
+      "url": "https://databricks.com/blog/databricks-doubles-down-ai-products-opens-new-235000-square-foot-san-francisco-headquarters",
+      "title": "Databricks Doubles Down on AI Products, Opens New 235,000-Square-Foot San Francisco Headquarters | Databricks Blog",
+      "domain": "databricks.com",
+      "publishedAt": "2026-11-11T18:20:00.000Z",
+      "snippet": "KARL: custom models for enterprise that do better than frontier models on all three dimensions: inference cost, latency, and quality.\n MemCurrent: a persistent memory architecture for production agents that keeps important, relevant information consistent and fresh for faster, more efficient responses. With MemCurrent, which powers Genie and Agent Bricks Memory, AI agents aren’t starting from zero every time.\n Adaptive Instructed Retriever: a more efficient way for AI agents to find the right tables, notebooks, dashboards, and documents for better, faster results. Instead of brute-force exploration, agents adjust their search strategy based on the request. Sequential search is reserved for only the more complex, multi-step prompts. [...] Additionally, the teams at One Sansome are building some of Databricks’ most important products that drive real-world impact, such as:\n\n Lakebase: the first serverless Postgres database built for AI agents.\n Genie: An always-on, autonomous agent for enterprise work.\n Unity Gateway: multi-AI governance and cost controls.\n\n## What’s Inside One Sansome\n\nWhen we initially announced this lease in March last year, we shared that the space would have over 150,000 square feet. Last week, we opened our doors with 201,000 square feet, and by next fall will expand to 235,000 square feet. Our new One Sansome headquarters offers significantly more room to collaborate, and there are tons of new benefits and amenities for Databricks employees, customers, an",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q4",
+        "Q6"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "funding"
+      ],
+      "score": 0.7468782,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Company Databricks Doubles Down on AI Products, Opens New 235,000-Square-Foot San Francisco Headquarters New home at One Sansome gives us room to scale AI impact and research, reinforcing our long-term commitment to San Francisco. by Patrick Wendell and Matei Zaharia Databricks expands AI research and opens One Sansome, our New San Francisco Headquarters. The new global HQ will have 235,000 square feet, and is part of our $1 billion+ commitment to SF. San Francisco is home to Databricks AI research and product teams that are building for customers pushing the boundaries of what data and AI can do, like Anthropic, Cognition, Cursor, Decagon, and OpenAI. Last week, we opened our new headquarters at One Sansome Street in San Francisco, welcoming employees, customers, and partners into what will ultimately be a 235,000+ square foot space that matches the scale of what we're building together. Data is increasingly becoming the engine that powers frontier AI, and this investment lets us better serve customers like Anthropic, Cognition, Cursor, Decagon, and OpenAI. The move is only part of our long-term commitment to San Francisco as our home base for building the future of data and AI for the world’s most innovative organizations. The Bay Area's concentration of top universities, research institutions, and technical talent is unmatched. As previously shared, we're investing over $1 billion into our San Francisco operations by early 2028. We've committed to hosting our Data + AI Summit here through 2030, which is expected to generate nearly $1 billion in economic value for the city. This year’s event drew over 30,000 attendees, a record that we plan to beat in 2027. Why SF? San Francisco is the central hub for our AI Research team, which is innovating on the frontier of AI agents and models for knowledge work to power products like Genie, including: KARL: custom models for enterprise that do better than frontier models on all three dimensions: inference cost, latency, and quality. MemCurrent: a persistent memory architecture for production agents that keeps important, relevant information consistent and fresh for faster, more efficient responses. With MemCurrent, which powers Genie and Agent Bricks Memory, AI agents aren’t starting from zero every time. Adaptive Instructed Retriever: a more efficient way for AI agents to find the right tables, notebooks, dashboards, and documents for better, faster results. Instead of brute-force exploration, agents adjust their search strategy based on the request. Sequential search is reserved for only the more complex, multi-step prompts. Additionally, the teams at One Sansome are building some of Databricks’ most important products that drive real-world impact, such as: Lakebase: the first serverless Postgres database built for AI agents. Genie: An always-on, autonomous agent for enterprise work. Unity Gateway: multi-AI governance and cost controls. What’s Inside One Sansome When we initially announced this lease in March last year, we shared that the space would have over 150,000 square feet. Last week, we opened our doors with 201,000 square feet, and by next fall will expand to 235,000 square feet. Our new One Sansome headquarters offers significantly more room to collaborate, and there are tons of new benefits and amenities for Databricks employees, customers, and partners, including: Modern collaboration spaces: Conference rooms with best-in-class acoustics. Dining and recreation: a game room, a larger café, a coffee bar, and more. Video and podcast studios: a video studio, podcast recording space, and green room. Executive Briefing Center: a dedicated space for customer and partner meetings, featuring modern conference facilities and comfortable lounge areas. Fitness facilities: a fitness center with locker rooms, showers, and towel service. Transit and neighborhood: direct MUNI and BART access from the Montgomery Street station, and just steps from Yerba Buena, Powell Street, and Chinatown",
+      "extracted": true
+    },
+    {
+      "id": "S4",
+      "url": "https://databricks.com/company/newsroom/press-releases/databricks-invest-more-500m-netherlands-accelerate-enterprise-data",
+      "title": "Databricks to Invest More Than $500M in the Netherlands to Accelerate Enterprise Data + AI - Databricks",
+      "domain": "databricks.com",
+      "publishedAt": "2026-11-10T07:20:00.000Z",
+      "snippet": "## Latest Press Releases\n\nOctober 13, 2026\n\nFox Corporation Selects Databricks as Strategic Partner for Next-Generation Data and AI Platform\n\nRead now\n\nSeptember 24, 2026\n\nDatabricks Acquires Row Zero, Bringing Live, Governed Spreadsheets to Genie\n\nRead now\n\nSeptember 24, 2026\n\nFrom Soda Hall to the Football Field: Databricks Returns to Berkeley Roots with Cal Athletics Partnership\n\nRead now\n\nReady to become a data + AI company?\n\nTry Databricks for freeTalk to an expert [...] The investment underscores the Netherlands' role as a strategic EMEA market at a pivotal moment. Dutch businesses are adopting AI fast, and leading organizations such as ABN Amro, AkzoNobel, Heineken, PostNL, Shell and UMC Utrecht are already driving real impact by scaling data and AI with Databricks. With a larger local presence, Databricks will deepen its support for customers and help more Dutch businesses close the gap from AI pilot to production, working closely with its partner ecosystem, universities and early-stage startups.\n\n## Giving AI Agents the Context, Control, Cost Optimization, and Choice to Deliver Business Impact [...] ### Q. Why is Databricks investing in the Netherlands?\n\nThe Netherlands is a strategic EMEA market for Databricks, and Dutch businesses are adopting AI fast. Organizations such as ABN Amro, AkzoNobel, Heineken, PostNL, Shell and UMC Utrecht already scale data and AI with Databricks. A larger local presence means Databricks can support customers more closely and help more ",
+      "queryIds": [
+        "Q1",
+        "Q5",
+        "Q6"
+      ],
+      "categories": [
+        "news",
+        "partnerships"
+      ],
+      "score": 0.7796576,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Databricks to Invest More Than $500M in the Netherlands to Accelerate Enterprise Data + AI November 10, 2026 Advances Lakebase, Genie and Unity Gateway: Databricks equips agents with the context, control, cost optimization, and choice enterprises in the Netherlands need to build and scale AI Expands its largest European R&D hub in Amsterdam: Databricks expects to double its Netherlands team, scaling support for customers like ABN Amro, AkzoNobel, Heineken, PostNL, Shell, UMC Utrecht and more Plans to train more than 40,000 people by 2030: Databricks plans to train students and professionals in data and AI skills across the Netherlands by 2030 AMSTERDAM, NETHERLANDS - NOVEMBER 10, 2026 - Databricks, the Data and AI company, today announced plans to invest more than $500 million USD in the Netherlands over the next three years. The commitment will expand its largest R&D hub in Europe, with plans to double its local team as demand for Lakebase, Genie and Unity Gateway grows. The company also opened its 13,000 SQM, 11-storey office in The Rock tower and set a goal to train more than 40,000 people in data and AI skills by 2030. The investment underscores the Netherlands' role as a strategic EMEA market at a pivotal moment. Dutch businesses are adopting AI fast, and leading organizations such as ABN Amro, AkzoNobel, Heineken, PostNL, Shell and UMC Utrecht are already driving real impact by scaling data and AI with Databricks. With a larger local presence, Databricks will deepen its support for customers and help more Dutch businesses close the gap from AI pilot to production, working closely with its partner ecosystem, universities and early-stage startups. Giving AI Agents the Context, Control, Cost Optimization, and Choice to Deliver Business Impact AI agents are spreading rapidly across Dutch enterprises, but most still struggle to answer basic business questions accurately. The context they need is fragmented across systems and trapped in people's heads. AI fills those gaps with confident, often inaccurate, guesswork that wastes time and tokens. The Databricks Data + AI Platform gives companies a foundation built for agents with context, control, cost optimization and choice, including: Lakebase: A serverless Postgres database built for AI apps and agents Unity Gateway: A multi-AI control plane delivering governance, smart routing, and cost controls Genie: An AI coworker that turns business data into trusted answers and actions, grounded by Genie Ontology, a self-improving context layer built on the definitions, metrics, and sources the business already trusts. “Genie Ontology captures how our customers, products and materials relate to each other. We can ask time-sensitive, business-critical questions and get answers grounded in our own business context such as: 'Which customers are at risk?' or 'Why did we have a spike in February?' We are also using Genie to trigger agentic responses. For example, we have been able to find alternative raw materials that match certain specifications, and develop models that screen over 120 million molecules to find waterborne replacements for current chemical compounds. With the semantic layer in Databricks we are able to give these workflows a shared understanding of our business, and the results are really moving the needle for us, “ said Kurt De Ruwe, Chief Information Officer, AkzoNobel. Expanding Databricks’ Largest R&D Hub in Europe Teams at The Rock in Amsterdam are developing key areas of the Databricks Data + AI Platform, including Genie ZeroOps, an AI agent that monitors production workloads, investigates issues and suggests fixes, and Databricks Apps, a fast, secure way to build data and AI applications with your enterprise context. The Amsterdam-based Developer Experience team is also building the internal systems that help Databricks' own engineers move faster with agents, fueling the company's growth. \"Amsterdam is the beating heart of our European R&D efforts. From The Rock, our",
+      "extracted": true
+    },
+    {
+      "id": "S5",
+      "url": "https://itpro.com/business/careers-and-training/databricks-to-train-500-000-people-across-emea-in-data-and-ai-by-2030",
+      "title": "Databricks to train 500,000 people across EMEA in data and AI by 2030 | IT Pro",
+      "domain": "itpro.com",
+      "publishedAt": "2026-11-11T15:57:31.000Z",
+      "snippet": "News The investment round marks the second in the space of a year for Databricks, bringing its valuation to over $100 billion - a 61% increase in the last two years. Databricks continues EMEA growth drive with double leadership appointment News Databricks has announced the appointments of Nico Gaviola and Daniel Holz to its senior EMEA leadership team as the firm looks to drive further regional growth Databricks targets steep growth after historic funding round News The Thrive Capital-led funding round saw Databricks raise $10bn for more acquisitions and AI products View More ▸ [...] How can IT leaders tackle shadow agentic AI threats Insights Unchecked AI agents exploit employee access to alter critical systems. Here's how IT leaders can regain control Engineering the Exascale AI Factory: GIGAPOD NVIDIA Vera Rubin NVL72 You might also like Microsoft and Databricks target AI business context gains in partnership expansion News Deeper integration of Databricks Genie within Azure aims to build more context-aware AI Databricks appoints Lee Stockwell to lead UK&I public sector strategy News The former ServiceNow executive will oversee the vendor's public sector AI and data initiatives across the UK and Ireland ‘A true vote of confidence’: Databricks announces $850m UK investment as firm looks to quadruple London office footprint [...] By Bobby Hellard Published In News 3 min read Rich Radley, head of EMEA for Databricks, pictured on stage at the annual Data + AI Tour at the ExCeL",
+      "queryIds": [
+        "Q3",
+        "Q4"
+      ],
+      "categories": [
+        "people",
+        "funding"
+      ],
+      "score": 0.8042522,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S6",
+      "url": "https://fortune.com/2026/11/11/databricks",
+      "title": "Databricks' new Genie tool is latest sign of AI industry's full court press for knowledge workers | Fortune",
+      "domain": "fortune.com",
+      "publishedAt": "2026-11-11T22:00:00.000Z",
+      "snippet": "Recommended Video\n\nOn Wednesday, San Francisco startup Databricks launched a new set of agentic AI tools that continuously analyze and organize the reams of data scattered throughout a business—a capability Databricks says will transform the way office workers do their jobs.\n\n“The agents are running in the background all the time. So it’s always on,” Databricks CEO and cofounder Ali Ghodsi told Fortune ahead of the announcement. “I personally use it every day. Every hour of the day. It’s basically made me a 10x better CEO than I was a year ago,” Ghodsi said. [...] Databricks’ updated version of its Genie assistant, launched Wednesday, also operates in the background, shadowing an office worker throughout the day, proactively making suggestions and retrieving information based on whatever is happening. A separate “Ontology” feature essentially scans all the data within an organization—from management reporting lines to projects in various departments—so that an individual can quickly access information or run analyses.\n\n“Lots of companies, both big and small, will use this,” said Ghodsi. [...] The product introduction comes a day after Anthropic, the maker of the Claude AI models, released its own set of AI productivity tools aimed at corporate users. Those tools include a new AI-powered spreadsheet application that competes with Microsoft Excel and Google Sheets, as well as a feature that lets Claude join video calls, allowing the AI to listen to the conversation and “start o",
+      "queryIds": [
+        "Q1",
+        "Q2"
+      ],
+      "categories": [
+        "news",
+        "product"
+      ],
+      "score": 0.7501869,
+      "isPrimary": false,
+      "origin": "search"
+    }
+  ],
+  "stats": {
+    "sourcesReviewed": 40,
+    "sourcesCited": 6,
+    "claimsVerified": 3,
+    "claimsUncertain": 2,
+    "claimsDropped": 0,
+    "citationsRemoved": 0,
+    "sitePages": 4,
+    "tavilyCalls": 11,
+    "tavilyCredits": 21,
+    "durationMs": 14921
+  },
+  "warnings": [
+    "Citation check: removed 0 off-topic/unsupported citation(s) (lexical + entity check)."
+  ],
+  "demoData": false
+}

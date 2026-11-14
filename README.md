@@ -120,6 +120,23 @@ One brief = one small, fixed budget of Tavily calls (about **15–20 credits** f
 
 `MOCK=1` makes no Tavily calls at all (fixtures stand in for search). Set `TAVILY_SITE_PAGES=0` to skip Map, `TAVILY_EXTRACT_TOP=0` to skip Extract of search results.
 
+## Evaluation
+
+Real runs (Tavily + Bifrost) on five companies, each with its official domain, for a sales call on 2026-11-20 with the default 30-day window. Main runs used **Groq `openai/gpt-oss-120b`** through Bifrost (`LLM_MAX_SOURCES=12`, `LLM_SOURCE_CHARS=450`); the last row uses **NVIDIA Nemotron 3 Ultra** as the drafter plus the optional `VERIFY_LLM=1` judge on Groq. Raw briefs and per-run JSON: [`docs/eval/`](docs/eval/) ([results.md](docs/eval/results.md), [results.jsonl](docs/eval/results.jsonl)). Rebuild with `pnpm exec tsx scripts/eval-briefs.ts <Company> <domain>`.
+
+| Company | Sources found | Cited | Verified | Uncertain | Dropped claims | Citations removed | Newsroom pages (Map) | Tavily credits | Seconds | Model that served |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Snowflake | 40 | 8 | 4 | 5 | 1 | 0 | 0 | 15 | 42.1 | groq/openai/gpt-oss-120b |
+| Databricks | 40 | 6 | 3 | 2 | 0 | 0 | 4 | 21 | 14.9 | groq/openai/gpt-oss-120b |
+| Anthropic | 40 | 9 | 4 | 6 | 0 | 0 | 2 | 17 | 11.7 | groq/openai/gpt-oss-120b |
+| Stripe | 40 | 7 | 4 | 3 | 0 | 0 | 4 | 21 | 17.7 | groq/openai/gpt-oss-120b |
+| Figma | 40 | 10 | 3 | 6 | 1 | 0 | 0 | 15 | 15.3 | groq/openai/gpt-oss-120b |
+| Stripe (nemotron-llm-check) | 40 | 8 | 1 | 6 | 0 | 5 | 4 | 21 | 57.8 | nvidia/nvidia/nemotron-3-ultra-550b-a55b + LLM check |
+
+"Sources found" is capped at 40 by design. "Citations removed" counts citations the verifier rejected (removed, or kept only as a reference on a claim downgraded to uncertain). "Newsroom pages (Map)" is first-party pages found by Tavily Map and extracted; Snowflake's site timed out for Tavily's crawler and Figma's map calls returned HTTP 500, so both fell back to search only, which cost nothing extra.
+
+**Takeaway:** every brief stayed within 15–21 Tavily credits and ran in 12–42 s on Groq (about 58 s on Nemotron). Roughly half of the model's claims cleared the 2-outlet / primary-source bar, and the rest were shown as uncertain rather than stated as fact. On these runs Groq's citations passed the lexical drift guard untouched. The LLM judge is much stricter: it rejected 5 citations and left only 1 claim verified.
+
 ## Setup
 
 Requires Node ≥ 22.22 and pnpm (`corepack enable`).

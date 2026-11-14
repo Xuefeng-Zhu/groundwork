@@ -133,6 +133,7 @@ describe("citation-drift guard", () => {
       { target: T, llmUnsupported: new Map([["claim:0", new Set(["S3"])]]) },
     );
     expect(a.uncertain[0]!.confidenceReason).toMatch(/LLM support check/);
+    expect(a.citationsRemoved).toBe(1); // rejected, kept only as reference on the downgraded claim
   });
 });
 

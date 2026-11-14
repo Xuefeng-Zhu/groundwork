@@ -1,0 +1,435 @@
+{
+  "id": "5da67234-4b85-4bce-b737-464c734b45a1",
+  "title": "Pre-meeting brief: Figma",
+  "request": {
+    "target": "Figma",
+    "targetType": "company",
+    "meetingAt": "2026-11-20T15:00:00-08:00",
+    "purpose": "sales",
+    "officialDomain": "figma.com",
+    "windowDays": 30
+  },
+  "window": {
+    "start": "2026-10-21T23:00:00.000Z",
+    "end": "2026-11-20T23:00:00.000Z"
+  },
+  "generatedAt": "2026-11-14T22:36:51.106Z",
+  "engine": {
+    "search": "tavily",
+    "llm": "bifrost",
+    "model": "groq/openai/gpt-oss-120b"
+  },
+  "tldr": [
+    {
+      "text": "The company launched Code Layers beta and AI‑enhanced tools (Specs, Select area) while adding 20 AI‑partner integrations via its Model Context Protocol.",
+      "sourceIds": [
+        "S2",
+        "S4",
+        "S5",
+        "S14"
+      ]
+    },
+    {
+      "text": "Figma bundled advanced AI features into existing plans, triggering a 12% share drop, as competitors like Adobe roll out rival AI design tools.",
+      "sourceIds": [
+        "S10",
+        "S11"
+      ]
+    }
+  ],
+  "keyDevelopments": [
+    {
+      "id": "C8",
+      "text": "Figma released a macOS‑only AI image‑editing tool called “Select area” that automatically selects objects in images.",
+      "category": "product",
+      "date": "2026-11-07T00:00:00.000Z",
+      "sourceIds": [
+        "S14"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 0.77
+    },
+    {
+      "id": "C4",
+      "text": "Q3 2026 revenue grew 43% year‑over‑year to $391.4 million.",
+      "category": "financials",
+      "date": "2026-11-04T00:00:00.000Z",
+      "sourceIds": [
+        "S7",
+        "S8"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source + 2 outlets",
+      "grounding": 1
+    },
+    {
+      "id": "C3",
+      "text": "Figma began open‑beta rollout of Code Layers, enabling code‑backed prototypes on the design canvas, on Oct 14 2026.",
+      "category": "product",
+      "date": "2026-10-14T00:00:00.000Z",
+      "sourceIds": [
+        "S4",
+        "S7"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source + 2 outlets",
+      "grounding": 0.83
+    }
+  ],
+  "peopleChanges": [],
+  "uncertain": [
+    {
+      "id": "C11",
+      "text": "Adobe unveiled new AI upgrades, including Firefly Builder, that target similar design‑to‑code workflows, intensifying competition.",
+      "category": "news",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S11"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "weak support in source text (38%); single secondary source",
+      "grounding": 0.38
+    },
+    {
+      "id": "C9",
+      "text": "Figma launched a Markdown‑based editor called Specs to define design rules for AI agents and integrated it with the Payload headless CMS.",
+      "category": "product",
+      "date": "2026-11-09T00:00:00.000Z",
+      "sourceIds": [
+        "S5"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.79
+    },
+    {
+      "id": "C7",
+      "text": "Figma announced it will bundle advanced AI features—including auto‑layout suggestions and intelligent component generation—into existing subscriptions at no extra cost, causing its shares to fall 12%.",
+      "category": "risk",
+      "date": "2026-11-07T00:00:00.000Z",
+      "sourceIds": [
+        "S10"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.79
+    },
+    {
+      "id": "C10",
+      "text": "Analysts note AI‑driven features such as the Figma agent are driving stronger customer adoption.",
+      "category": "news",
+      "date": "2026-11-07T00:00:00.000Z",
+      "sourceIds": [
+        "S9"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.7
+    },
+    {
+      "id": "C5",
+      "text": "Figma raised its full‑year 2026 revenue forecast to $1.497 billion‑$1.499 billion and operating margin outlook to 11%.",
+      "category": "financials",
+      "date": "2026-11-04T00:00:00.000Z",
+      "sourceIds": [
+        "S6"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.82
+    },
+    {
+      "id": "C6",
+      "text": "The company expects Q4 2026 revenue growth to slow to about 33%.",
+      "category": "financials",
+      "date": "2026-11-04T00:00:00.000Z",
+      "sourceIds": [
+        "S6"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.75
+    }
+  ],
+  "talkingPoints": [
+    {
+      "text": "Highlight Figma’s expanding AI partner ecosystem (20 new partners) as a channel for co‑selling and integration opportunities.",
+      "sourceIds": [
+        "S2"
+      ]
+    },
+    {
+      "text": "Position Code Layers and Specs as differentiators that enable design‑to‑code workflows, appealing to engineering teams.",
+      "sourceIds": [
+        "S4",
+        "S5"
+      ]
+    },
+    {
+      "text": "Discuss the impact of bundling AI features on pricing perception and recent share decline to gauge openness to premium offerings.",
+      "sourceIds": [
+        "S10"
+      ]
+    },
+    {
+      "text": "Leverage Figma’s strong Q3 growth and raised guidance to argue for continued investment in the platform.",
+      "sourceIds": [
+        "S7",
+        "S6"
+      ]
+    },
+    {
+      "text": "Address competitive pressure from Adobe’s new AI tools and explore how Figma’s roadmap counters it.",
+      "sourceIds": [
+        "S11"
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "text": "How does Figma plan to monetize its AI features beyond bundling them into existing subscriptions?",
+      "why": "Bundling caused a 12% share drop, indicating revenue concerns.",
+      "sourceIds": [
+        "S10"
+      ]
+    },
+    {
+      "text": "What timeline does Figma have for expanding Code Layers beyond beta to all customers?",
+      "why": "Align sales outreach with product availability.",
+      "sourceIds": [
+        "S4"
+      ]
+    },
+    {
+      "text": "Will the Model Context Protocol partners receive joint go‑to‑market programs, and can we participate?",
+      "why": "Explore partnership co‑selling opportunities.",
+      "sourceIds": [
+        "S2"
+      ]
+    },
+    {
+      "text": "How does Figma anticipate Adobe’s Firefly Builder affecting its market share?",
+      "why": "Assess competitive risk and positioning.",
+      "sourceIds": [
+        "S11"
+      ]
+    },
+    {
+      "text": "What are the expectations behind the projected Q4 revenue growth slowdown—are cost‑efficiency initiatives that could affect pricing?",
+      "why": "Understand financial outlook and pricing implications.",
+      "sourceIds": [
+        "S6"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S2",
+      "url": "https://startupfortune.com/figma-opens-its-canvas-to-ai-coding-agents-answering-canvas-pivot",
+      "title": "Figma Opens Its Canvas to AI Coding Agents, Answering Canva's Pivot - Startup Fortune",
+      "domain": "startupfortune.com",
+      "publishedAt": "2026-11-02T01:42:56.000Z",
+      "snippet": "At Config India in Bengaluru on October 15, 2026, Figma announced 20 new partners for its Model Context Protocol server, the open standard that lets outside AI agents read and write inside a Figma file. According to a report from Crypto Briefing, the new partner list includes Amp, ClickUp, Dia, Junie by JetBrains, Linear, Meta Muse, Mistral, Notion, OpenCode and Sarvam Agents. Figma had already opened a narrower version of this in March, bringing on five partners focused on turning code into editable canvas objects. This expansion is the company tripling down on the same bet. [...] SF  Nov 13, 2026 · 11:01 PM  – Users OnlineOnline\n\nUS| INTERNATIONAL| ASIA| Discussions\n\nCommunity💬\n\nSF  Startup Fortune\n\nSearch\n\nMost Read\n\nAlibaba's Qoder makes a mystery coding… Claude Admits Recent Issues Used More… Taiwan stocks jump as regulators curb… Meta strategy chief Dave Wehner leaves… Alibaba's Qoder makes a mystery coding… Claude Admits Recent Issues Used More… Taiwan stocks jump as regulators curb… Meta strategy chief Dave Wehner leaves…\n\nHome › Business\n\n# Figma Opens Its Canvas to AI Coding Agents, Answering Canva's Pivot\n\nFigma added 20 Model Context Protocol partners, including Notion and Mistral, at its October 15 Config India event, months after Canva's COO declared the company an AI platform, not a template library.\n\nElroy Fernandes\n\n· 5 min read · 10.3K reads [...] Figma is turning AI from a design threat into new revenue\n\nFigma is turning AI from a design threat into new re",
+      "queryIds": [
+        "Q1",
+        "Q2",
+        "Q4",
+        "Q5"
+      ],
+      "categories": [
+        "news",
+        "product",
+        "funding",
+        "partnerships"
+      ],
+      "score": 0.7570767,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "SF Nov 13, 2026 · 11:01 PM – Users OnlineOnline US| INTERNATIONAL| ASIA| Discussions Community💬 SF Startup Fortune Search Most Read Alibaba's Qoder makes a mystery coding… Claude Admits Recent Issues Used More… Taiwan stocks jump as regulators curb… Meta strategy chief Dave Wehner leaves… Alibaba's Qoder makes a mystery coding… Claude Admits Recent Issues Used More… Taiwan stocks jump as regulators curb… Meta strategy chief Dave Wehner leaves… Home › Business Figma Opens Its Canvas to AI Coding Agents, Answering Canva's Pivot Figma added 20 Model Context Protocol partners, including Notion and Mistral, at its October 15 Config India event, months after Canva's COO declared the company an AI platform, not a template library. Elroy Fernandes · 5 min read · 10.3K reads Figma Opens Its Canvas to AI Coding Agents, Answering Canva's Pivot Figma just told Claude Code and Cursor they can edit your design files directly. That's not a small feature update, it's a bet on who controls the next layer of creative work. At Config India in Bengaluru on October 15, 2026, Figma announced 20 new partners for its Model Context Protocol server, the open standard that lets outside AI agents read and write inside a Figma file. According to a report from Crypto Briefing, the new partner list includes Amp, ClickUp, Dia, Junie by JetBrains, Linear, Meta Muse, Mistral, Notion, OpenCode and Sarvam Agents. Figma had already opened a narrower version of this in March, bringing on five partners focused on turning code into editable canvas objects. This expansion is the company tripling down on the same bet. Here's what the protocol actually does. A tool like Claude Code or Cursor can now query a Figma file for its layout, type styles, color tokens and component structure, then write changes back into that file, not just read a flat export. Figma's own help documentation lists Claude Code, Cursor, Windsurf, VS Code and Codex among the supported clients. A developer no longer has to eyeball a PNG and guess the padding. The agent pulls the real auto-layout rules and component variants straight from the file. Not everyone at Figma is fully sold on the plumbing underneath it. Dylan Field, the company's co-founder, posted on X that MCP is \"not a perfect protocol,\" pointing out that Anthropic, the company that created the standard, doesn't expose artifacts and other cloud resources created through MCP calls, which he said leaves asymmetric context-sharing problems unaddressed. It's a notable thing for a CEO to say in the same week his company adds 20 partners to that exact protocol. He's shipping the bet while publicly flagging its flaws. This is where the timing gets interesting. Back on April 16, 2026, at Canva Create in Los Angeles, chief operating officer Cliff Obrecht told the crowd that Canva was shifting from \"a design platform with AI tools\" to \"an AI platform with design tools.\" The company launched Canva AI 2.0 around a new in-house foundation model it calls the Canva Design Model, built to understand design hierarchy well enough to orchestrate layout engines, asset libraries and typography on its own. Feed it a plain-English prompt, like \"build me a 12-page pitch deck,\" and it hands back editable vectors, not a flattened image. TechCrunch reported that Canva's assistant can now call on multiple internal tools in sequence to assemble a design rather than generating one static output. Figma is turning AI from a design threat into new revenue Figma is turning AI from a design threat into new revenue Figma reported Q1 revenue of $333.4 million, up 46% year over year, and raised its 2026 revenue outlook. Early AI credit usage and MCP adoption suggest AI may be expanding Figma's platform rather than replacing it. - how AI is changing design software revenue - turning AI threats into new product revenue streams The platform also keeps a persistent memory of a brand's style and fonts, and it connects to Gmail, Slack, Drive and Zoom so it can pull a meeting tra",
+      "extracted": true
+    },
+    {
+      "id": "S4",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/figma-announces-third-quarter-2026-210500127.html",
+      "title": "Figma Announces Third Quarter 2026 Financial Results",
+      "domain": "finance.yahoo.com",
+      "publishedAt": "2026-11-04T00:00:00.000Z",
+      "snippet": "Began rolling out Code Layers, which brings working code to the Figma canvas, in open beta on October 14, 2026. With Code Layers, teams can build, explore, edit, and compare code-backed prototypes directly on the Figma Design canvas—and push them all the way to production. Hosted Config India in Bengaluru in October 2026, bringing together thousands of product builders and customers to launch new ways for teams to collaborate across design, code, and content on Figma's platform. [...] During the three months ended September 30, 2026, the Figma MCP server was Figma's fastest-growing product as measured by growth in weekly active users. Total MCP usage grew 3x quarter-over-quarter, and write-back usage grew 4x quarter-over-quarter. In October 2026, Figma further improved and expanded its MCP server, launching integrations with 20 partners. Expanded the use of first-party and open-weight models in production. From July 1 through October 31, 2026, Figma more than doubled the share of work powered by our own post-trained design model. [...] \"Q3 revenue grew 43% year-over-year, coming in well ahead of our prior guidance as customers continued to expand seats and invest more deeply in Figma,\" said Praveer Melwani, Figma's CFO. \"We're seeing customers move from trying AI to making larger commitments, and the Figma agent is expanding how they use credits across our platform. That momentum, alongside improvements in AI cost efficiency, gives us confidence to raise our full-year revenue",
+      "queryIds": [
+        "Q1",
+        "Q2"
+      ],
+      "categories": [
+        "news",
+        "product"
+      ],
+      "score": 0.7633074,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "Oops, something went wrong Skip to navigation Skip to right column Sign in 1. My Portfolio 1. Watchlists 2. Portfolios 2. 1. Stocks 1. Most Active 2. Day Gainers 3. Day Losers 4. Trending 5. Highest Dividend 6. Large Cap 7. Small Cap 8. Most Expensive 9. Highest Beta 10. Pink Sheet 11. Unusual Volume 2. Crypto 1. Most Active 2. Day Gainers 3. Day Losers 3. Private Companies 1. 52 Week Gainers 2. Recently Funded 3. Most Funded 4. Options 1. Day Gainers 2. Day Losers 3. Highest Open Interest 4. Highest Implied Volatility 5. Sectors 1. Technology 2. Financial Services 3. Consumer Cyclical 4. Consumer Defensive 5. Communication Services 6. Healthcare 7. Industrials 6. Treasury Bonds 7. Currencies 8. World Indices 9. Commodities 10. ETFs 11. Mutual Funds 3. Nvidia CEO 4. 1. Anthropic IPO 2. Markets 1. Stock Market News 2. Real Estate 3. Magnificent 7 4. Private Markets 5. Futures & Derivatives 3. Originals 4. Newsletters 5. Economy & Policy 1. Earnings 2. Oil & Gas 3. Strait of Hormuz 4. Tariffs 5. Clean Energy 6. Tech 1. Aerospace & Defense 2. Enterprise Cloud 7. Exchange-Traded Funds 5. Research & Tools 1. Calendars 1. Earnings Calendar 2. IPO Calendar 3. Stock Splits 4. Economic Events 2. Screeners 1. Equities 2. Most Shorted 3. Most Active Penny Stocks 4. Analyst Strong Buy 3. Stock Comparison 4. Currency Converter 5. Advanced Charts 6. Community 6. Personal Finance 1. My Money BETA 2. Credit Cards 1. Compare Credit Cards 2. Best 0% APR Cards 3. Best Balance Transfer 4. Best Cash Back Cards 5. Best Travel Cards 3. Banking 1. CD Rates 2. Best High-Yield Savings 3. Best Money Market 4. Best Free Checking 5. Best Online Banks 4. Mortgage 1. Best Mortgage Lenders 2. Best Mortgage Rates 3. Mortgage Refinance 4. Mortgage Calculator 5. Mortgage Affordability Calculator 5. Student Loans 1. Federal vs. Private 2. FAFSA Guide 3. Student Loan Assistance 4. Student Loan Forgiveness 5. Paying Off Student Loans 6. Personal Loans 1. Best Personal Loans 2. Get Approved 3. Best Lenders 7. Insurance 1. Find Car Insurance 2. Types of Car Insurance 3. Car Insurance Discounts 4. Find Life Insurance 8. Taxes 1. How to File 2. Refund Status 3. Tax Extension 4. Child Tax Credit 9. Investing 1. Investing Basics 2. Real Estate Investing 3. Retirement Basics 10. Calculators 7. 1. Daily Shows 2. The 8:30 3. Sozzi Unleashed 4. The Daily Wolf 5. Market Hang 6. In the Loop 7. Deirdre Bosa Live 8. Weekly Shows 9. Built Different 10. How They Run 11. Power Players 12. The Big Idea 13. Trader Talk 14. ETF Report 15. FA Corner 16. More to Watch 1. Must-watch Interviews 2. Mag 7 3. Fed Watch 1. Deirdre Bosa Live! Deirdre Bosa Live! 2. AI Trending Huang allegations Stock market today Chip stocks surge CoreWeave earnings This is a paid press release. Contact the press release distributor directly with any inquiries. Business Wire Figma Announces Third Quarter 2026 Financial Results Business Wire 23 min read -0.34% Q3 revenue grew 43% year-over-year to $391.4 million, $16.4 million above the high-end of prior guidance. SAN FRANCISCO, November 04, 2026--(BUSINESS WIRE)--Figma, Inc. (NYSE:FIG) announced financial results today for its third quarter ended September 30, 2026. \"As code becomes a commodity, value is moving up the stack to design—and our Q3 results reflect that,\" said Dylan Field, Figma's CEO and co-founder. \"We're building the full-stack canvas for visual-first development: one that's built for collaboration, increasingly powered by our first-party model and native to the way teams design and build with AI. This is Figma's opportunity and what we believe will fuel our next phase of growth.\" \"Q3 revenue grew 43% year-over-year, coming in well ahead of our prior guidance as customers continued to expand seats and invest more deeply in Figma,\" said Praveer Melwani, Figma's CFO. \"We're seeing customers move from trying AI to making larger commitments, and the Figma agent is expanding how they use credits across our platform. That momentum, alongside improveme",
+      "extracted": true
+    },
+    {
+      "id": "S5",
+      "url": "https://almcorp.com/news/figma-launches-specs-help-ai-agents-follow-design-rules",
+      "title": "Figma Launches Specs to Help AI Agents Follow Design Rules",
+      "domain": "almcorp.com",
+      "publishedAt": "2026-11-09T21:00:00.000Z",
+      "snippet": "TechCrunch published the news regarding Figma’s first Config event in India. This article describes the features, specifies what Figma stated about their philosophy, and explores what remains unsaid. ## What Figma Announced Figma announced a new Markdown-based editor that defines a company’s design, imports design and code libraries, and integrates with the Payload headless content management system. The announcements were made at the company’s first Config event in India. Through some of the features, Figma hopes to provide its own agents and third-party agents with a more comprehensive definition of a brand’s design rules, ensuring they are more likely to adhere to them when using AI to create designs or code. The other announcements relate to code, tooling, and content management. [...] ## Code Layers Move To Open Beta In addition, Figma has also opened up its code layers feature to users in open beta. Code layers bring coding to design on the canvas, making for more interactive prototypes. Figma announced the new feature in June in a private beta. This week, at an India event, the company opened up the feature to more users to test. TechCrunch uses the term open beta and public beta to refer to the stage. Users can also prompt the agent to turn a design into code, or tweak a section of it, to iterate on a prototype. ## More Code, Not More Releases [...] CALL US AT: Get in Touch With Us AI-Powered Design Workflow Studio Home » News » Figma Launches Specs To Help AI Agents ",
+      "queryIds": [
+        "Q2"
+      ],
+      "categories": [
+        "product"
+      ],
+      "score": 0.81669897,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S6",
+      "url": "https://cnbc.com/2026/11/04/figma-fig-q3-earnings-report-2026.html",
+      "title": "Figma (FIG) Q3 earnings report 2026",
+      "domain": "cnbc.com",
+      "publishedAt": "2026-11-04T21:38:33.000Z",
+      "snippet": "Executives lifted the full-year forecast. Figma now anticipates an 11% operating margin, up from 9% as of August, and $1.497 billion to $1.499 billion in revenue, compared with $1.463 billion to $1.467 billion before. Analysts surveyed by LSEG were looking for $1.471 billion in 2026 revenue.\n\nThe company sees fourth-quarter revenue growth slowing to about 33%. Analysts polled by LSEG had predicted 28% growth.\n\nFigma's announcement comes a day after highly valued design software startup Canva said it would cut 22% of its employees. [...] The number of weekly users working at organizations that spend over $10,000 on Figma who used AI credits increased by almost 50% during the quarter, Figma said in the statement. The share of work the company's own AI model performs doubled, and the rate of people undoing AI-generated work has fallen.\n\n\"If there's certain actions that we can power for our customers at lower latency, lower cost, or similar quality to third party, we're open to that as well,\" Melwani said.\n\nExecutives will discuss the results with analysts on a conference call starting at 5 p.m. ET. [...] Shares have come down about 41% so far in 2026, while the S&P 500 index has gained 12%. Earlier this year, investors became concerned that artificial intelligence models could pose a competitive risk to Figma. Across much of software, AI panic has largely subsided as incumbents have posted persistent growth.\n\nFigma wants to benefit from the rising adoption of AI to build website",
+      "queryIds": [
+        "Q1",
+        "Q7"
+      ],
+      "categories": [
+        "news",
+        "risk"
+      ],
+      "score": 0.7221353,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S7",
+      "url": "https://investor.figma.com/files/content_files/Q3_26-Figma-Press-Release.pdf",
+      "title": "Q3'26 Press Release - Figma Investor Relations",
+      "domain": "investor.figma.com",
+      "publishedAt": null,
+      "snippet": "Figma Announces Third Quarter 2026 Financial Results Q3 revenue grew 43% year-over-year to $391.4 million, $16.4 million above the high-end of prior guidance. San Francisco, CA – November 4, 2026 – Figma, Inc. (NYSE:FIG) announced financial results today for its third quarter ended September 30, 2026. [...] • Began rolling out Code Layers, which brings working code to the Figma canvas, in open beta on October 14, 2026. With Code Layers, teams can build, explore, edit, and compare code-backed prototypes directly on the Figma Design canvas—and push them all the way to production. • Hosted Config India in Bengaluru in October 2026, bringing together thousands of product builders and customers to launch new ways for teams to collaborate across design, code, and content on Figma’s platform. [...] in well ahead of our prior guidance as customers continued to expand seats and invest more deeply in Figma,” said Praveer Melwani, Figma’s CFO. “We’re seeing customers move from trying AI to making larger commitments, and the Figma agent is expanding how they use credits across our platform. That momentum, alongside improvements in AI cost efficiency, gives us confidence to raise our full-year revenue and non-GAAP operating income outlook while continuing to invest in our AI capabilities.”",
+      "queryIds": [
+        "Q6"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.7527403,
+      "isPrimary": true,
+      "origin": "search"
+    },
+    {
+      "id": "S8",
+      "url": "https://simplywall.st/stocks/us/software/nyse-fig/figma/news/figma-fig-could-be-15-undervalued-after-third-quarter-result",
+      "title": "Figma (FIG) Could Be 15% Undervalued After Third Quarter Results - Simply Wall St News",
+      "domain": "simplywall.st",
+      "publishedAt": "2026-11-13T22:00:00.000Z",
+      "snippet": "United States / Software / NYSE:FIG # Figma (FIG) Could Be 15% Undervalued After Third Quarter Results Sasha Jovanovic ## Figma earnings event puts fresh focus on the stock Figma (FIG) just released third quarter and nine month results to September 30, 2026, giving investors new numbers on sales momentum and the pace at which losses are narrowing. The design software company reported third quarter revenue of US$391.42 million, compared with US$274.17 million a year earlier. Net loss was US$81.35 million, compared with US$1,097.02 million previously, and basic loss per share improved to US$0.15 from US$2.72. [...] > The moat is not that Figma has every individual feature. It is that design, code, collaboration, company context and now agents can all live in the same environment. > > Why the market still reacted badly > > The initial 15% decline was mostly about the cost of delivering all this growth. Free cash flow margin was 14%, compared with 24% a year earlier, and Figma recorded a $117 million GAAP operating loss. Increased AI inference spending was the largest driver of the weaker cash-flow comparison. Many of the new products are also still in beta, meaning Figma is covering the AI costs without yet charging customers for their usage. See why 65 investors see Figma as 15% undervalued. Result: Fair Value of $22.36 (UNDERVALUED) [...] Despite the stronger quarterly report, Figma’s recent share price return tells a different story. The stock is down 13.05% on a 30 day share",
+      "queryIds": [
+        "Q1"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.7348813,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S9",
+      "url": "https://simplywall.st/community/narratives/us/software/nyse-fig/figma/ikz4cfwi-update-for-figma/updates/4-analysts-have-trimmed-the-average-figma-price-target-by-arou",
+      "title": "FIG: AI Demand Looks Real, Monetization Still Sets The Ceiling",
+      "domain": "simplywall.st",
+      "publishedAt": "2026-11-07T03:15:11.000Z",
+      "snippet": "Figma reported Q3 2026 financial results with a 43% year over year revenue increase, supported by stronger customer adoption and wider use of AI features such as the Figma agent. Source: company results coverage. The company raised its full year 2026 revenue and non GAAP operating income guidance, citing momentum from AI products and cost efficiency efforts. Source: company results coverage. Figma's leadership, including CFO Praveer Melwani, indicated that management is prioritizing longer term benefits from AI investments even as the company anticipates a slower revenue growth rate ahead. Source: company commentary. [...] Bullish analysts point to Q3 revenue that was 4% above consensus and EBIT margin that was 580 basis points above estimates as evidence that Figma is executing well against current expectations, which supports arguments for maintaining or only modestly trimming valuation multiples. Some bullish analysts highlight that Figma delivered Q3 revenue and profitability ahead of expectations, with full year 2026 guidance raised ahead of consensus across the board. They see this as supportive of the medium term growth story even as nearer term assumptions are refined. [...] The update on Figma's Q3 2026 performance came shortly after Canva announced a 22% workforce reduction, which puts two different approaches to cost structure and growth in the design software sector in focus for investors. Source: comparative industry reporting. Figma, Inc. (NYSE: FIG) has been ad",
+      "queryIds": [
+        "Q1"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.76629364,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S10",
+      "url": "https://techbuzz.ai/articles/figma-sinks-despite-q3-beat-on-ai-feature-giveaway-strategy",
+      "title": "Figma Sinks Despite Q3 Beat on AI Feature Giveaway Strategy | The Tech Buzz",
+      "domain": "techbuzz.ai",
+      "publishedAt": "2026-11-07T22:00:00.000Z",
+      "snippet": "## People Also Ask Figma shares fell 12% despite beating Q3 2026 earnings estimates because the company announced it would bundle advanced AI features into existing subscriptions at no additional cost. This strategy sacrifices near-term revenue to lock in users and establish long-term market dominance in AI-powered design. Figma is bundling advanced AI features including auto-layout suggestions, intelligent component generation, and AI-powered design assistance into existing subscription tiers. The company reported that teams using these AI features are creating 30% more design files and collaborating at higher rates. [...] Figma just pulled off what should have been a victory lap, but Wall Street isn't celebrating. The collaborative design platform reported Q3 2026 results that topped analyst expectations across the board, yet shares tumbled as much as 12% in extended trading after the company revealed it's giving away what could have been a lucrative revenue stream. The culprit? Figma's decision to bundle advanced artificial intelligence features into existing subscription tiers without raising prices. It's the kind of move that makes strategic sense if you squint at the long game, but it sent investors scrambling to recalculate their models for 2027 and beyond. Advertisement [...] Listen to this article6 min listen 00:0006:00 Figma shares plunged in after-hours trading Wednesday despite beating Q3 2026 earnings expectations, as investors balked at the design platform's dec",
+      "queryIds": [
+        "Q1"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.7570767,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S11",
+      "url": "https://techjuice.pk/adobe-reveals-massive-ai-upgrades-firefly-builder-mcp-integration",
+      "title": "Adobe Reveals New AI Upgrades, Firefly Builder & MCP Integration",
+      "domain": "techjuice.pk",
+      "publishedAt": "2026-11-10T15:49:11.000Z",
+      "snippet": "Adobe’s Firefly app is aggressively moving into Figma’s territory. Currently, the company offers a new prototyping tool called Builder in a private beta. This tool lets users create designs to effectively show off their ideas. Besides that, Adobe introduced a new tool to create on-brand graphs. Furthermore, an innovative image editing tool now lets you change specific parts of an image without altering other surrounding objects.",
+      "queryIds": [
+        "Q2",
+        "Q5"
+      ],
+      "categories": [
+        "product",
+        "partnerships"
+      ],
+      "score": 0.57332015,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S14",
+      "url": "https://figma.com/release-notes",
+      "title": "Figma product news and release notes",
+      "domain": "figma.com",
+      "publishedAt": "2026-11-07T02:00:00.000Z",
+      "snippet": "New release Desktop app Figma Design Design Assets Select area is an AI image editing tool that lets you select part of an image to isolate or erase it. You can now click an object in an image and Figma selects it for you, so you no longer have to trace around it by hand. Available on the macOS desktop app only. Download the macOS desktop app ## Improvements to agent-generated vector illustrations and icons Update Figma Design AI Design [...] Learn more about generating and editing vectors with the Figma agent. ## Your prototype connections, now context for code layers New release Figma Design AI Design Prototyping ## Your prototype connections, now context for code layers New release Figma Design AI Design Prototyping [...] AI Design Editing your generative plugins and shaders now creates a new version, preserving previous versions of your tools for you to revisit and restore. Each new version gets an agent-generated description to form a change log and provide a view of which version is currently published. Rolling out this week. Learn more about version history for generative plugins and shaders. Load more",
+      "queryIds": [
+        "Q6"
+      ],
+      "categories": [
+        "news"
+      ],
+      "score": 0.5193233,
+      "isPrimary": true,
+      "origin": "search"
+    }
+  ],
+  "stats": {
+    "sourcesReviewed": 40,
+    "sourcesCited": 10,
+    "claimsVerified": 3,
+    "claimsUncertain": 6,
+    "claimsDropped": 1,
+    "citationsRemoved": 0,
+    "sitePages": 0,
+    "tavilyCalls": 9,
+    "tavilyCredits": 15,
+    "durationMs": 15283
+  },
+  "warnings": [
+    "Tavily Map on https://investor.figma.com/news-events/news failed: Tavily /map 500: {\"detail\":{\"error\":\"Internal server error\"}}",
+    "Tavily Map on https://figma.com/newsroom failed: Tavily /map 500: {\"detail\":{\"error\":\"Internal server error\"}}",
+    "Tavily Map on https://figma.com/news failed: Tavily /map 500: {\"detail\":{\"error\":\"Internal server error\"}}",
+    "No newsroom pages found on figma.com with Tavily Map.",
+    "Dropped unsupported statement — TL;DR not supported by its sources: \"Figma’s Q3 2026 results beat expectations, with revenue up 43% to $391.4 M and f\"",
+    "Citation check: removed 0 off-topic/unsupported citation(s) (lexical + entity check)."
+  ],
+  "demoData": false
+}

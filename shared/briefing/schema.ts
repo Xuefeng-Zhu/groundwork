@@ -193,7 +193,7 @@ export const briefingSchema = z.object({
     claimsVerified: z.number(),
     claimsUncertain: z.number(),
     claimsDropped: z.number(),
-    citationsRemoved: z.number().optional().describe("Citations the verifier removed as off-topic or unsupported"),
+    citationsRemoved: z.number().optional().describe("Citations the verifier rejected as off-topic or unsupported (removed, or kept only as reference on a claim downgraded to uncertain)"),
     sitePages: z.number().optional().describe("Official newsroom pages found via Tavily Map and extracted"),
     tavilyCalls: z.number().optional(),
     tavilyCredits: z.number().optional(),

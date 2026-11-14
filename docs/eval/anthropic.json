@@ -1,0 +1,422 @@
+{
+  "id": "150fd890-3ed0-4c7f-9796-3f2b7b0abecb",
+  "title": "Pre-meeting brief: Anthropic",
+  "request": {
+    "target": "Anthropic",
+    "targetType": "company",
+    "meetingAt": "2026-11-20T15:00:00-08:00",
+    "purpose": "sales",
+    "officialDomain": "anthropic.com",
+    "windowDays": 30
+  },
+  "window": {
+    "start": "2026-10-21T23:00:00.000Z",
+    "end": "2026-11-20T23:00:00.000Z"
+  },
+  "generatedAt": "2026-11-14T22:35:37.976Z",
+  "engine": {
+    "search": "tavily",
+    "llm": "bifrost",
+    "model": "groq/openai/gpt-oss-120b"
+  },
+  "tldr": [
+    {
+      "text": "Anthropic is targeting a $70‑$78 IPO price, seeking up to $64.35 bn in proceeds and a $1.3‑$1.45 tn valuation, with a likely Nov 19‑20 debut.",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ]
+    },
+    {
+      "text": "The company launched a suite of productivity tools—including Claude Meetings, Whiteboards, Sheets and Dashboards—coinciding with its IPO roadshow, nudging Microsoft shares down 2.2%.",
+      "sourceIds": [
+        "S2",
+        "S6",
+        "S9"
+      ]
+    },
+    {
+      "text": "Anthropic expanded its GSA partnership, giving U.S. government customers a 40% discount on Claude, while holding nearly $900 bn in computing commitments with Amazon and Google and backing from Broadcom, Micron, Microsoft and TSMC.",
+      "sourceIds": [
+        "S4",
+        "S1"
+      ]
+    }
+  ],
+  "keyDevelopments": [
+    {
+      "id": "C5",
+      "text": "On 2026‑11‑11 Anthropic released Claude Whiteboards and Claude Sheets (beta) and made Claude Dashboards (Claude Data) generally available on all paid plans.",
+      "category": "product",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S2",
+        "S6"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 1
+    },
+    {
+      "id": "C2",
+      "text": "Anthropic plans to sell 825 million shares in the IPO.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 1
+    },
+    {
+      "id": "C12",
+      "text": "Anthropic's IPO valuation target of $1.3‑$1.4 tn represents a substantial increase over its $965 bn valuation from the May 2026 funding round.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "2 independent outlets",
+      "grounding": 0.91
+    },
+    {
+      "id": "C7",
+      "text": "Anthropic expanded its partnership with the U.S. General Services Administration, offering government customers a 40% discount on Claude.",
+      "category": "partnerships",
+      "date": "2026-10-27T00:00:00.000Z",
+      "sourceIds": [
+        "S4"
+      ],
+      "confidence": "verified",
+      "confidenceReason": "primary source",
+      "grounding": 0.91
+    }
+  ],
+  "peopleChanges": [],
+  "uncertain": [
+    {
+      "id": "C6",
+      "text": "The product launch coincided with Anthropic's IPO roadshow and sent Microsoft shares down 2.2%.",
+      "category": "news",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S2"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.89
+    },
+    {
+      "id": "C10",
+      "text": "Media reports indicate Anthropic's valuation could exceed $1 tn, surpassing its May 2026 $965 bn private‑round valuation.",
+      "category": "financials",
+      "date": "2026-11-11T00:00:00.000Z",
+      "sourceIds": [
+        "S7"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "single secondary source",
+      "grounding": 0.6
+    },
+    {
+      "id": "C1",
+      "text": "Anthropic set an IPO price range of $70‑$78 per share, aiming to raise up to $64.35 bn and value the company at $1.3‑$1.45 tn, reportedly targeting a Nov 19‑20 debut.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed",
+      "grounding": 0.92
+    },
+    {
+      "id": "C3",
+      "text": "On 2026‑11‑10 Anthropic introduced two frontier AI models, Claude Fable 5.2 and Claude Mythos 5.2.",
+      "category": "product",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S3"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "figure(s) 11 not found in cited sources; single secondary source",
+      "grounding": 1
+    },
+    {
+      "id": "C4",
+      "text": "Anthropic launched Claude Meetings, a video‑call assistant that creates tasks during calls, on 2026‑11‑10.",
+      "category": "product",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S6"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "figure(s) 11, 10 not found in cited sources; single secondary source",
+      "grounding": 0.8
+    },
+    {
+      "id": "C8",
+      "text": "Anthropic has nearly $900 bn in computing commitments with partners Amazon and Google, and cornerstone investors Broadcom, Micron, Microsoft and TSMC.",
+      "category": "financials",
+      "date": "2026-11-10T00:00:00.000Z",
+      "sourceIds": [
+        "S1"
+      ],
+      "confidence": "uncertain",
+      "confidenceReason": "reported as rumour / unconfirmed; single secondary source",
+      "grounding": 1
+    }
+  ],
+  "talkingPoints": [
+    {
+      "text": "Discuss how Anthropic's Claude Meetings, Whiteboards, Sheets and Dashboards can integrate with our enterprise workflow solutions to boost productivity.",
+      "sourceIds": [
+        "S2",
+        "S6",
+        "S9"
+      ]
+    },
+    {
+      "text": "Explore partnership opportunities given Anthropic's 40% GSA discount, which could open doors to broader government contracts.",
+      "sourceIds": [
+        "S4"
+      ]
+    },
+    {
+      "text": "Assess the impact of Anthropic's near‑$900 bn computing commitments on potential joint infrastructure initiatives with Amazon or Google.",
+      "sourceIds": [
+        "S1"
+      ]
+    },
+    {
+      "text": "Consider the competitive dynamics as Anthropic's new office tools directly challenge Microsoft and Google, especially after the IPO launch.",
+      "sourceIds": [
+        "S2",
+        "S9"
+      ]
+    },
+    {
+      "text": "Evaluate how Anthropic's upcoming IPO proceeds might be allocated toward scaling compute resources and expanding product offerings.",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "text": "What timeline does Anthropic have for expanding its computing capacity beyond the current $900 bn commitments?",
+      "why": "Understanding capacity growth is key for potential infrastructure collaborations.",
+      "sourceIds": [
+        "S1"
+      ]
+    },
+    {
+      "text": "How does Anthropic plan to monetize the new Claude productivity suite across enterprise and government customers?",
+      "why": "Revenue models will affect partnership and sales strategies.",
+      "sourceIds": [
+        "S2",
+        "S6",
+        "S9"
+      ]
+    },
+    {
+      "text": "Will the IPO proceeds be earmarked for specific R&D initiatives, such as further frontier model development?",
+      "why": "Knowing fund allocation helps align our joint product roadmaps.",
+      "sourceIds": [
+        "S5",
+        "S8"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://reuters.com/business/anthropic-ipo-raise-much-644-billion-latest-draft-prospectus-shows-2026-11-10",
+      "title": "EXCLUSIVE: Anthropic eyes $1.4 trillion IPO valuation in test of Wall Street's AI fervor | Reuters",
+      "domain": "reuters.com",
+      "publishedAt": "2026-11-10T19:55:19.000Z",
+      "snippet": "The company has nearly $900 billion in computing commitments with partners including Amazon and Alphabet's Google, highlighting how its rapid growth depends on securing vast amounts of future computing capacity, some of which relies on financing beyond the company's control.\n\nTogether with investments from cornerstones, which include Broadcom (AVGO.O), Micron Technology (MU.O), Microsoft (MSFT.O) and TSMC (2330.TW), ⁠Anthropic's share ​offering will raise up to $90.4 billion.\n\nCertain Anthropic board members and entities related to them are set to buy up to $303 ​million of shares.\n\nAnthropic was last valued at $965 billion in a private funding round. It was founded in 2021 and is led by CEO Dario Amodei.\n\nGoldman Sachs and Morgan Stanley are the leading underwriters on the offering. [...] Anthropic's owners are plowing ahead despite a recent selloff across the tech landscape, as investors question whether the AI boom's returns will justify the massive spending and mounting debt costs in an elevated interest-rate environment.\n\nThe AI lab and some of ​its existing shareholders are aiming to raise up to $64.4 billion in the IPO by selling 825 million shares priced between $70 and $78 each. Shares are expected to start trading on ​the Nasdaq on November 19 under the symbol \"ANT.\"\n\nAnthropic will also raise $26 billion via a separate private placement deal with cornerstone investors, including Alphabet's (GOOGL.O) Google, Nvidia (NVDA.O) — ⁠whose CEO is subject to a probe over hi",
+      "queryIds": [
+        "Q1",
+        "Q4"
+      ],
+      "categories": [
+        "news",
+        "funding"
+      ],
+      "score": 0.82261705,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S2",
+      "url": "https://finance.yahoo.com/technology/article/anthropics-new-claude-product-drop-just-sent-a-message-to-these-3-tech-stocks-133421409.html",
+      "title": "Anthropic's new Claude product drop just sent a message to these 3 tech stocks",
+      "domain": "finance.yahoo.com",
+      "publishedAt": "2026-11-11T22:00:00.000Z",
+      "snippet": "Coinciding with its roadshow launch, Anthropic released several new features late Tuesday, including Claude Whiteboards and Claude Sheets in beta. It also pushed Claude Dashboards to general availability as Claude Data. The tools are available on all paid plans and extend Anthropic's efforts to bring more functionality directly within Claude.\n\nThe unveiling sent Microsoft (MSFT) shares down 2.2% amid fears of a true new rival to the tech giant's Office franchise. [...] \"Claude Meetings, which has been marked as 'coming soon' by Anthropic, lets a user add Claude to a call to take notes on the conversation as well as update documents and take actions on behalf of the user regarding items that came up on the call,\" Ader wrote. \"Monday recently launched 'AI Notetaker' and Asana launched 'AI Meetings' where their tools perform similar tasks as Claude Meetings. Join a call, transcribe the conversation, and take action deliverables exiting the meeting. For Zoom, the overlap spans My Notes for transcription, summaries and next steps, built-in Meeting Summary for shared meeting recaps, and ZoomMate for creating deliverables and executing follow-up workflows across connected apps. My Notes already works across Zoom, third-party platforms, and in-person [...] \"There is no question given Anthropic's unprecedented growth, deep technical expertise and substantial financial resources this new product offering bears watching,\" Stifel analyst Brad Reback wrote to clients. \"That said, we do NO",
+      "queryIds": [
+        "Q1",
+        "Q2"
+      ],
+      "categories": [
+        "news",
+        "product"
+      ],
+      "score": 0.8080672,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "Oops, something went wrong Skip to navigation Skip to right column Sign in 1. My Portfolio 1. Watchlists 2. Portfolios 2. 1. Stocks 1. Most Active 2. Day Gainers 3. Day Losers 4. Trending 5. Highest Dividend 6. Large Cap 7. Small Cap 8. Most Expensive 9. Highest Beta 10. Pink Sheet 11. Unusual Volume 2. Crypto 1. Most Active 2. Day Gainers 3. Day Losers 3. Private Companies 1. 52 Week Gainers 2. Recently Funded 3. Most Funded 4. Options 1. Day Gainers 2. Day Losers 3. Highest Open Interest 4. Highest Implied Volatility 5. Sectors 1. Technology 2. Financial Services 3. Consumer Cyclical 4. Consumer Defensive 5. Communication Services 6. Healthcare 7. Industrials 6. Treasury Bonds 7. Currencies 8. World Indices 9. Commodities 10. ETFs 11. Mutual Funds 3. 1. Anthropic IPO 2. Markets 1. Stock Market News 2. Real Estate 3. Magnificent 7 4. Private Markets 5. Futures & Derivatives 3. Originals 4. Newsletters 5. Economy & Policy 1. Earnings 2. Oil & Gas 3. Strait of Hormuz 4. Tariffs 5. Clean Energy 6. Tech 1. Aerospace & Defense 2. Enterprise Cloud 7. Exchange-Traded Funds 4. Research & Tools 1. Calendars 1. Earnings Calendar 2. IPO Calendar 3. Stock Splits 4. Economic Events 2. Screeners 1. Equities 2. Most Shorted 3. Most Active Penny Stocks 4. Analyst Strong Buy 3. Stock Comparison 4. Currency Converter 5. Advanced Charts 6. Community 5. Personal Finance 1. My Money BETA 2. Credit Cards 1. Compare Credit Cards 2. Best 0% APR Cards 3. Best Balance Transfer 4. Best Cash Back Cards 5. Best Travel Cards 3. Banking 1. CD Rates 2. Best High-Yield Savings 3. Best Money Market 4. Best Free Checking 5. Best Online Banks 4. Mortgage 1. Best Mortgage Lenders 2. Best Mortgage Rates 3. Mortgage Refinance 4. Mortgage Calculator 5. Mortgage Affordability Calculator 5. Student Loans 1. Federal vs. Private 2. FAFSA Guide 3. Student Loan Assistance 4. Student Loan Forgiveness 5. Paying Off Student Loans 6. Personal Loans 1. Best Personal Loans 2. Get Approved 3. Best Lenders 7. Insurance 1. Find Car Insurance 2. Types of Car Insurance 3. Car Insurance Discounts 4. Find Life Insurance 8. Taxes 1. How to File 2. Refund Status 3. Tax Extension 4. Child Tax Credit 9. Investing 1. Investing Basics 2. Real Estate Investing 3. Retirement Basics 10. Calculators 6. 1. Daily Shows 2. The 8:30 3. Sozzi Unleashed 4. The Daily Wolf 5. Market Hang 6. In the Loop 7. Deirdre Bosa Live 8. Weekly Shows 9. Built Different 10. How They Run 11. Power Players 12. The Big Idea 13. Trader Talk 14. ETF Report 15. FA Corner 16. More to Watch 1. Must-watch Interviews 2. Mag 7 3. Fed Watch 1. Deirdre Bosa Live! Deirdre Bosa Live! 2. AI AI Trending Stock market today Nvidia live updates Goldman Sachs' top stock picks CoreWeave earnings Yahoo Finance Anthropic's new Claude product drop just sent a message to these 3 tech stocks Brian Sozzi Brian Sozzi · Executive Editor 3 min read ANTH.PVT MSFT +0.59% On the eve of its much-hyped IPO, Anthropic (ANTH.PVT) is sending its latest message to the software space: We want a large piece of your business… in part to justify our exorbitant valuation. Coinciding with its roadshow launch, Anthropic released several new features late Tuesday, including Claude Whiteboards and Claude Sheets in beta. It also pushed Claude Dashboards to general availability as Claude Data. The tools are available on all paid plans and extend Anthropic's efforts to bring more functionality directly within Claude. The unveiling sent Microsoft (MSFT) shares down 2.2% amid fears of a true new rival to the tech giant's Office franchise. \"There is no question given Anthropic's unprecedented growth, deep technical expertise and substantial financial resources this new product offering bears watching,\" Stifel analyst Brad Reback wrote to clients. \"That said, we do NOT expect these products to have any meaningful impact on M365 growth rates for the foreseeable future based on deep enterprise integration, security/governance and MSFT's complete commitment to ensuring cu",
+      "extracted": true
+    },
+    {
+      "id": "S3",
+      "url": "https://cnbc.com/2026/11/10/anthropic-sets-price-range-of-70-to-78-in-upcoming-ipo.html",
+      "title": "Anthropic sets price range of $70 to $78 in upcoming IPO as AI lab marches toward Nasdaq",
+      "domain": "cnbc.com",
+      "publishedAt": "2026-11-10T11:40:11.000Z",
+      "snippet": "Anthropic CEO Dario Amodei co-founded the AI lab in 2021 after he and a small group of researchers defected from OpenAI, now its chief rival. Anthropic is best known for developing a family of AI models called Claude, and the company primarily sells its products and services to other businesses.\n\nOn Monday, Anthropic introduced two new AI models, Claude Fable 5.2 and Claude Mythos 5.2, the first time the company has released so-called “frontier” models since Amodei called to slow down the pace of AI development in September. Anthropic said the models went through rigorous safety and alignment testing, and that the company developed new evaluations and post-launch monitoring tools ahead of the release.",
+      "queryIds": [
+        "Q2",
+        "Q3"
+      ],
+      "categories": [
+        "product",
+        "people"
+      ],
+      "score": 0.74372685,
+      "isPrimary": false,
+      "origin": "search",
+      "content": "In this article Anthropic said it will offer 825 million shares in its upcoming IPO at a price range between $70 and $78 per share, according to an updated filing on Tuesday, bringing the 5-year-old artificial intelligence lab a step closer to a potentially historic Nasdaq debut. The company is planning to price on Nov. 18 and trade on Nov. 19, according to people familiar with the details who were granted anonymity because they were not authorized to speak publicly. Anthropic is targeting retail allocation of about 20%, the people said, a much higher percentage than the typical initial public offering, which is 5% to 10% for retail investors. At the high end of the range, Anthropic would net up to $64.35 billion in proceeds through the IPO. The company could end up being worth up to $1.405 trillion on a fully diluted basis, rising from the $965 billion valuation it announced as part of a funding round in May. Anthropic said it has entered into an agreement with Advanced Micro Devices, Broadcom, Google, Micron, Microsoft, Nvidia and Taiwan Semiconductor Manufacturing Co. to purchase $26 billion of the company's Class N common stock in a private placement at a price per share equal to the IPO price. The shares sold in the private placement will not be registered in the offering and will not be subject to lock-up agreements with the underwriters, the company said. As Anthropic executives get set to pitch the offering to investors, they have to contend with a tumultuous political environment, following last week's midterm elections that included a Democratic sweep in Congress and the passage of numerous statewide ballot measures that could slow the AI buildout. They're also facing a public market that's grown increasingly skeptical of the AI trade on concern that rising interest rates will make debt unaffordable for companies that need it for costly infrastructure purchases. CNBC reported last week that some Anthropic investors were bracing for a lower valuation than had previously been expected. While Anthropic had been looking toward a $2 trillion valuation until recently, shareholders told CNBC that even $1.5 trillion is now in doubt, with one investor calling that number a \"stretch.\" Should Anthropic reach the Nasdaq this month as planned, under the ticker symbol \"ANT,\" the debut would come roughly five months after SpaceX went public in a record offering that raised $85.7 billion. Elon Musk's reusable rocket and AI company has a market cap of just under $2 trillion, around its valuation at the time of the IPO. Institutional demand for Anthropic is even stronger than it was for SpaceX at this point in the process, the people said. The company's book is already covered at the $70 to $78 per share range on an allocable basis, they said. Anthropic CEO Dario Amodei co-founded the AI lab in 2021 after he and a small group of researchers defected from OpenAI, now its chief rival. Anthropic is best known for developing a family of AI models called Claude, and the company primarily sells its products and services to other businesses. On Monday, Anthropic introduced two new AI models, Claude Fable 5.2 and Claude Mythos 5.2, the first time the company has released so-called frontier models since Amodei called to slow down the pace of AI development in September. Anthropic said that the models went through rigorous safety and alignment testing, and that the company developed new evaluations and post-launch monitoring tools ahead of the release. For the nine months ended Sept. 30, Anthropic said it generated $33.24 billion in revenue up roughly 1,200% from the same period last year. It reported a $104 billion net loss during the nine-month period, though most of that was due to the change in fair value of convertible notes and derivative liabilities. Anthropic lost $25.1 billion over the same stretch in 2025, the filing said. Anthropic said in its amended filing Tuesday that its run-rate revenue was roughly $81 billion at the end of Octo",
+      "extracted": true
+    },
+    {
+      "id": "S4",
+      "url": "https://anthropic.com/news/expanding-partnership-gsa",
+      "title": "Expanding our partnership with GSA to bring Claude to all levels of government \\ Anthropic",
+      "domain": "anthropic.com",
+      "publishedAt": "2026-10-27T00:00:00.000Z",
+      "snippet": "# Expanding our partnership with GSA to bring Claude to all levels of government Expanding our partnership with GSA to bring Claude to all levels of government Published Category : Partnerships Topics : Government capacity Partnerships Access Claude for Enterprise Cybersecurity Claude Code We are expanding our partnership with the General Services Administration (GSA) through a new agreement that gives government partners a 40% discount on Claude Enterprise, Claude for Government, and the Claude API. For the first time, the discount applies across every product surface, including when agencies buy from us directly today and through cloud providers in the coming months. The discount also extends to state, local, tribal and territorial governments. [...] We are also launching a dedicated program to help agencies implement and make the most of their Claude use. These programs are commonly leveraged by our private sector customers and we’re looking forward to bringing those best practices to our public sector partners in the coming weeks. Approximately 500 US federal, state, and local government organizations now use Claude. Weekly Claude for Government active users are up about eightfold since February, and usage across federal civilian agencies has grown about 20-fold in a year. Those organizations run some of the most important systems in the country, usually on tight budgets and with long procurement cycles. This agreement is built to support that work, so they can apply Clau",
+      "queryIds": [
+        "Q5",
+        "Q6"
+      ],
+      "categories": [
+        "partnerships",
+        "news"
+      ],
+      "score": 0.7060891,
+      "isPrimary": true,
+      "origin": "search",
+      "content": "Expanding our partnership with GSA to bring Claude to all levels of government Expanding our partnership with GSA to bring Claude to all levels of government Published Category Partnerships We are expanding our partnership with the General Services Administration (GSA) through a new agreement that gives government partners a 40% discount on Claude Enterprise, Claude for Government, and the Claude API. For the first time, the discount applies across every product surface, including when agencies buy from us directly today and through cloud providers in the coming months. The discount also extends to state, local, tribal and territorial governments. We are also launching a dedicated program to help agencies implement and make the most of their Claude use. These programs are commonly leveraged by our private sector customers and we’re looking forward to bringing those best practices to our public sector partners in the coming weeks. Approximately 500 US federal, state, and local government organizations now use Claude. Weekly Claude for Government active users are up about eightfold since February, and usage across federal civilian agencies has grown about 20-fold in a year. Those organizations run some of the most important systems in the country, usually on tight budgets and with long procurement cycles. This agreement is built to support that work, so they can apply Claude to hard problems without a large upfront commitment. The discounts offered through the agreement are estimated to save the government $1 billion. Agencies are not bound by a minimum spend commitment and will be able to pay for the usage they consume. How Claude is helping public servants get more done Government agencies are using Claude to solve some of their most important challenges. Examples include managing backlogs, records and forms, and modernizing old code. Some of the ways agencies are using Claude include: Utah gave Claude Code to 34 developers across 10 state agencies. 80% had a working environment within 30 minutes, 71% reported saving 20+ hours by the end of the four-week pilot. A US state CIO confirmed their team was able to respond to a ransomware attack in 8 minutes vs. the usual 2-3 days thanks to Claude. A US federal security team used Claude Mythos to detect and patch the vulnerability that would have allowed for the takeover of a critical production system in about two days. A human penetration test the month before had missed it. A cybersecurity professional at a major agency found and patched bugs in critical financial systems. A US state IT developer moved nearly 900 API methods to a new framework in two days. The project had been scoped for a month. A US state IT director used Claude Code to document 12 legacy code repositories, mapping 467 database tables and flagging 27 risks along the way. More than half of the US states, some of the largest localities, and some of the countries largest critical infrastructure operators participated in our SLTT cyber defense program. Meeting government security requirements Agencies can use Claude for their most sensitive unclassified work. Claude for Government, which delivers Claude's coding and agentic work capabilities and provides near-feature parity with commercial offerings at a FedRAMP High authorization level, was made generally available on September 30. Agencies building their own tools can use Claude through Amazon Bedrock or Google Cloud’s Vertex AI. On Bedrock, Claude is authorized for FedRAMP High, with select models authorized for DoD IL4 and IL5 workloads in AWS GovCloud. On Vertex AI, Claude is authorized for FedRAMP High. Claude Enterprise is in process for FedRAMP Moderate authorization through the FedRAMP 20x program, marking the next evolution of how we are bringing the same innovative technology available commercially to the government. Getting started Government agencies can buy Claude at the OneGov discount through GSA's Multiple Award Schedule today. Whether your departme",
+      "extracted": true
+    },
+    {
+      "id": "S5",
+      "url": "https://finance.yahoo.com/markets/article/anthropic-seeks-14-trillion-valuation-in-ipo-130300928.html",
+      "title": "Anthropic seeks $1.4 trillion valuation in highly anticipated IPO, reportedly aiming for Nov. 19 or Nov. 20 debut",
+      "domain": "finance.yahoo.com",
+      "publishedAt": "2026-11-10T15:00:00.000Z",
+      "snippet": "The AI developer said in an updated filing Tuesday that it plans to sell 825 million shares at between $70 and $78 each. At the top of that range, the IPO would generate up to $64.35 billion in proceeds. On a fully diluted basis, which includes employee stock options and other securities, the frontier AI lab could be valued between roughly $1.3 trillion and $1.45 trillion. That would mark a substantial increase over the $965 billion valuation that Anthropic announced in a May funding round, but would be far below recent Wall Street estimates, which reached as high as $2 trillionin early October. Read more:Everything you need to know ahead of Anthropic's IPO [...] On top of the public offering, Anthropic is locking down an extra $26 billion on the side from tech's biggest heavyweights, including Nvidia (NVDA), Microsoft (MSFT), Google (GOOGL), TSMC (TSM), Broadcom (AVGO), AMD (AMD), and Micron (MU). Those companies are buying nonvoting Class N shares at the same price public investors will pay. Because this is a private deal, those tech giants won't face the standard six-month lockup window that typically prevents insiders from selling right after the debut. Anthropic plans to list on the Nasdaq under the ticker ANT. [...] Anthropic recently revealed revenue grew $1,206% to $33.2 billion through the first nine months of the year. The company also noted a staggering aggregate committed spend of $895.4 billion, which it said is primarily related to compute and infrastructure. Bu",
+      "queryIds": [
+        "Q4"
+      ],
+      "categories": [
+        "funding"
+      ],
+      "score": 0.81859183,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S6",
+      "url": "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks",
+      "title": "Anthropic launches Claude Meetings to turn workplace discussions into plans and tasks | TechCrunch",
+      "domain": "techcrunch.com",
+      "publishedAt": "2026-11-10T17:30:00.000Z",
+      "snippet": "Anthropic announced new workplace features on Tuesday, including Claude Meetings, which brings Claude into video calls to begin working on tasks while participants are still talking. The company also unveiled Claude Whiteboards and Claude Sheets. The launch of Anthropic’s new productivity-focused features comes just a few weeks after OpenAI unveiled a series of workplace tools that allow users to collaborate with ChatGPT to do things like visualize company information and create presentations, as both companies compete to turn their products into office suites of sorts to take on Microsoft and Google. Meta is also joining the competition with its Muse AI agent, which can build mini-apps on the fly to help users complete specific tasks. [...] Anthropic says Claude handles the initial setup of trackers and budgets, while allowing teams to continue refining and updating the same spreadsheet. Each spreadsheet can include multiple tabs, formulas, formatting, and dropdown menus. Claude also makes edits directly in cells alongside the team, and outlines each change so users can see what it did. Claude Sheets is available in beta on paid plans, on web, desktop and mobile. Anthropic also announced that Claude Data, formerly known as Claude Dashboards, is now generally available. The feature connects Claude to systems that companies use to keep their numbers, like a data warehouse or CRM. Users can ask questions, and Claude responds with dashboards, written data stories, or narrated vi",
+      "queryIds": [
+        "Q2"
+      ],
+      "categories": [
+        "product"
+      ],
+      "score": 0.8076124,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S7",
+      "url": "https://global.morningstar.com/en-ca/funds/which-canadian-funds-own-anthropic-ahead-its-ipo",
+      "title": "Which Canadian Funds Own Anthropic Ahead of Its IPO?",
+      "domain": "global.morningstar.com",
+      "publishedAt": "2026-11-11T11:00:00.000Z",
+      "snippet": "The firm hasn’t set a price range or listing date yet, but media reports point to a debut in the second half of November at a valuation above USD 1 trillion. That would top the USD 965 billion valuation from its May 2026 private funding round. #### Anthropic’s Valuation Has Soared With Each Funding Round Source: Pitchbook. Data as of November 4, 2026. PitchBook is a wholly owned subsidiary of Morningstar.Download CSV.",
+      "queryIds": [
+        "Q4"
+      ],
+      "categories": [
+        "funding"
+      ],
+      "score": 0.7981868,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S8",
+      "url": "https://businesschief.com/news/anthropic-targets-us-1-3tn-valuation-for-much-hyped-ipo",
+      "title": "Anthropic Targets US$1.3tn Valuation for Much-Hyped IPO | Business Chief",
+      "domain": "businesschief.com",
+      "publishedAt": "2026-11-10T15:54:07.000Z",
+      "snippet": "Youtube Placeholder Key facts Anthropic is targeting a valuation of US$1.3tn in its upcoming IPO, with the potential to reach as much as US$1.4tn The firm is offering 825 million shares at a price range of $US – US$78 per share, with proceeds of up to US$64.35bn at the top of the range Anthropic is planning to price on 18 November, with trading beginning the following day The company's valuation has grown significantly from US$965bn, first announced during a funding round in May Anthropic's two new AI models – Claude Fable 5.2 and Claude Mythos 5.2 – are 30% faster than their predecessors and cheaper to run ## Scepticism and political headwinds Anthropic is planning to price on 18 November and trade the following day, according to those familiar with the matter. [...] At the high end of the range, Anthropic would gain up to US$64.35bn in proceeds through the IPO. The firm could potentially be worth as much as US$1.4tn, up from the US$965bn valuation it first announced during a funding round in May. As Anthropic gets ready to pitch the offering to investors, it has to contend with a continuously unstable political environment, most recently caused by last week’s US midterm elections that saw a Democratic sweep in Congress that could slow the AI buildout. Additionally, Anthropic faces growing hostility among consumers, who have grown increasingly sceptical of the AI trade after concerns that AI could make debt unaffordable for companies that need it for expensive infrastructure",
+      "queryIds": [
+        "Q4"
+      ],
+      "categories": [
+        "funding"
+      ],
+      "score": 0.8062431,
+      "isPrimary": false,
+      "origin": "search"
+    },
+    {
+      "id": "S9",
+      "url": "https://bloomberg.com/news/articles/2026-11-10/anthropic-unveils-office-tools-ahead-of-ipo-taking-on-microsoft",
+      "title": "Anthropic Unveils Office Tools Ahead of IPO, Taking on Microsoft - Bloomberg",
+      "domain": "bloomberg.com",
+      "publishedAt": "2026-11-10T17:21:08.000Z",
+      "snippet": "Anthropic PBC is releasing a suite of tools that weave the company’s artificial intelligence capabilities into more everyday office work, a move that puts it in sharper competition with two of its backers: Microsoft Corp. and Alphabet Inc.’s Google. The features, set to be unveiled at a company event on Tuesday, include a video call assistant, a data dashboard tool and a spreadsheet service called Claude Sheets that closely resembles Microsoft Excel and Google Sheets, but with Anthropic’s AI built into it. Many of the new tools are available in a beta format for paid users. [...] “I think there’s a time and place for these Microsoft and Google products, especially for more advanced enterprise use cases,” Lin said. “But we’re hoping to show new ways of working inside Claude as well.” Anthropic also announced a way for companies such as Adobe Inc., Atlassian Corp. and Hubspot Inc. to embed a version of their existing apps within Claude. Anthropic has emerged as a partner and competitor to these and other firms, sparking fears at various points this year that AI could one day render legacy enterprise software products obsolete. [...] Anthropic has been working to bolster adoption of its services among a broader mix of business professionals as it nears a landmark public listing later this month. The Claude maker has previously seen strong demand among software engineers for using its tools to streamline the process of writing and debugging code. For now, Claude Sheets is a “fair",
+      "queryIds": [
+        "Q2"
+      ],
+      "categories": [
+        "product"
+      ],
+      "score": 0.7989722,
+      "isPrimary": false,
+      "origin": "search"
+    }
+  ],
+  "stats": {
+    "sourcesReviewed": 40,
+    "sourcesCited": 9,
+    "claimsVerified": 4,
+    "claimsUncertain": 6,
+    "claimsDropped": 0,
+    "citationsRemoved": 0,
+    "sitePages": 2,
+    "tavilyCalls": 10,
+    "tavilyCredits": 17,
+    "durationMs": 11682
+  },
+  "warnings": [
+    "Citation check: removed 0 off-topic/unsupported citation(s) (lexical + entity check)."
+  ],
+  "demoData": false
+}

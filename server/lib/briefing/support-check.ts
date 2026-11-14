@@ -38,7 +38,7 @@ export async function llmSupportCheck(
   const srcBlock = usedIds
     .map((id) => {
       const s = byId.get(id)!;
-      return `[${id}] ${s.title} (${s.domain})\n${(s.content || s.snippet).replace(/\s+/g, " ").slice(0, cfg.verifyLlmSourceChars)}`;
+      return `[${id}] ${s.title} (${s.domain})\n${(s.origin === "site" ? s.content || s.snippet : `${s.snippet} ${s.content ?? ""}`).replace(/\s+/g, " ").slice(0, cfg.verifyLlmSourceChars)}`;
     })
     .join("\n\n");
   const itemBlock = items.map((x) => `${x.key} | cites ${x.ids.join(",")} | ${x.text}`).join("\n");
@@ -46,7 +46,7 @@ export async function llmSupportCheck(
     {
       role: "system" as const,
       content:
-        'You are a strict fact-checker. For each statement, decide which of ITS cited sources directly support it (same subject company/person, and the key facts, names and numbers appear). A source about a different company, or that only mentions the subject in passing, does NOT support it. Return ONLY JSON: {"results":[{"key":string,"supported":[sourceId]}]} with one entry per statement.',
+        'You are a strict fact-checker. For each statement, decide which of ITS cited sources directly support it (same subject company/person, and the key facts, names and numbers appear). A source about a different company, or that only mentions the subject in passing, does NOT support it. Excerpts are partial: judge whether the source is about the same event and states its core fact; do not reject only because a minor detail (exact date wording, a secondary list item) is not in the excerpt. Return ONLY JSON: {"results":[{"key":string,"supported":[sourceId]}]} with one entry per statement.',
     },
     { role: "user" as const, content: `SOURCES:\n\n${srcBlock}\n\nSTATEMENTS (key | cites | text):\n${itemBlock}` },
   ];

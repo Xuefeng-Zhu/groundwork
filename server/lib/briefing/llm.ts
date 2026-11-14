@@ -110,16 +110,28 @@ export async function completeJson(
 ): Promise<LlmResult | null> {
   if (cfg.bifrostUrl) {
     try {
-      const { text, servedBy } = await openAiCompatible(
-        cfg.bifrostUrl,
-        undefined, // provider keys live inside Bifrost; optional virtual key below
-        cfg.bifrostModel,
-        messages,
-        cfg.llmTimeoutMs,
-        cfg.bifrostApiKey ? { "x-bf-vk": cfg.bifrostApiKey } : {},
-        // Bifrost-native failover: tried in order if the primary model errors or is rate-limited.
-        cfg.bifrostFallbacks.length ? { fallbacks: cfg.bifrostFallbacks } : {},
-      );
+      const call = (extra: Record<string, unknown>) =>
+        openAiCompatible(
+          cfg.bifrostUrl!,
+          undefined, // provider keys live inside Bifrost; optional virtual key below
+          cfg.bifrostModel,
+          messages,
+          cfg.llmTimeoutMs,
+          cfg.bifrostApiKey ? { "x-bf-vk": cfg.bifrostApiKey } : {},
+          // Bifrost-native failover: tried in order if the primary model errors or is rate-limited.
+          { ...(cfg.bifrostFallbacks.length ? { fallbacks: cfg.bifrostFallbacks } : {}), ...extra },
+        );
+      let res: Awaited<ReturnType<typeof call>>;
+      try {
+        res = await call({});
+      } catch (e) {
+        // Some providers (Groq) reject a reply that fails their own JSON-mode validation.
+        // Retry once in plain mode; parseJsonLoose tolerates fences and stray prose.
+        if (!/json_validate_failed|Failed to validate JSON/i.test((e as Error).message)) throw e;
+        warnings.push("Model reply failed provider JSON validation; retried once without JSON mode.");
+        res = await call({ response_format: { type: "text" } });
+      }
+      const { text, servedBy } = res;
       if (servedBy && servedBy !== cfg.bifrostModel) {
         warnings.push(`Bifrost failed over from ${cfg.bifrostModel} to ${servedBy}.`);
       }

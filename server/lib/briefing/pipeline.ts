@@ -195,7 +195,7 @@ export async function generateBriefing(
   const a = assemble(draft, sources, { target: targetRef(req), llmUnsupported: judged?.unsupported });
   if (a.dropped.length) warnings.push(...a.dropped.map((d) => `Dropped unsupported statement — ${d}`));
   warnings.push(
-    `Citation check: removed ${a.citationsRemoved} off-topic/unsupported citation(s)` +
+    `Citation check: rejected ${a.citationsRemoved} off-topic/unsupported citation(s)` +
       (judged ? ` (LLM support check by ${judged.model} on ${judged.checked} statements)` : " (lexical + entity check)") +
       ".",
   );

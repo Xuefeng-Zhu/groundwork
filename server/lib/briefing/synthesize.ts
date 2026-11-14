@@ -266,7 +266,7 @@ export function assemble(draft: Draft, sources: Source[], opts: AssembleOptions 
     if (r.removedCitations?.length) {
       citationsRemoved += r.removedCitations.length;
       citationNotes.push(
-        `"${(p.text ?? "").slice(0, 60)}": removed ${r.removedCitations.map((c) => `${c.id} (${c.reason})`).join(", ")}`,
+        `"${(p.text ?? "").slice(0, 60)}": ${r.downgraded ? "downgraded to uncertain, rejected" : "removed"} ${r.removedCitations.map((c) => `${c.id} (${c.reason})`).join(", ")}`,
       );
     }
     if (r.claim) claims.push(r.claim);
