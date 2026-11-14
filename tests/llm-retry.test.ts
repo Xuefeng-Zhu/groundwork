@@ -31,3 +31,10 @@ it("retries once without JSON mode when the provider rejects its own JSON valida
   expect(r?.provider).toBe("bifrost");
   expect(warnings[0]).toMatch(/retried once without JSON mode/);
 });
+
+it("strips ```json fences and reasoning tags from model replies (GLM style)", async () => {
+  const { parseJsonLoose } = await import("../server/lib/briefing/llm");
+  expect(parseJsonLoose('```json\n{"ok":true}\n```')).toEqual({ ok: true });
+  expect(parseJsonLoose('```JSON\n{"ok":1}')).toEqual({ ok: 1 }); // unterminated fence
+  expect(parseJsonLoose('<think>hmm {"no":1}</think>\nHere you go: {"ok":2}')).toEqual({ ok: 2 });
+});

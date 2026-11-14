@@ -32,7 +32,7 @@
 
 ## 6. Tavily + Bifrost, used properly
 - Tavily: `topic: news`, `start_date`/`end_date` = the window, `include_answer: false` (evidence, not answers), and Extract for grounding text.
-- Bifrost: an OpenAI-compatible gateway with provider keys kept out of the app, plus failover, caching, budgets and logs. The app falls back to OpenAI, then Anthropic, then an extractive drafter, so the brief always ships.
+- Bifrost: an OpenAI-compatible gateway with provider keys kept out of the app, plus failover, caching, budgets and logs. Our model chain is NVIDIA Nemotron 3 Ultra → Groq gpt-oss-120b → NVIDIA GLM-5.3 Flash, all through one endpoint. The app falls back to OpenAI, then Anthropic, then an extractive drafter, so the brief always ships.
 - *Talking point:* "Swapping models is a config change in Bifrost, not a code change."
 
 ## 7. Impact and who it's for

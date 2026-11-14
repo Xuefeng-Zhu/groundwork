@@ -159,10 +159,15 @@ export async function completeJson(
   return null;
 }
 
-/** Parse a JSON object from a model reply, tolerating ```json fences or leading prose. */
+/**
+ * Parse a JSON object from a model reply, tolerating ```json fences (GLM always adds them),
+ * an unterminated fence, reasoning tags, or leading/trailing prose.
+ */
 export function parseJsonLoose(text: string): unknown {
-  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const body = fenced?.[1] ?? text;
+  let body = text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+  const fenced = body.match(/```[a-z]*\s*([\s\S]*?)```/i);
+  if (fenced?.[1]) body = fenced[1];
+  else body = body.replace(/^```[a-z]*\s*/i, "").replace(/```\s*$/, "");
   try {
     return JSON.parse(body);
   } catch {

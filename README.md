@@ -163,9 +163,9 @@ BIFROST_MODEL=openai/gpt-4o-mini     # any provider/model you configured in Bifr
 pnpm dev
 ```
 
-#### Recommended: NVIDIA build primary, Groq fallback (both free, tested end to end)
+#### Recommended: NVIDIA Nemotron primary → Groq → NVIDIA GLM (all free, tested end to end)
 
-Bifrost has no built-in NVIDIA provider, so we register NVIDIA's OpenAI-compatible API (build.nvidia.com) as a custom provider and let Bifrost fail over to Groq when NVIDIA errors or rate-limits.
+Bifrost has no built-in NVIDIA provider, so we register NVIDIA's OpenAI-compatible API (build.nvidia.com) as a custom provider (`models: ["*"]`, so any NVIDIA-hosted model id works). The failover chain is **`nvidia/nvidia/nemotron-3-ultra-550b-a55b` → `groq/openai/gpt-oss-120b` → `nvidia/z-ai/glm-5.3-flash`**: Bifrost tries Groq when NVIDIA errors or rate-limits, and GLM on NVIDIA when Groq hits its free-tier limits too.
 
 ```bash
 export NVIDIA_API_KEY=nvapi-... GROQ_API_KEY=gsk_...
@@ -177,13 +177,13 @@ MOCK=0
 TAVILY_API_KEY=tvly-...
 BIFROST_URL=http://localhost:8080/v1
 BIFROST_MODEL=nvidia/nvidia/nemotron-3-ultra-550b-a55b
-BIFROST_FALLBACKS=groq/openai/gpt-oss-120b
+BIFROST_FALLBACKS=groq/openai/gpt-oss-120b,nvidia/z-ai/glm-5.3-flash
 LLM_MAX_SOURCES=12
 LLM_SOURCE_CHARS=450
-LLM_TIMEOUT_MS=100000
+LLM_TIMEOUT_MS=180000     # the whole chain runs inside one Bifrost request
 ```
 
-Real Snowflake run on Nemotron 3 Ultra: about 80 seconds, 6 verified and 5 uncertain claims ([docs/real-brief-snowflake-nemotron.md](docs/real-brief-snowflake-nemotron.md)). Groq's gpt-oss-120b answers in about 6 seconds with fewer verified claims, so it makes a fast fallback. When failover happens, the brief's notes say which model actually answered.
+Real Snowflake run on Nemotron 3 Ultra: about 80 seconds, 6 verified and 5 uncertain claims ([docs/real-brief-snowflake-nemotron.md](docs/real-brief-snowflake-nemotron.md)). Groq's gpt-oss-120b answers in about 6 seconds with fewer verified claims, so it makes a fast fallback. GLM-5.3 Flash on NVIDIA is the last resort: slower (about 15–40 s per call in our tests) and it wraps its JSON in ```json fences, which the parser strips. When failover happens, the brief's notes say which model actually answered.
 
 #### Free option: Groq only (tested end to end)
 
@@ -216,7 +216,7 @@ A real run (Snowflake, sales call) took about 6 seconds: 40 sources reviewed, 11
 | `BIFROST_URL` | — | Bifrost OpenAI-compatible base URL, e.g. `http://localhost:8080/v1` |
 | `BIFROST_MODEL` | `openai/gpt-4o-mini` | Bifrost `provider/model` id |
 | `BIFROST_API_KEY` | — | Optional Bifrost virtual key (`x-bf-vk`) |
-| `BIFROST_FALLBACKS` | — | Comma-separated Bifrost failover models, e.g. `groq/openai/gpt-oss-120b` |
+| `BIFROST_FALLBACKS` | — | Comma-separated Bifrost failover models, tried in order, e.g. `groq/openai/gpt-oss-120b,nvidia/z-ai/glm-5.3-flash` |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | — / `gpt-4o-mini` | Fallback if Bifrost is unset or fails |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | — / `claude-sonnet-4-5` | Second fallback |
 | `LLM_TIMEOUT_MS` | `60000` | Per-call model timeout |
