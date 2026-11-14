@@ -388,6 +388,7 @@ function BriefCard({ b }: { b: Briefing }) {
             <Pill tone="ok">{b.stats.claimsVerified} verified</Pill>
             <Pill tone="warn">{b.stats.claimsUncertain} uncertain</Pill>
             {b.stats.claimsDropped ? <Pill>{b.stats.claimsDropped} unsupported dropped</Pill> : null}
+            {b.stats.citationsRemoved ? <Pill>{b.stats.citationsRemoved} off-topic citations removed</Pill> : null}
             <Pill>
               {b.engine.search} + {b.engine.llm}
               {b.engine.model ? ` (${b.engine.model})` : ""}

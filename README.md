@@ -29,6 +29,8 @@ Give the agent a **company or person**, the **meeting time**, and optionally the
 4. **Drafts through Bifrost**: an LLM turns numbered sources `S1..Sn` into a strict JSON draft — TL;DR, dated claims with citations, talking points, open questions.
 5. **Verifies in code — the model proposes, the code decides**:
    - a citation that points at a source we didn't retrieve → the statement is **dropped**
+   - **citation-drift guard**: every citation is checked *on its own* — the source must be about the target (name or official domain in its title / URL / text) **and** share the claim's key names or figures. Off-topic citations are removed (and counted in the brief's notes); if no supporting citation is left the item becomes **uncertain**, or is dropped when all its citations were off-topic. TL;DR bullets with no supporting citation are dropped.
+   - optional **LLM support check** (`VERIFY_LLM=1`): one batched call to a cheap model (default `groq/openai/gpt-oss-120b` via Bifrost) judges which cited sources support each TL;DR bullet and claim. It can only remove citations; if it fails, the lexical guard still applies.
    - any **figure** (amounts, %, counts) not present in the cited source text → **uncertain**
    - weak lexical grounding of the claim's key terms in its sources → **uncertain**
    - **verified** only with **2+ independent outlets** *or* a **primary source** (official site / press wire)
@@ -81,13 +83,15 @@ flowchart LR
 | `server/lib/briefing/sources.ts` | URL canonicalisation, dedupe, window filter, primary-source detection, ranking |
 | `server/lib/briefing/llm.ts` | Bifrost (OpenAI-compatible) → OpenAI → Anthropic chain, tolerant JSON parsing |
 | `server/lib/briefing/synthesize.ts` | Prompt, LLM / mock / extractive drafters, section assembly and length caps |
-| `server/lib/briefing/verify.ts` | The trust layer: citation validity, figure check, grounding score, confidence |
+| `server/lib/briefing/verify.ts` | The trust layer: citation validity, per-citation drift guard (on-topic + shared entities/figures), figure check, grounding score, confidence |
+| `server/lib/briefing/support-check.ts` | Optional batched LLM support check (`VERIFY_LLM=1`) with graceful fallback |
 | `server/lib/briefing/fixtures.ts` | Fictional demo data for `MOCK=1` (`.example` domains) |
 | `shared/briefing/schema.ts` | Zod contracts used as action input/output schemas and by the UI |
 | `shared/briefing/markdown.ts`, `print.ts` | Markdown export and one-page print HTML |
 | `app/components/brief/BriefPage.tsx` | The UI: form, progress, brief card, history |
 | `server/plugins/agent-chat.ts` | Agent system prompt + first-turn tools |
 | `tests/pipeline.test.ts` | End-to-end test of the live path against stand-in Tavily/Bifrost servers |
+| `tests/citation-drift.test.ts` | Off-topic citation rejection (regression for the real Snowflake TL;DR drift) + LLM check fallback |
 
 ## How AI is used
 
@@ -185,6 +189,8 @@ A real run (Snowflake, sales call) took about 6 seconds: 40 sources reviewed, 11
 | `LLM_TIMEOUT_MS` | `60000` | Per-call model timeout |
 | `LLM_MAX_SOURCES` | `30` | Sources sent to the model (lower for small free tiers) |
 | `LLM_SOURCE_CHARS` | `1400` | Characters of each source sent to the model |
+| `VERIFY_LLM` | off | `1` adds a batched LLM support check of every citation (one extra call) |
+| `VERIFY_LLM_MODEL` | `groq/openai/gpt-oss-120b` | Bifrost model for that check |
 | `AUTH_DISABLED` | `true` in `.env.example` | Local dev without sign-in |
 | `OPENAI_BASE_URL` | — | (Framework) route the built-in chat agent through Bifrost |
 
@@ -214,7 +220,7 @@ curl -X POST http://localhost:8080/_agent-native/actions/generate-briefing \
 ## Limitations
 
 - Coverage is only as good as what Tavily indexes in the window; paywalled or very small outlets may be missing. Published dates are Tavily's best estimate.
-- Verification is lexical, not semantic: it proves the words and numbers are in the cited text, not that the sentence is a faithful paraphrase. An NLI/entailment check per claim is the next step.
+- The default verification is lexical + entity-based: it proves the target, names and numbers are in each cited text, not that the sentence is a faithful paraphrase. `VERIFY_LLM=1` adds a batched semantic check, but that is itself a model judgment (it can only remove citations, never add trust).
 - "Independent outlets" counts distinct root domains; syndicated wire copy on different domains can over-count.
 - Person disambiguation relies on the optional company field; common names can mix people.
 - Recent briefs are kept in browser localStorage only (no server-side history yet). Keys are read from deploy-level env vars; a multi-user deploy should move them to the framework's per-user credential store.

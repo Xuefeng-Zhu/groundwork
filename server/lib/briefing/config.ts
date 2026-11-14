@@ -21,6 +21,11 @@ export interface BriefingConfig {
   /** Prompt budget: how many sources, and how many characters of each, go to the model. Lower for small free tiers (e.g. Groq 8k TPM). */
   llmMaxSources: number;
   llmSourceChars: number;
+  /** Optional batched LLM support check of every citation (VERIFY_LLM=1), via Bifrost. */
+  verifyLlm: boolean;
+  verifyLlmModel: string;
+  verifyLlmTimeoutMs: number;
+  verifyLlmSourceChars: number;
 }
 
 function truthy(v: string | undefined): boolean {
@@ -51,6 +56,10 @@ export function getConfig(env: NodeJS.ProcessEnv = process.env): BriefingConfig 
     llmTimeoutMs: Number(env.LLM_TIMEOUT_MS ?? 60000) || 60000,
     llmMaxSources: Number(env.LLM_MAX_SOURCES ?? 30) || 30,
     llmSourceChars: Number(env.LLM_SOURCE_CHARS ?? 1400) || 1400,
+    verifyLlm: truthy(env.VERIFY_LLM),
+    verifyLlmModel: clean(env.VERIFY_LLM_MODEL) ?? "groq/openai/gpt-oss-120b",
+    verifyLlmTimeoutMs: Number(env.VERIFY_LLM_TIMEOUT_MS ?? 30000) || 30000,
+    verifyLlmSourceChars: Number(env.VERIFY_LLM_SOURCE_CHARS ?? 600) || 600,
   };
 }
 

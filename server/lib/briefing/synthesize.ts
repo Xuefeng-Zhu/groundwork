@@ -13,7 +13,7 @@ import {
 } from "../../../shared/briefing/schema";
 import { fixtureKey } from "./fixtures";
 import { titleTokens } from "./sources";
-import { ground, verifyClaim, type ProposedClaim } from "./verify";
+import { filterCitations, ground, isAboutTarget, verifyClaim, type ProposedClaim, type TargetRef } from "./verify";
 
 export interface Draft {
   tldr: Array<{ text: string; sourceIds?: string[] | undefined }>;
@@ -228,18 +228,46 @@ export interface Assembled {
   openQuestions: Array<{ text: string; why?: string | undefined; sourceIds: string[] }>;
   dropped: string[];
   citedIds: Set<string>;
+  /** citations removed by the drift guard (off-topic / no shared entities or figures / LLM judge) */
+  citationsRemoved: number;
+  citationNotes: string[];
+}
+
+export interface AssembleOptions {
+  /** the brief's target; enables the per-citation drift guard */
+  target?: TargetRef | undefined;
+  /** optional LLM judge verdicts: item key ("claim:3", "tldr:0") -> source ids that do NOT support it */
+  llmUnsupported?: Map<string, Set<string>> | undefined;
 }
 
 const PEOPLE_CATS: Category[] = ["people"];
 
-export function assemble(draft: Draft, sources: Source[]): Assembled {
+export function assemble(draft: Draft, sources: Source[], opts: AssembleOptions = {}): Assembled {
   const byId = new Map(sources.map((s) => [s.id, s]));
+  const t = opts.target;
   const validIds = (ids?: string[]) =>
-    [...new Set((ids ?? []).map((i) => String(i).toUpperCase()))].filter((i) => byId.has(i));
+    [...new Set((ids ?? []).map((i) => String(i).trim().toUpperCase()))].filter((i) => byId.has(i));
+  // Suggestions (talking points, questions) only need on-topic sources.
+  const onTopicIds = (ids?: string[]) => {
+    const v = validIds(ids);
+    if (!t) return v;
+    const keep = v.filter((i) => isAboutTarget(byId.get(i)!, t));
+    citationsRemoved += v.length - keep.length;
+    if (v.length > keep.length) citationNotes.push(`off-topic citation(s) ${v.filter((i) => !keep.includes(i)).join(", ")} removed from a suggestion`);
+    return keep;
+  };
   const dropped: string[] = [];
   const claims: Claim[] = [];
+  let citationsRemoved = 0;
+  const citationNotes: string[] = [];
   (draft.claims ?? []).forEach((p, i) => {
-    const r = verifyClaim(p, i, byId);
+    const r = verifyClaim(p, i, byId, t, opts.llmUnsupported?.get(`claim:${i}`));
+    if (r.removedCitations?.length) {
+      citationsRemoved += r.removedCitations.length;
+      citationNotes.push(
+        `"${(p.text ?? "").slice(0, 60)}": removed ${r.removedCitations.map((c) => `${c.id} (${c.reason})`).join(", ")}`,
+      );
+    }
     if (r.claim) claims.push(r.claim);
     else if (r.droppedReason) dropped.push(r.droppedReason);
   });
@@ -249,30 +277,41 @@ export function assemble(draft: Draft, sources: Source[]): Assembled {
 
   // TL;DR bullets are factual too: they must cite, be grounded, and carry no unsupported figures.
   const tldr: CitedText[] = [];
-  for (const t of draft.tldr ?? []) {
-    const ids = validIds(t.sourceIds);
+  (draft.tldr ?? []).forEach((b, i) => {
+    const valid = validIds(b.sourceIds);
+    if (!valid.length) {
+      dropped.push(`TL;DR without valid citation: "${b.text.slice(0, 80)}"`);
+      return;
+    }
+    // Each citation must stand on its own: about the target and sharing the bullet's names/figures.
+    const f = t ? filterCitations(b.text, valid, byId, t, opts.llmUnsupported?.get(`tldr:${i}`)) : { kept: valid, removed: [] };
+    if (f.removed.length) {
+      citationsRemoved += f.removed.length;
+      citationNotes.push(`TL;DR "${b.text.slice(0, 60)}": removed ${f.removed.map((c) => `${c.id} (${c.reason})`).join(", ")}`);
+    }
+    const ids = f.kept;
     if (!ids.length) {
-      dropped.push(`TL;DR without valid citation: "${t.text.slice(0, 80)}"`);
-      continue;
+      dropped.push(`TL;DR has no citation that supports it: "${b.text.slice(0, 80)}"`);
+      return;
     }
-    const g = ground(t.text, ids.map((i) => byId.get(i)!));
+    const g = ground(b.text, ids.map((x) => byId.get(x)!));
     if (g.missingFigures.length || g.score < 0.4) {
-      dropped.push(`TL;DR not supported by its sources: "${t.text.slice(0, 80)}"`);
-      continue;
+      dropped.push(`TL;DR not supported by its sources: "${b.text.slice(0, 80)}"`);
+      return;
     }
-    tldr.push({ text: t.text.trim(), sourceIds: ids });
-  }
+    tldr.push({ text: b.text.trim(), sourceIds: ids });
+  });
 
   const talkingPoints = (draft.talkingPoints ?? [])
     .filter((t) => t.text?.trim())
     .slice(0, 5)
-    .map((t) => ({ text: t.text.trim(), sourceIds: validIds(t.sourceIds) }));
+    .map((x) => ({ text: x.text.trim(), sourceIds: onTopicIds(x.sourceIds) }));
   const openQuestions = (draft.openQuestions ?? [])
     .filter((q) => q.text?.trim())
     .slice(0, 5)
     .map((q) => {
       const why = q.why?.trim();
-      return { text: q.text.trim(), ...(why ? { why } : {}), sourceIds: validIds(q.sourceIds) };
+      return { text: q.text.trim(), ...(why ? { why } : {}), sourceIds: onTopicIds(q.sourceIds) };
     });
 
   const keyDevelopments = verified.filter((c) => !PEOPLE_CATS.includes(c.category)).slice(0, 6);
@@ -292,5 +331,7 @@ export function assemble(draft: Draft, sources: Source[]): Assembled {
     openQuestions,
     dropped,
     citedIds,
+    citationsRemoved,
+    citationNotes,
   };
 }

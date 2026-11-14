@@ -28,7 +28,7 @@ async function withTimeout<T>(ms: number, fn: (signal: AbortSignal) => Promise<T
   }
 }
 
-async function openAiCompatible(
+export async function openAiCompatible(
   baseUrl: string,
   apiKey: string | undefined,
   model: string,

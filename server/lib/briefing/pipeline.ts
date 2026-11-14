@@ -19,7 +19,9 @@ import { completeJson, parseJsonLoose } from "./llm";
 import { computeWindow, planQueries } from "./planner";
 import { canonicalUrl, normalizeHits, type RawHit } from "./sources";
 import { assemble, buildMessages, heuristicDraft, mockDraft, type Draft } from "./synthesize";
+import { llmSupportCheck } from "./support-check";
 import { tavilyExtract, tavilySearch } from "./tavily";
+import { targetRef } from "./verify";
 
 export class BriefingError extends Error {
   constructor(
@@ -141,8 +143,16 @@ export async function generateBriefing(
     }
   }
 
-  const a = assemble(draft, sources);
+  // Optional semantic check (VERIFY_LLM=1): one batched call; failures fall back to the lexical guard.
+  const judged = cfg.mock ? null : await llmSupportCheck(cfg, draft, sources, warnings);
+  const a = assemble(draft, sources, { target: targetRef(req), llmUnsupported: judged?.unsupported });
   if (a.dropped.length) warnings.push(...a.dropped.map((d) => `Dropped unsupported statement — ${d}`));
+  warnings.push(
+    `Citation check: removed ${a.citationsRemoved} off-topic/unsupported citation(s)` +
+      (judged ? ` (LLM support check by ${judged.model} on ${judged.checked} statements)` : " (lexical + entity check)") +
+      ".",
+  );
+  if (a.citationNotes.length) warnings.push(...a.citationNotes.slice(0, 8).map((n) => `Citation removed — ${n}`));
   const cited = sources.filter((s) => a.citedIds.has(s.id));
 
   return {
@@ -165,6 +175,7 @@ export async function generateBriefing(
       claimsVerified: a.keyDevelopments.length + a.peopleChanges.length,
       claimsUncertain: a.uncertain.length,
       claimsDropped: a.dropped.length,
+      citationsRemoved: a.citationsRemoved,
       durationMs: (opts.research ? research.durationMs : 0) + (Date.now() - t0),
     },
     warnings,

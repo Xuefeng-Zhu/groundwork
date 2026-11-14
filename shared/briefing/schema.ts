@@ -178,6 +178,7 @@ export const briefingSchema = z.object({
     claimsVerified: z.number(),
     claimsUncertain: z.number(),
     claimsDropped: z.number(),
+    citationsRemoved: z.number().optional().describe("Citations the verifier removed as off-topic or unsupported"),
     durationMs: z.number(),
   }),
   warnings: z.array(z.string()),
