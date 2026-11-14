@@ -111,7 +111,8 @@ pnpm dev                      # open the printed URL → /home
 
 ```bash
 # 1) Start Bifrost and add a provider key in its UI at http://localhost:8080
-docker run -p 8080:8080 maximhq/bifrost
+npx -y @maximhq/bifrost            # no Docker needed
+# or: docker run -p 8080:8080 maximhq/bifrost
 
 # 2) Edit .env
 MOCK=0
