@@ -118,7 +118,7 @@ One brief = one small, fixed budget of Tavily calls (about **15–20 credits** f
 | Newsroom discovery (when `officialDomain` is given) | `POST /map` | `url` = newsroom index found from the official search hits (e.g. `…/en/news/press-releases`, fallback `/newsroom`, `/news`, `/blog`), `max_depth: 1`, `limit: 25`, `allow_external: false`, no `instructions` | Finds first-party pages search missed (exec hires, financings, partner announcements). Depth 1 and no `instructions` keep it at ~2–3 credits; a failed map costs nothing and is reported in the brief's notes. |
 | Full text | `POST /extract` | **one batched call**: top `TAVILY_EXTRACT_TOP` (4) search results + up to `TAVILY_SITE_PAGES` (4) mapped newsroom pages, `extract_depth: "basic"`, `format: "text"` | Full text makes the verifier's figure/entity checks meaningful. Mapped pages get their date from the URL or page text and go through the same window filter; navigation is trimmed before the article. 5 URLs = 1 credit. |
 
-`MOCK=1` makes no Tavily calls at all (fixtures stand in for search). Set `TAVILY_SITE_PAGES=0` to skip Map, `TAVILY_EXTRACT_TOP=0` to skip Extract of search results.
+`MOCK=1` makes no Tavily calls at all (fixtures stand in for search); the demo brief shows an estimate, marked "~ … (est.)", of the calls and credits the same plan costs live. Its fixture also includes a first-party newsroom page and an off-topic article the mock model cites, so the per-citation verifier visibly removes it. Set `TAVILY_SITE_PAGES=0` to skip Map, `TAVILY_EXTRACT_TOP=0` to skip Extract of search results.
 
 ## Evaluation
 

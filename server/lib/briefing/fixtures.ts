@@ -3,7 +3,9 @@
  * the reserved `.example` TLD and the UI shows a "demo data" banner. The fixtures
  * deliberately include edge cases the pipeline must handle: syndicated duplicates,
  * a tracking-param duplicate URL, an out-of-window article, an undated page,
- * single-source rumours, and a primary-source press release.
+ * single-source rumours, a primary-source press release, a first-party newsroom page
+ * (as Tavily Map would find it) and an off-topic article about a different company that
+ * the mock model wrongly cites (the per-citation verifier must remove it).
  */
 import type { BriefingRequest, Category, DateWindow, PlannedQuery } from "../../../shared/briefing/schema";
 import type { RawHit } from "./sources";
@@ -17,6 +19,7 @@ interface Fixture {
   title: string;
   content: string;
   score: number;
+  origin?: "search" | "site";
 }
 
 const COMPANY: Fixture[] = [
@@ -59,6 +62,12 @@ const COMPANY: Fixture[] = [
   { key: "risk", cat: "risk", daysBefore: 2, domain: "opsforum.example", path: "/threads/atlas-outage", score: 0.52,
     title: "Users report Atlas dashboard outage at {T}",
     content: "Several users reported that the Atlas cloud dashboard from {T} was unavailable for about three hours. {T} has not published an incident report." },
+  { key: "site-berlin", cat: "news", daysBefore: 8, domain: "{slug}.example", path: "/newsroom/berlin-engineering-hub", score: 0.6, origin: "site",
+    title: "{T} opens Berlin engineering hub",
+    content: "Newsroom. {T} today opened an engineering hub in Berlin, its first office in Europe, with 40 engineers working on the Atlas platform." },
+  { key: "offtopic", cat: "partnerships", daysBefore: 8, domain: "dronetimes.example", path: "/2026/southwind-drones-retail-deal", score: 0.7,
+    title: "Southwind Drones signs multi-year deal with a national retailer",
+    content: "Southwind Drones will supply 300 inventory drones to a national retailer under a multi-year agreement announced this week." },
   { key: "jobs", cat: "news", daysBefore: null, domain: "{slug}.example", path: "/careers", score: 0.4,
     title: "Careers at {T}",
     content: "{T} is hiring across engineering, sales and field operations in Boston, Berlin and Austin." },
@@ -120,6 +129,7 @@ export function mockSearch(req: BriefingRequest, queries: PlannedQuery[], window
   const set = req.targetType === "person" ? PERSON : COMPANY;
   const hits: RawHit[] = [];
   for (const f of set) {
+    if (f.origin === "site" && !req.officialDomain) continue; // Map only runs with an official domain
     const q = queries.find((x) => x.category === f.cat) ?? queries[0]!;
     const url = `https://${fill(f.domain, req)}${fill(f.path, req)}${f.path.includes("?") ? "&" : "?"}fx=${f.key}`;
     hits.push({
@@ -130,6 +140,7 @@ export function mockSearch(req: BriefingRequest, queries: PlannedQuery[], window
       publishedDate:
         f.daysBefore === null ? null : new Date(end - f.daysBefore * 86_400_000 - 3_600_000).toUTCString(),
       score: f.score,
+      ...(f.origin ? { origin: f.origin } : {}),
     });
   }
   return hits;
@@ -142,4 +153,27 @@ export function fixtureKey(url: string): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * MOCK=1 makes no Tavily calls. To still show what a live run of the same plan costs, estimate it
+ * from the planned queries: advanced news search = 2 credits, basic (official/background) = 1,
+ * Map on the newsroom ~2, one batched Extract = 1 credit per 5 URLs.
+ */
+export function estimateTavilyUsage(queries: PlannedQuery[], extractUrls: number, mapped: boolean): { calls: number; credits: number } {
+  let calls = 0;
+  let credits = 0;
+  for (const q of queries) {
+    calls++;
+    credits += (q.kind ?? "news") === "news" ? 2 : 1;
+  }
+  if (mapped) {
+    calls++;
+    credits += 2;
+  }
+  if (extractUrls > 0) {
+    calls++;
+    credits += Math.ceil(extractUrls / 5);
+  }
+  return { calls, credits };
 }

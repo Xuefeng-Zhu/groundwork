@@ -14,7 +14,7 @@ import {
   type ResearchResult,
 } from "../../../shared/briefing/schema";
 import { describeConfig, getConfig, type BriefingConfig } from "./config";
-import { fixtureOrg, mockSearch } from "./fixtures";
+import { estimateTavilyUsage, fixtureOrg, mockSearch } from "./fixtures";
 import { completeJson, parseJsonLoose } from "./llm";
 import { computeWindow, planQueries } from "./planner";
 import { bareDomain, guessNewsroomUrls, newsroomCandidates, parsePageDate, pickSitePages, titleFromPage, trimToArticle } from "./site";
@@ -132,6 +132,15 @@ export async function researchTarget(
   }
   if (!sources.length) warnings.push("No sources found inside the research window.");
 
+  // Demo mode: no Tavily calls; estimate what the same plan costs live, and count fixture newsroom pages.
+  let mockUsage: { calls: number; credits: number } | null = null;
+  if (cfg.mock) {
+    for (const s of sources) if (s.origin === "site") sitePages++;
+    const extractN = Math.min(cfg.tavilyExtractTop, sources.filter((s) => s.origin !== "background").length) + (req.officialDomain ? cfg.tavilySitePages : 0);
+    mockUsage = estimateTavilyUsage(queries, extractN, Boolean(req.officialDomain && cfg.tavilySitePages > 0));
+    warnings.push(`Demo mode: no Tavily calls were made. A live run of this plan makes ${mockUsage.calls} calls (~${mockUsage.credits} credits).`);
+  }
+
   return {
     request: req,
     window,
@@ -145,6 +154,7 @@ export async function researchTarget(
       ...(client
         ? { mappedUrls, sitePages, tavilyCalls: client.usage!.calls, tavilyCredits: client.usage!.credits, ...(newsroomUrl ? { newsroomUrl } : {}) }
         : {}),
+      ...(mockUsage ? { sitePages, tavilyCalls: mockUsage.calls, tavilyCredits: mockUsage.credits, tavilyEstimated: true } : {}),
     },
     searchMode: cfg.mock ? "mock" : "tavily",
     warnings,
@@ -224,7 +234,7 @@ export async function generateBriefing(
       claimsDropped: a.dropped.length,
       citationsRemoved: a.citationsRemoved,
       ...(research.stats.sitePages !== undefined ? { sitePages: research.stats.sitePages } : {}),
-      ...(research.stats.tavilyCalls !== undefined ? { tavilyCalls: research.stats.tavilyCalls, tavilyCredits: research.stats.tavilyCredits } : {}),
+      ...(research.stats.tavilyCalls !== undefined ? { tavilyCalls: research.stats.tavilyCalls, tavilyCredits: research.stats.tavilyCredits, ...(research.stats.tavilyEstimated ? { tavilyEstimated: true } : {}) } : {}),
       durationMs: (opts.research ? research.durationMs : 0) + (Date.now() - t0),
     },
     warnings,

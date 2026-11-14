@@ -128,6 +128,7 @@ export const researchStatsSchema = z.object({
   newsroomUrl: z.string().optional(),
   tavilyCalls: z.number().optional(),
   tavilyCredits: z.number().optional(),
+  tavilyEstimated: z.boolean().optional(),
 });
 
 export const researchResultSchema = z.object({
@@ -197,6 +198,7 @@ export const briefingSchema = z.object({
     sitePages: z.number().optional().describe("Official newsroom pages found via Tavily Map and extracted"),
     tavilyCalls: z.number().optional(),
     tavilyCredits: z.number().optional(),
+    tavilyEstimated: z.boolean().optional().describe("true in MOCK=1: no calls were made; calls/credits are an estimate for the same plan"),
     durationMs: z.number(),
   }),
   warnings: z.array(z.string()),

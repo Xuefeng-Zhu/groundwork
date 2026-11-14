@@ -388,7 +388,14 @@ function BriefCard({ b }: { b: Briefing }) {
             <Pill tone="ok">{b.stats.claimsVerified} verified</Pill>
             <Pill tone="warn">{b.stats.claimsUncertain} uncertain</Pill>
             {b.stats.claimsDropped ? <Pill>{b.stats.claimsDropped} unsupported dropped</Pill> : null}
-            {b.stats.citationsRemoved ? <Pill>{b.stats.citationsRemoved} off-topic citations removed</Pill> : null}
+            {b.stats.citationsRemoved ? <Pill tone="warn">{b.stats.citationsRemoved} citations removed</Pill> : null}
+            {b.stats.sitePages ? <Pill>{b.stats.sitePages} newsroom page{b.stats.sitePages === 1 ? "" : "s"} (Tavily Map)</Pill> : null}
+            {b.stats.tavilyCalls !== undefined ? (
+              <Pill>
+                Tavily: {b.stats.tavilyCalls} calls · {b.stats.tavilyEstimated ? "~" : ""}
+                {b.stats.tavilyCredits} credits{b.stats.tavilyEstimated ? " (est.)" : ""}
+              </Pill>
+            ) : null}
             <Pill>
               {b.engine.search} + {b.engine.llm}
               {b.engine.model ? ` (${b.engine.model})` : ""}
@@ -467,6 +474,7 @@ function BriefCard({ b }: { b: Briefing }) {
                 <span className="text-muted-foreground">
                   {s.domain} · {formatDay(s.publishedAt)}
                   {s.isPrimary ? " · primary" : ""}
+                  {s.origin === "site" ? " · newsroom (Tavily Map)" : ""}
                 </span>
               </li>
             ))}
