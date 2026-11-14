@@ -82,6 +82,11 @@ export const plannedQuerySchema = z.object({
   category: categorySchema,
   query: z.string(),
   topic: z.enum(["news", "general"]),
+  kind: z
+    .enum(["news", "official", "background"])
+    .optional()
+    .describe("news = date-windowed news search; official = restricted to the official domain; background = undated context"),
+  includeDomains: z.array(z.string()).optional(),
 });
 export type PlannedQuery = z.infer<typeof plannedQuerySchema>;
 
@@ -98,6 +103,10 @@ export const sourceSchema = z.object({
   score: z.number(),
   isPrimary: z.boolean(),
   extracted: z.boolean().optional(),
+  origin: z
+    .enum(["search", "background", "site"])
+    .optional()
+    .describe("search = windowed Tavily search; background = context outside the window; site = official newsroom page found by Tavily Map"),
 });
 export type Source = z.infer<typeof sourceSchema>;
 
@@ -113,6 +122,12 @@ export const researchStatsSchema = z.object({
   kept: z.number(),
   failedQueries: z.number(),
   extracted: z.number(),
+  background: z.number().optional(),
+  mappedUrls: z.number().optional(),
+  sitePages: z.number().optional(),
+  newsroomUrl: z.string().optional(),
+  tavilyCalls: z.number().optional(),
+  tavilyCredits: z.number().optional(),
 });
 
 export const researchResultSchema = z.object({
@@ -179,6 +194,9 @@ export const briefingSchema = z.object({
     claimsUncertain: z.number(),
     claimsDropped: z.number(),
     citationsRemoved: z.number().optional().describe("Citations the verifier removed as off-topic or unsupported"),
+    sitePages: z.number().optional().describe("Official newsroom pages found via Tavily Map and extracted"),
+    tavilyCalls: z.number().optional(),
+    tavilyCredits: z.number().optional(),
     durationMs: z.number(),
   }),
   warnings: z.array(z.string()),

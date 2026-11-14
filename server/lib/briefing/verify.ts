@@ -281,6 +281,7 @@ export function verifyClaim(
   if (g.missingFigures.length) reasons.push(`figure(s) ${g.missingFigures.join(", ")} not found in cited sources`);
   if (g.score < 0.5) reasons.push(`weak support in source text (${Math.round(g.score * 100)}%)`);
   if (!dated) reasons.push("source has no publication date");
+  if (cited.every((s) => s.origin === "background")) reasons.push("background source only (outside the research window)");
   if (hedged) reasons.push("reported as rumour / unconfirmed");
   if (outlets < 2 && !primary) reasons.push("single secondary source");
 

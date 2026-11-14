@@ -24,7 +24,7 @@ Before a sales call, partner meeting or investor pitch, people spend 20–40 min
 Give the agent a **company or person**, the **meeting time**, and optionally the **meeting purpose** (sales, partnership, investor, BD, hiring). It:
 
 1. **Plans** 6–8 targeted searches: latest news, product launches, exec hires/departures, funding/M&A, partnerships, press releases, plus purpose-specific risk or financial signals (or role changes, talks and interviews for a person).
-2. **Searches Tavily** in parallel with a **hard published-date window** `[meeting − 30 days, meeting]` (`topic: news`, `start_date`/`end_date`, `include_answer: false` — we never let a search engine's answer stand in for evidence).
+2. **Searches Tavily** in parallel with a **hard published-date window** `[meeting − 30 days, meeting]` (`topic: news`, `start_date`/`end_date`, `include_answer: false` — we never let a search engine's answer stand in for evidence), plus a search restricted to the official domain, one undated background query, and **Tavily Map** on the company's newsroom to catch first-party announcements.
 3. **Cleans the evidence**: canonicalises URLs (strips `utm_*`), removes syndicated duplicates, drops anything dated outside the window, flags undated pages, ranks by relevance + recency + primary-source bonus, and uses **Tavily Extract** to pull full text for the top sources.
 4. **Drafts through Bifrost**: an LLM turns numbered sources `S1..Sn` into a strict JSON draft — TL;DR, dated claims with citations, talking points, open questions.
 5. **Verifies in code — the model proposes, the code decides**:
@@ -79,7 +79,8 @@ flowchart LR
 | `actions/export-briefing.ts` | Action: briefing → Markdown with citation links |
 | `actions/briefing-status.ts` | Action: which backends are active (no secrets) |
 | `server/lib/briefing/planner.ts` | Query plan per target type and meeting purpose; date window |
-| `server/lib/briefing/tavily.ts` | Tavily `/search` + `/extract` REST client |
+| `server/lib/briefing/tavily.ts` | Tavily `/search`, `/map`, `/extract` REST client with per-brief credit tally |
+| `server/lib/briefing/site.ts` | Newsroom discovery, page picking and date parsing for Tavily Map results |
 | `server/lib/briefing/sources.ts` | URL canonicalisation, dedupe, window filter, primary-source detection, ranking |
 | `server/lib/briefing/llm.ts` | Bifrost (OpenAI-compatible) → OpenAI → Anthropic chain, tolerant JSON parsing |
 | `server/lib/briefing/synthesize.ts` | Prompt, LLM / mock / extractive drafters, section assembly and length caps |
@@ -103,7 +104,21 @@ flowchart LR
 
 **Bifrost** (Maxim AI's open-source LLM gateway) is the primary model path. The app calls Bifrost's OpenAI-compatible `POST {BIFROST_URL}/chat/completions` with a `provider/model` id (default `openai/gpt-4o-mini`), `temperature 0.1` and `response_format: json_object`. Provider keys live inside Bifrost, so the app never holds them, and you get Bifrost's provider failover, semantic caching, budgets and request logs for free. An optional virtual key is sent as `x-bf-vk`. If Bifrost is down, the app falls back to direct OpenAI, then Anthropic, then an extractive (no-LLM) drafter — each fallback is recorded in the brief's notes. The built-in chat agent can use Bifrost too: set `OPENAI_BASE_URL=http://localhost:8080/v1`.
 
-**Tavily** is the research layer: `POST /search` with `topic: "news"` (plus one `general` query for press releases), `search_depth: "advanced"`, `chunks_per_source: 3`, `start_date`/`end_date` = the research window, `include_published_date: true`, and **`include_answer: false`**. `POST /extract` pulls full text for the top `TAVILY_EXTRACT_TOP` sources to strengthen grounding.
+**Tavily** is the research layer; see [How Groundwork uses Tavily](#how-groundwork-uses-tavily) for every endpoint and parameter.
+
+## How Groundwork uses Tavily
+
+One brief = one small, fixed budget of Tavily calls (about **15–20 credits** for a company with a known domain; the free tier's 1,000 credits/month covers ~50 briefs). Every request sets `include_usage: true`, and the brief reports `tavilyCalls` / `tavilyCredits` in its stats.
+
+| Step | Endpoint | Key params | Why |
+| --- | --- | --- | --- |
+| Recent developments (5–7 queries: latest news, launches, exec moves, funding/M&A, partnerships, + risk or financials by meeting purpose) | `POST /search` | `topic: "news"`, `search_depth: "advanced"`, `chunks_per_source: 3`, `max_results: 8`, `start_date` / `end_date` = **meeting − N days → meeting**, `include_published_date: true`, `include_answer: false` | The lookback window is anchored to the **meeting**, not today, so we use absolute `start_date`/`end_date` instead of `time_range` (which counts back from now). We never use Tavily's answer — only sources we can cite. |
+| First-party announcements (when `officialDomain` is given) | `POST /search` | `topic: "general"`, `include_domains: [officialDomain]`, same date window, `search_depth: "basic"` | Press releases on the company's own site are **primary sources** — a single one can verify a claim. Basic depth = 1 credit. |
+| Background (1 query) | `POST /search` | `topic: "general"`, **no date filter**, `search_depth: "basic"`, `max_results: 5` | Gives the model context (what the company does, who it sells to). These sources are tagged `background`, capped at 3, ranked last, labelled "BACKGROUND, outside window" in the prompt, and a claim backed only by them can never be verified. |
+| Newsroom discovery (when `officialDomain` is given) | `POST /map` | `url` = newsroom index found from the official search hits (e.g. `…/en/news/press-releases`, fallback `/newsroom`, `/news`, `/blog`), `max_depth: 1`, `limit: 25`, `allow_external: false`, no `instructions` | Finds first-party pages search missed (exec hires, financings, partner announcements). Depth 1 and no `instructions` keep it at ~2–3 credits; a failed map costs nothing and is reported in the brief's notes. |
+| Full text | `POST /extract` | **one batched call**: top `TAVILY_EXTRACT_TOP` (4) search results + up to `TAVILY_SITE_PAGES` (4) mapped newsroom pages, `extract_depth: "basic"`, `format: "text"` | Full text makes the verifier's figure/entity checks meaningful. Mapped pages get their date from the URL or page text and go through the same window filter; navigation is trimmed before the article. 5 URLs = 1 credit. |
+
+`MOCK=1` makes no Tavily calls at all (fixtures stand in for search). Set `TAVILY_SITE_PAGES=0` to skip Map, `TAVILY_EXTRACT_TOP=0` to skip Extract of search results.
 
 ## Setup
 
@@ -180,6 +195,7 @@ A real run (Snowflake, sales call) took about 6 seconds: 40 sources reviewed, 11
 | `MOCK` | `1` in `.env.example` | Deterministic fictional fixtures for search and model; no keys needed |
 | `TAVILY_API_KEY` | — | Required when `MOCK` is off |
 | `TAVILY_EXTRACT_TOP` | `4` | Top sources to enrich with Tavily Extract (`0` disables) |
+| `TAVILY_SITE_PAGES` | `4` | Official newsroom pages to find with Tavily Map and extract when a domain is given (`0` disables Map) |
 | `BIFROST_URL` | — | Bifrost OpenAI-compatible base URL, e.g. `http://localhost:8080/v1` |
 | `BIFROST_MODEL` | `openai/gpt-4o-mini` | Bifrost `provider/model` id |
 | `BIFROST_API_KEY` | — | Optional Bifrost virtual key (`x-bf-vk`) |
@@ -201,7 +217,7 @@ pnpm dev                    # app + agent chat
 pnpm typecheck              # TypeScript
 pnpm test                   # vitest: live-path E2E against stand-in Tavily/Bifrost + verifier unit tests
 pnpm build && pnpm start    # production build
-pnpm brief "Northwind Robotics" company 2026-11-20T15:00:00-08:00 sales   # CLI → out/briefing.md
+pnpm brief "Northwind Robotics" company 2026-11-20T15:00:00-08:00 sales [officialDomain]   # CLI → out/briefing.md
 pnpm action generate-briefing --target "Northwind Robotics" --meetingAt 2026-11-20T15:00:00-08:00 --purpose sales
 pnpm action briefing-status
 

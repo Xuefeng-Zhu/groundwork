@@ -17,6 +17,8 @@ export interface RawHit {
   content: string;
   publishedDate?: string | null;
   score?: number;
+  /** background = context query (kept even outside the window, ranked low); site = official newsroom page */
+  origin?: "search" | "background" | "site" | undefined;
 }
 
 const PRESS_WIRES = [
@@ -80,6 +82,27 @@ export function isPrimarySource(domain: string, req: BriefingRequest): boolean {
   return false;
 }
 
+/**
+ * Pick the sources that go into the model prompt: rank order, but reserve a few slots for
+ * first-party (primary, in-window) pages so a small prompt budget does not crowd them out,
+ * and allow at most one background source. Returned in original rank order.
+ */
+export function selectForPrompt(sources: Source[], max: number, reservePrimary = 3): Source[] {
+  if (sources.length <= max) return sources;
+  const chosen = new Set<string>();
+  sources
+    .filter((s) => s.isPrimary && s.origin !== "background")
+    .slice(0, Math.min(reservePrimary, max))
+    .forEach((s) => chosen.add(s.id));
+  let bg = 0;
+  for (const s of sources) {
+    if (chosen.size >= max) break;
+    if (s.origin === "background" && ++bg > 1) continue;
+    chosen.add(s.id);
+  }
+  return sources.filter((s) => chosen.has(s.id));
+}
+
 export function parseDate(v: string | null | undefined): Date | null {
   if (!v) return null;
   const d = new Date(v);
@@ -92,6 +115,7 @@ export interface NormalizeStats {
   outOfWindow: number;
   undated: number;
   kept: number;
+  background: number;
 }
 
 const STOP = new Set("the a an and or of to in for on with by at from as is are was be its it this that new says".split(" "));
@@ -130,10 +154,13 @@ export function normalizeHits(
     const url = canonicalUrl(h.url);
     const d = parseDate(h.publishedDate ?? null);
     const ts = d ? d.getTime() : null;
-    if (ts !== null && (ts < start || ts > end)) {
+    const inWindow = ts === null || (ts >= start && ts <= end);
+    const isBackground = h.origin === "background" && !(ts !== null && inWindow);
+    if (!inWindow && !isBackground) {
       outOfWindow++;
       continue;
     }
+    if (isBackground && ts !== null && ts > end) continue; // never "future" context
     const cat = qCat.get(h.queryId) ?? "news";
     const existing = byUrl.get(url);
     if (existing) {
@@ -168,6 +195,7 @@ export function normalizeHits(
       categories: [cat as Category],
       score: h.score ?? 0,
       isPrimary: isPrimarySource(domain, req),
+      origin: isBackground ? "background" : h.origin === "site" ? "site" : "search",
       _ts: ts,
     });
   }
@@ -177,12 +205,23 @@ export function normalizeHits(
   const span = Math.max(1, end - start);
   all.sort((a, b) => rank(b) - rank(a));
   function rank(s: Source & { _ts: number | null }) {
+    if (s.origin === "background") return s.score - 0.4;
     const recency = s._ts === null ? 0.2 : (s._ts - start) / span;
     return s.score + 0.35 * recency + 0.15 * (s.queryIds.length - 1) + (s.isPrimary ? 0.2 : 0);
   }
-  const kept = all.slice(0, maxSources).map(({ _ts, ...s }, i) => ({ ...s, id: `S${i + 1}` }));
+  // Background is context only: cap it so it never crowds out recent coverage.
+  let bg = 0;
+  const capped = all.filter((s) => s.origin !== "background" || ++bg <= 3);
+  const kept = capped.slice(0, maxSources).map(({ _ts, ...s }, i) => ({ ...s, id: `S${i + 1}` }));
   return {
     sources: kept,
-    stats: { rawResults: hits.length, duplicates, outOfWindow, undated, kept: kept.length },
+    stats: {
+      rawResults: hits.length,
+      duplicates,
+      outOfWindow,
+      undated,
+      kept: kept.length,
+      background: kept.filter((s) => s.origin === "background").length,
+    },
   };
 }

@@ -6,6 +6,8 @@ export interface BriefingConfig {
   mock: boolean;
   tavilyKey?: string | undefined;
   tavilyExtractTop: number;
+  /** Official-site pages to discover with Tavily Map and extract (0 disables Map). */
+  tavilySitePages: number;
   tavilyBaseUrl: string;
   bifrostUrl?: string | undefined;
   bifrostApiKey?: string | undefined;
@@ -42,6 +44,7 @@ export function getConfig(env: NodeJS.ProcessEnv = process.env): BriefingConfig 
     mock: truthy(env.MOCK),
     tavilyKey: clean(env.TAVILY_API_KEY),
     tavilyExtractTop: Number(env.TAVILY_EXTRACT_TOP ?? 4) || 0,
+    tavilySitePages: Number(env.TAVILY_SITE_PAGES ?? 4) || 0,
     tavilyBaseUrl: (clean(env.TAVILY_BASE_URL) ?? "https://api.tavily.com").replace(/\/+$/, ""),
     bifrostUrl: clean(env.BIFROST_URL)?.replace(/\/+$/, ""),
     bifrostApiKey: clean(env.BIFROST_API_KEY),

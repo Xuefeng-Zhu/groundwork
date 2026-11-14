@@ -17,10 +17,11 @@ import { describeConfig, getConfig, type BriefingConfig } from "./config";
 import { fixtureOrg, mockSearch } from "./fixtures";
 import { completeJson, parseJsonLoose } from "./llm";
 import { computeWindow, planQueries } from "./planner";
-import { canonicalUrl, normalizeHits, type RawHit } from "./sources";
+import { bareDomain, guessNewsroomUrls, newsroomCandidates, parsePageDate, pickSitePages, titleFromPage, trimToArticle } from "./site";
+import { canonicalUrl, normalizeHits, selectForPrompt, type RawHit } from "./sources";
 import { assemble, buildMessages, heuristicDraft, mockDraft, type Draft } from "./synthesize";
 import { llmSupportCheck } from "./support-check";
-import { tavilyExtract, tavilySearch } from "./tavily";
+import { newUsage, tavilyExtract, tavilyMap, tavilySearch, type TavilyClient } from "./tavily";
 import { targetRef } from "./verify";
 
 export class BriefingError extends Error {
@@ -53,13 +54,15 @@ export async function researchTarget(
   const warnings: string[] = [];
   let hits: RawHit[] = [];
   let failed = 0;
+  const client: TavilyClient | null =
+    !cfg.mock && cfg.tavilyKey ? { key: cfg.tavilyKey, baseUrl: cfg.tavilyBaseUrl, usage: newUsage() } : null;
 
   if (cfg.mock) {
     hits = mockSearch(req, queries, window);
   } else {
-    if (!cfg.tavilyKey)
+    if (!client)
       throw new BriefingError("TAVILY_API_KEY is not set. Add it to .env, or run with MOCK=1 for the demo.", "missing_search_key");
-    const settled = await Promise.allSettled(queries.map((q) => tavilySearch({ key: cfg.tavilyKey!, baseUrl: cfg.tavilyBaseUrl }, q, window)));
+    const settled = await Promise.allSettled(queries.map((q) => tavilySearch(client, q, window)));
     settled.forEach((s, i) => {
       if (s.status === "fulfilled") hits.push(...s.value);
       else {
@@ -70,25 +73,61 @@ export async function researchTarget(
     if (failed === queries.length) throw new BriefingError(warnings.join(" | "), "search_failed");
   }
 
-  const { sources, stats } = normalizeHits(hits, queries, window, req);
-
-  // Enrich the top sources with full text (Tavily Extract) so claims can be grounded.
-  let extracted = 0;
-  if (!cfg.mock && cfg.tavilyKey && cfg.tavilyExtractTop > 0) {
-    const targets = sources.slice(0, cfg.tavilyExtractTop);
-    try {
-      const texts = await tavilyExtract({ key: cfg.tavilyKey, baseUrl: cfg.tavilyBaseUrl }, targets.map((s) => s.url));
-      const byCanon = new Map([...texts].map(([u, t]) => [canonicalUrl(u), t]));
-      for (const s of targets) {
-        const t = byCanon.get(s.url);
-        if (t) {
-          s.content = t;
-          s.extracted = true;
-          extracted++;
+  // First-party coverage: Tavily Map on the official newsroom/blog index -> newest article URLs.
+  let siteUrls: string[] = [];
+  let mappedUrls = 0;
+  let newsroomUrl: string | undefined;
+  if (client && req.officialDomain && cfg.tavilySitePages > 0) {
+    const od = bareDomain(req.officialDomain);
+    const known = new Set(hits.map((h) => canonicalUrl(h.url)));
+    const candidates = [...newsroomCandidates(hits.map((h) => h.url), od), ...guessNewsroomUrls(od)];
+    for (const idx of [...new Set(candidates)].slice(0, 3)) {
+      try {
+        const mapped = await tavilyMap(client, idx);
+        const picked = pickSitePages(mapped, idx, known, new Date(window.start).getUTCFullYear(), cfg.tavilySitePages);
+        if (picked.length) {
+          newsroomUrl = idx;
+          mappedUrls = mapped.length;
+          siteUrls = picked;
+          break;
         }
+      } catch (e) {
+        warnings.push(`Tavily Map on ${idx} failed: ${(e as Error).message}`);
       }
+    }
+    if (!siteUrls.length) warnings.push(`No newsroom pages found on ${od} with Tavily Map.`);
+  }
+
+  // One Extract call: top search results + the mapped newsroom pages (5 URLs = 1 credit).
+  let extracted = 0;
+  let sitePages = 0;
+  const pre = normalizeHits(hits, queries, window, req);
+  const topUrls = cfg.tavilyExtractTop > 0 ? pre.sources.filter((s) => s.origin !== "background").slice(0, cfg.tavilyExtractTop).map((s) => s.url) : [];
+  let texts = new Map<string, string>();
+  if (client && (topUrls.length || siteUrls.length)) {
+    try {
+      const raw = await tavilyExtract(client, [...topUrls, ...siteUrls]);
+      texts = new Map([...raw].map(([u, t]) => [canonicalUrl(u), t]));
     } catch (e) {
       warnings.push(`Extract step skipped: ${(e as Error).message}`);
+    }
+  }
+  for (const u of siteUrls) {
+    const full = texts.get(canonicalUrl(u));
+    if (!full) continue;
+    const t = trimToArticle(u, full);
+    texts.set(canonicalUrl(u), t);
+    // Site pages carry no date from Map; take it from the URL or the page text, else leave undated.
+    hits.push({ queryId: "SITE", url: u, title: titleFromPage(u), content: t, publishedDate: parsePageDate(u, t), score: 0.6, origin: "site" });
+  }
+  const { sources, stats } = siteUrls.length ? normalizeHits(hits, queries, window, req) : pre;
+  for (const s of sources) {
+    const t = texts.get(s.url);
+    if (t) {
+      s.content = t;
+      s.extracted = true;
+      extracted++;
+      if (s.origin === "site") sitePages++;
     }
   }
   if (!sources.length) warnings.push("No sources found inside the research window.");
@@ -98,7 +137,15 @@ export async function researchTarget(
     window,
     queries,
     sources,
-    stats: { queries: queries.length, failedQueries: failed, extracted, ...stats },
+    stats: {
+      queries: queries.length,
+      failedQueries: failed,
+      extracted,
+      ...stats,
+      ...(client
+        ? { mappedUrls, sitePages, tavilyCalls: client.usage!.calls, tavilyCredits: client.usage!.credits, ...(newsroomUrl ? { newsroomUrl } : {}) }
+        : {}),
+    },
     searchMode: cfg.mock ? "mock" : "tavily",
     warnings,
     durationMs: Date.now() - t0,
@@ -124,7 +171,7 @@ export async function generateBriefing(
   } else if (!sources.length) {
     draft = { tldr: [], claims: [], talkingPoints: [], openQuestions: [] };
   } else {
-    const llm = await completeJson(cfg, buildMessages(req, research.window, sources.slice(0, cfg.llmMaxSources), cfg.llmSourceChars), warnings);
+    const llm = await completeJson(cfg, buildMessages(req, research.window, selectForPrompt(sources, cfg.llmMaxSources), cfg.llmSourceChars), warnings);
     if (llm) {
       try {
         draft = parseJsonLoose(llm.text) as Draft;
@@ -176,6 +223,8 @@ export async function generateBriefing(
       claimsUncertain: a.uncertain.length,
       claimsDropped: a.dropped.length,
       citationsRemoved: a.citationsRemoved,
+      ...(research.stats.sitePages !== undefined ? { sitePages: research.stats.sitePages } : {}),
+      ...(research.stats.tavilyCalls !== undefined ? { tavilyCalls: research.stats.tavilyCalls, tavilyCredits: research.stats.tavilyCredits } : {}),
       durationMs: (opts.research ? research.durationMs : 0) + (Date.now() - t0),
     },
     warnings,

@@ -11,7 +11,8 @@ import { briefingToMarkdown } from "../shared/briefing/markdown";
 import { getConfig } from "../server/lib/briefing/config";
 import { generateBriefing, researchTarget } from "../server/lib/briefing/pipeline";
 import { extractFigures, ground } from "../server/lib/briefing/verify";
-import { canonicalUrl, rootDomain } from "../server/lib/briefing/sources";
+import { canonicalUrl, rootDomain, selectForPrompt } from "../server/lib/briefing/sources";
+import { parsePageDate, pickSitePages } from "../server/lib/briefing/site";
 
 const MEETING = "2026-11-20T18:00:00.000Z";
 const day = (n: number) => new Date(Date.parse(MEETING) - n * 86_400_000).toUTCString();
@@ -40,8 +41,34 @@ beforeAll(async () => {
   [tavily, tavilyUrl] = await listen((body, path) => {
     seen.tavilyBodies.push({ path, body });
     if (path === "/extract")
-      return { results: body.urls.map((u: string) => ({ url: u, raw_content: `Full text for ${u}. Acme raised $50 million.` })) };
+      return {
+        results: body.urls.map((u: string) => ({
+          url: u,
+          raw_content: u.includes("berlin")
+            ? `Home Products Newsroom Acme opens Berlin office November 12, 2026 Acme today opened an office in Berlin.`
+            : u.includes("picnic")
+              ? `Acme annual picnic June 3, 2019 Fun was had.`
+              : `Full text for ${u}. Acme raised $50 million.`,
+        })),
+        usage: { credits: 1 },
+      };
+    if (path === "/map")
+      return {
+        results: [
+          "https://acme.com/newsroom",
+          "https://acme.com/newsroom/acme-opens-berlin-office",
+          "https://acme.com/newsroom/acme-2019-annual-picnic",
+          "https://acme.com/pricing",
+          "https://acme.com/newsroom/page",
+        ],
+        usage: { credits: 1 },
+      };
+    if (!body.start_date)
+      return { results: [{ title: "About Acme", url: "https://wiki.example/acme", content: "Acme makes widgets for factories.", score: 0.5, published_date: day(400) }], usage: { credits: 1 } };
+    if (body.include_domains?.length)
+      return { results: [{ title: "Acme press release", url: "https://acme.com/newsroom/acme-series-b", content: "Acme raised $50 million.", score: 0.7, published_date: day(3) }], usage: { credits: 1 } };
     return {
+      usage: { credits: 2 },
       results: [
         { title: "Acme raises $50M Series B", url: "https://techwire.com/acme-b?utm_source=x", content: "Acme raised $50 million led by Foo Capital.", score: 0.9, published_date: day(3) },
         { title: "Acme lands $50 million Series B", url: "https://bizdaily.com/acme", content: "Acme closed a $50 million Series B.", score: 0.8, published_date: day(4) },
@@ -85,8 +112,35 @@ describe("live path with stand-in Tavily + Bifrost", () => {
     expect(search.end_date).toBe("2026-11-20");
     expect(r.stats.outOfWindow).toBeGreaterThan(0);
     expect(r.sources.map((s) => s.url)).not.toContain("https://old.com/acme");
-    expect(r.sources.length).toBe(3); // same 3 URLs returned by every query -> deduped
+    expect(r.sources.filter((s) => s.origin === "search").length).toBe(3); // same 3 URLs from every news query -> deduped
     expect(r.stats.extracted).toBe(2);
+    // background query: general topic, no date filter, cheap; its old result is kept as context only
+    const bg = seen.tavilyBodies.find((b) => b.path === "/search" && !b.body.start_date)!.body;
+    expect(bg.topic).toBe("general");
+    expect(bg.search_depth).toBe("basic");
+    const bgSrc = r.sources.find((s) => s.url === "https://wiki.example/acme");
+    expect(bgSrc?.origin).toBe("background");
+    expect(r.stats.tavilyCredits).toBeGreaterThan(0);
+  });
+
+  it("maps the official newsroom and extracts the newest pages when a domain is given", async () => {
+    seen.tavilyBodies.length = 0;
+    const cfg = { ...getConfig({}), tavilyKey: "test", tavilyBaseUrl: tavilyUrl, tavilyExtractTop: 2, tavilySitePages: 2 };
+    const r = await researchTarget({ ...req, officialDomain: "acme.com" }, cfg);
+    const official = seen.tavilyBodies.find((b) => b.body.include_domains)!.body;
+    expect(official.include_domains).toEqual(["acme.com"]);
+    expect(official.start_date).toBe("2026-10-21");
+    const map = seen.tavilyBodies.find((b) => b.path === "/map")!.body;
+    expect(map.url).toBe("https://acme.com/newsroom"); // discovered from the official search hit
+    expect(map.max_depth).toBe(1);
+    expect(seen.tavilyBodies.filter((b) => b.path === "/extract")).toHaveLength(1); // one batched extract
+    const site = r.sources.find((s) => s.origin === "site")!;
+    expect(site.url).toBe("https://acme.com/newsroom/acme-opens-berlin-office");
+    expect(site.publishedAt?.slice(0, 10)).toBe("2026-11-12");
+    expect(site.isPrimary).toBe(true);
+    expect(site.content?.startsWith("Acme opens Berlin office")).toBe(true); // nav trimmed
+    expect(r.stats.sitePages).toBe(1); // the 2019 picnic page is out of window
+    expect(r.stats.newsroomUrl).toBe("https://acme.com/newsroom");
   });
 
   it("synthesises via Bifrost and enforces verification in code", async () => {
@@ -121,6 +175,26 @@ describe("verification primitives", () => {
     const src = [{ id: "S1", url: "u", title: "t", domain: "d", publishedAt: null, snippet: "raised $120 million", queryIds: [], categories: [], score: 0, isPrimary: false }];
     expect(ground("raised $120M", src as any).missingFigures).toEqual([]);
     expect(ground("raised $300M", src as any).missingFigures).toEqual(["300"]);
+  });
+  it("parses page dates and picks newest newsroom pages", () => {
+    expect(parsePageDate("https://x.com/blog/2026/11/04/foo", "")).toBe("2026-11-04T12:00:00.000Z");
+    expect(parsePageDate("https://x.com/news/foo", "Posted Nov 4, 2026 by team")).toBe("2026-11-04T12:00:00.000Z");
+    expect(parsePageDate("https://x.com/news/foo", "no date here")).toBeNull();
+    const picked = pickSitePages(
+      ["https://x.com/news", "https://x.com/news/old-2019-thing", "https://x.com/news/new-launch-2026", "https://x.com/news/plain-story-here", "https://x.com/about"],
+      "https://x.com/news",
+      new Set(),
+      2026,
+      2,
+    );
+    expect(picked).toEqual(["https://x.com/news/new-launch-2026", "https://x.com/news/plain-story-here"]);
+  });
+  it("reserves prompt slots for first-party sources", () => {
+    const mk = (id: string, isPrimary = false, origin: "search" | "background" | "site" = "search") =>
+      ({ id, isPrimary, origin }) as any;
+    const all = [mk("S1"), mk("S2"), mk("S3", false, "background"), mk("S4", false, "background"), mk("S5"), mk("S6", true, "site")];
+    expect(selectForPrompt(all, 3).map((s) => s.id)).toEqual(["S1", "S2", "S6"]);
+    expect(selectForPrompt(all, 5).map((s) => s.id)).toEqual(["S1", "S2", "S3", "S5", "S6"]);
   });
   it("canonicalises urls and domains", () => {
     expect(canonicalUrl("https://www.x.com/a/?utm_source=z#top")).toBe("https://x.com/a");

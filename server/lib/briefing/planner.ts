@@ -17,17 +17,27 @@ export function computeWindow(req: BriefingRequest): DateWindow {
 export function planQueries(req: BriefingRequest): PlannedQuery[] {
   const t = `"${req.target.trim()}"`;
   const q: Array<Omit<PlannedQuery, "id">> = [];
+  const od = req.officialDomain?.trim()
+    ? req.officialDomain.trim().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0]!.toLowerCase()
+    : undefined;
   if (req.targetType === "company") {
     q.push({ category: "news", topic: "news", query: `${t} latest news` });
     q.push({ category: "product", topic: "news", query: `${t} product launch or new feature announcement` });
     q.push({ category: "people", topic: "news", query: `${t} executive hire, appointment or leadership change` });
     q.push({ category: "funding", topic: "news", query: `${t} funding round, acquisition or valuation` });
     q.push({ category: "partnerships", topic: "news", query: `${t} new partnership or major customer deal` });
-    q.push({ category: "news", topic: "general", query: `${t} press release announcement` });
+    if (od) {
+      // First-party announcements inside the window, straight from the official site.
+      q.push({ category: "news", topic: "general", kind: "official", includeDomains: [od], query: `${t} announces press release news` });
+    } else {
+      q.push({ category: "news", topic: "general", query: `${t} press release announcement` });
+    }
     if (req.purpose === "investor")
       q.push({ category: "financials", topic: "news", query: `${t} revenue, earnings or growth figures` });
     if (req.purpose === "sales" || req.purpose === "bd")
       q.push({ category: "risk", topic: "news", query: `${t} layoffs, lawsuit, outage or restructuring` });
+    // One cheap, undated query for context (what they do, who they sell to). Never a "development".
+    q.push({ category: "news", topic: "general", kind: "background", query: `${t} company overview business model products customers` });
   } else {
     const org = req.organization ? ` "${req.organization.trim()}"` : "";
     q.push({ category: "person", topic: "news", query: `${t}${org}` });
@@ -40,5 +50,5 @@ export function planQueries(req: BriefingRequest): PlannedQuery[] {
       q.push({ category: "funding", topic: "news", query: `${o} funding, acquisition or product launch` });
     }
   }
-  return q.map((x, i) => ({ ...x, id: `Q${i + 1}` }));
+  return q.map((x, i) => ({ kind: "news" as const, ...x, id: `Q${i + 1}` }));
 }

@@ -6,10 +6,16 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { briefingToMarkdown } from "../shared/briefing/markdown";
 import { generateBriefing } from "../server/lib/briefing/pipeline";
 
-const [target = "Northwind Robotics", targetType = "company", meetingAt = new Date(Date.now() + 2 * 86400000).toISOString(), purpose = "sales"] =
+const [target = "Northwind Robotics", targetType = "company", meetingAt = new Date(Date.now() + 2 * 86400000).toISOString(), purpose = "sales", officialDomain] =
   process.argv.slice(2);
 
-const b = await generateBriefing({ target, targetType: targetType as "company" | "person", meetingAt, purpose: purpose as "sales" });
+const b = await generateBriefing({
+  target,
+  targetType: targetType as "company" | "person",
+  meetingAt,
+  purpose: purpose as "sales",
+  ...(officialDomain ? { officialDomain } : {}),
+});
 const md = briefingToMarkdown(b);
 mkdirSync("out", { recursive: true });
 writeFileSync("out/briefing.json", JSON.stringify(b, null, 2));

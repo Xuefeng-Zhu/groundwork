@@ -30,9 +30,10 @@ HARD RULES:
 - Use ONLY the numbered sources provided. Never use outside knowledge. Never invent names, numbers, dates or events.
 - Every claim and TL;DR bullet MUST cite 1+ source ids like "S3" that directly support it.
 - Copy figures (amounts, percentages, counts) exactly as they appear in the source text.
-- Only include developments dated inside the research window. Skip evergreen/background pages.
+- Only include developments dated inside the research window. Sources marked BACKGROUND are context only: use them to understand the company, never as a recent development or TL;DR item.
 - If a source uses hedged language (reportedly, sources say, expected to, exploring), set "hedged": true and keep the hedge in the text.
-- Merge duplicate coverage of the same event into one claim citing all its sources.
+- Merge duplicate coverage of the same event into one claim citing ALL its sources: a claim only counts as verified with 2+ independent outlets or an official (PRIMARY) source, so cite every source that states the fact. Prefer PRIMARY sources when they cover the event.
+- Do not put source ids inside the text; use the sourceIds field.
 - Keep each claim to one sentence (<= 30 words). Be specific: who, what, when.
 - Talking points and open questions are suggestions tailored to the meeting purpose; cite the sources that motivate them.
 Return ONLY a JSON object with this exact shape:
@@ -54,7 +55,7 @@ Limits: tldr 3 bullets, claims <= 12, talkingPoints <= 5, openQuestions <= 5.`;
   const src = sources
     .map(
       (s) =>
-        `[${s.id}] ${s.title}\nURL: ${s.url}\nOutlet: ${s.domain}${s.isPrimary ? " (PRIMARY/official)" : ""}\nPublished: ${s.publishedAt?.slice(0, 10) ?? "unknown"}\nText: ${(s.content || s.snippet).slice(0, sourceChars)}`,
+        `[${s.id}] ${s.title}\nURL: ${s.url}\nOutlet: ${s.domain}${s.isPrimary ? " (PRIMARY/official)" : ""}${s.origin === "background" ? " (BACKGROUND, outside window)" : ""}\nPublished: ${s.publishedAt?.slice(0, 10) ?? "unknown"}\nText: ${(s.origin === "site" ? s.content || s.snippet : s.snippet || s.content || "").slice(0, sourceChars)}`,
     )
     .join("\n\n");
 
