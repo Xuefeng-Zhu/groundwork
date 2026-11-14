@@ -9,6 +9,8 @@ Built with [BuilderIO Agent-Native](https://www.agent-native.com/docs/), [Tavily
 
 ![Groundwork screenshot](docs/screenshot.png)
 
+🎬 **Demo video (90 s, with voiceover):** [docs/demo.mp4](docs/demo.mp4)
+
 Sample output (demo data): [`docs/sample-brief.md`](docs/sample-brief.md) · one-page print: [`docs/sample-brief.pdf`](docs/sample-brief.pdf)
 
 ---
