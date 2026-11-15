@@ -1,7 +1,7 @@
 /**
  * Heuristic screening for model-proposed claims and citations. A verified label
  * indicates the checks passed; lexical overlap cannot prove semantic support.
- * Sources must be relevant, figures must match whole numeric tokens, and a
+ * Sources must be relevant, quantities must match in value and unit, and a
  * proposed event date must appear in cited text. Dated, non-background sources
  * must include a primary source or distinct coverage; obvious copied headlines
  * and snippets are not counted twice. Inspect sources before relying on claims.
@@ -9,6 +9,7 @@
 import type { BriefingRequest, Category, Claim, Source } from "../../../shared/briefing/schema";
 import { CATEGORIES } from "../../../shared/briefing/schema";
 import { coverageCount } from "./independent";
+import { extractQuantities } from "./quantities";
 
 export interface ProposedClaim {
   text: string;
@@ -32,25 +33,21 @@ export function sourceText(srcs: Source[]): string {
   return norm(srcs.map((s) => `${s.title} ${s.snippet} ${s.content ?? ""}`).join(" \n "));
 }
 
-/** Normalize numeric formatting without converting to Number (and losing precision). */
-function normalizeFigure(figure: string): string {
-  const [integer = "0", fraction = ""] = figure.replace(/,/g, "").split(".");
-  const whole = integer.replace(/^0+(?=\d)/, "");
-  const decimal = fraction.replace(/0+$/, "");
-  return decimal ? `${whole}.${decimal}` : whole;
-}
-
-/**
- * Extract complete numeric tokens, including single digits and years. Date components
- * are retained too: omitting them could let a claim introduce an unsupported date.
- * This is a lexical screen, not a semantic comparison of quantities or dates.
- */
-export function extractFigures(text: string): string[] {
-  return [...new Set([...text.matchAll(/\d+(?:,\d{3})*(?:\.\d+)?/g)].map((m) => normalizeFigure(m[0])))];
-}
-
-function figureInText(fig: string, text: string): boolean {
-  return extractFigures(text).includes(normalizeFigure(fig));
+function compareQuantities(text: string, sources: Source[]) {
+  const evidence = new Set<string>();
+  for (const source of sources) {
+    // Keep fields separate: a unit in a snippet must not attach to a number
+    // that occurs at the end of a title.
+    for (const field of [source.title, source.snippet, source.content ?? ""]) {
+      for (const quantity of extractQuantities(field)) {
+        if (quantity.key !== null) evidence.add(quantity.key);
+      }
+    }
+  }
+  return extractQuantities(text).map((quantity) => ({
+    ...quantity,
+    matched: quantity.key !== null && evidence.has(quantity.key),
+  }));
 }
 
 export function keyTerms(text: string): string[] {
@@ -75,7 +72,7 @@ export function ground(text: string, cited: Source[]): Grounding {
   const terms = keyTerms(text);
   const hit = terms.filter((t) => st.includes(t) || (t.endsWith("s") && st.includes(t.slice(0, -1)))).length;
   const score = terms.length ? hit / terms.length : 0;
-  const missingFigures = extractFigures(text).filter((f) => !figureInText(f, st));
+  const missingFigures = [...new Set(compareQuantities(text, cited).filter((q) => !q.matched).map((q) => q.text))];
   return { score: Math.round(score * 100) / 100, missingFigures };
 }
 
@@ -184,13 +181,15 @@ export function checkCitation(text: string, s: Source, t: TargetRef | undefined,
   const hit = terms.filter((w) => st.includes(w) || (w.endsWith("s") && st.includes(w.slice(0, -1)))).length;
   const score = terms.length ? hit / terms.length : 0;
   const ents = claimEntities(text, t);
-  const figs = extractFigures(text);
+  const quantities = compareQuantities(text, [s]);
   const sharedEntities = ents.filter((e) => st.includes(e));
-  const sharedFigures = figs.filter((f) => figureInText(f, st));
-  const hasSignals = ents.length + figs.length > 0;
+  const sharedFigures = quantities.filter((q) => q.matched).map((q) => q.text);
+  const missingQuantity = quantities.find((q) => q.qualified && !q.matched);
+  const hasSignals = ents.length + quantities.length > 0;
   const signalOk = !hasSignals || sharedEntities.length + sharedFigures.length > 0;
   let reason: string | undefined;
   if (!about) reason = "source is not about the target";
+  else if (missingQuantity) reason = `quantity ${missingQuantity.text} does not match cited source`;
   else if (!signalOk) reason = "source shares none of the claim's names or figures";
   else if (score < minScore) reason = `source barely overlaps the claim (${Math.round(score * 100)}%)`;
   return { id: s.id, about, score: Math.round(score * 100) / 100, sharedEntities, sharedFigures, supports: !reason, reason };

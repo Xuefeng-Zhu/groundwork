@@ -1,16 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { extractFigures, ground } from "../server/lib/briefing/verify";
+import { extractQuantities } from "../server/lib/briefing/quantities";
+import { ground } from "../server/lib/briefing/verify";
 
 const source = (text: string) => ({ title: "Acme company update", snippet: text });
 
 describe("figure grounding", () => {
   it("checks complete numeric tokens instead of digit substrings", () => {
-    expect(ground("Acme increased revenue by 30%", [source("Acme increased revenue by 130%") as any]).missingFigures).toEqual(["30"]);
+    expect(ground("Acme increased revenue by 30%", [source("Acme increased revenue by 130%") as any]).missingFigures).toEqual(["30%"]);
     expect(ground("Acme gained 1 customer", [source("Acme gained 1.4 million customers") as any]).missingFigures).toEqual(["1"]);
   });
 
   it("checks single digits, years, and date components", () => {
-    expect(extractFigures("Acme opened 3 offices in 2026 on 2026-11-07")).toEqual(["3", "2026", "11", "7"]);
+    expect(extractQuantities("Acme opened 3 offices in 2026 on 2026-11-07").map((q) => q.text)).toEqual(["3", "2026", "2026", "11", "07"]);
     expect(ground("Acme opened 3 offices in 2026", [source("Acme opened 4 offices in 2025") as any]).missingFigures).toEqual(["3", "2026"]);
   });
 

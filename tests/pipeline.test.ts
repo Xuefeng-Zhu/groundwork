@@ -10,7 +10,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { briefingToMarkdown } from "../shared/briefing/markdown";
 import { getConfig } from "../server/lib/briefing/config";
 import { generateBriefing, researchTarget } from "../server/lib/briefing/pipeline";
-import { extractFigures, ground } from "../server/lib/briefing/verify";
+import { ground } from "../server/lib/briefing/verify";
 import { canonicalUrl, rootDomain, selectForPrompt } from "../server/lib/briefing/sources";
 import { parsePageDate, pickSitePages } from "../server/lib/briefing/site";
 
@@ -171,10 +171,9 @@ describe("live path with stand-in Tavily + Bifrost", () => {
 
 describe("verification primitives", () => {
   it("extracts figures and checks them against sources", () => {
-    expect(extractFigures("raised $120M at $1.4B, 30% growth in 2026")).toEqual(["120", "1.4", "30", "2026"]);
     const src = [{ id: "S1", url: "u", title: "t", domain: "d", publishedAt: null, snippet: "raised $120 million", queryIds: [], categories: [], score: 0, isPrimary: false }];
     expect(ground("raised $120M", src as any).missingFigures).toEqual([]);
-    expect(ground("raised $300M", src as any).missingFigures).toEqual(["300"]);
+    expect(ground("raised $300M", src as any).missingFigures).toEqual(["$300M"]);
   });
   it("parses page dates and picks newest newsroom pages", () => {
     expect(parsePageDate("https://x.com/blog/2026/11/04/foo", "")).toBe("2026-11-04");
