@@ -1,10 +1,10 @@
 # Groundwork — pitch outline (9 slides)
 
 ## 1. Title
-**Groundwork: walk into every meeting knowing what changed, with a source for every line.**
+**Groundwork: prepare for meetings with cited research and visible uncertainty.**
 - Geek Room Global AI Hackathon · PS05 Pre-Meeting Briefing Agent · Tavily track
 - Built on Agent-Native, Tavily and Bifrost
-- *Talking point:* "In 60 seconds, a cited one-pager on anyone you're about to meet."
+- *Talking point:* "A cited one-pager to help you prepare for your next meeting."
 
 ## 2. The problem
 - Meeting prep means 20–40 minutes in news tabs, or walking in cold.
@@ -14,30 +14,30 @@
 ## 3. The solution
 - Input: company or person, meeting time, and purpose (sales, partnership, investor, BD, hiring).
 - Output: a one-page brief with a TL;DR, dated key developments, people and org changes, talking points, open questions, an **Uncertain / unverified** box, and sources.
-- Every factual line carries `[S#]` citations. Export it as Markdown or print it.
+- Claims include `[S#]` source links for review. Export the brief as Markdown or print it.
 - *Talking point:* show the screenshot and point at the green ✓ vs amber ⚠ items.
 
 ## 4. How it works (architecture)
-- Plan 6–8 targeted queries, then Tavily news search with a hard 30-day date window, then dedupe and window-filter, then Tavily Extract for full text.
-- The LLM drafts through the **Bifrost** gateway. **verify.ts** then decides what counts as verified.
+- Plan 6–8 targeted queries, then Tavily news search for the 30 days before the meeting, deduplicate and filter results, and use Tavily Extract for full text. The local filter allows a six-hour grace period, retains undated results, and may retain older background sources for context.
+- The LLM drafts through the **Bifrost** gateway. **verify.ts** applies heuristic checks to decide which claims receive the verified label; readers should still check sources.
 - One set of Agent-Native **actions** (`research-target`, `generate-briefing`, `export-briefing`) powers the UI, the chat agent, HTTP, CLI and MCP.
 - *Talking point:* "Defined once, usable everywhere: the form and the chat agent call the exact same code."
 
 ## 5. The innovation: "the model proposes, the code decides"
-- A citation to a source we never retrieved: the statement is dropped.
-- A figure not found in the cited text: marked ⚠ uncertain.
-- Verified needs 2+ independent outlets **or** a primary source (official site or press wire).
-- Rumours, single secondary sources and undated pages go to the ⚠ box, with the reason.
-- *Talking point:* demo moment. The model "invents" 300% revenue growth and cites source S99. Watch both get caught.
+- Invalid citation IDs are removed; a claim with no valid citations is dropped.
+- A detected figure not found in the cited text: marked ⚠ uncertain.
+- Verified requires the checks to pass and either two distinct source root domains or a primary source (official site or press wire). Distinct domains do not guarantee independent reporting.
+- Rumours, claims supported only by a single secondary source, and claims with no dated sources go to the ⚠ box, with the reason. The lexical checks do not prove factual or semantic support; review the cited sources.
+- *Talking point:* demo moment. The mock draft includes an invented 300% revenue growth figure and cites source S99. Watch the checks flag the figure and drop the unsupported claim.
 
 ## 6. Tavily + Bifrost, used properly
 - Tavily: `topic: news`, `start_date`/`end_date` = the window, `include_answer: false` (evidence, not answers), and Extract for grounding text.
-- Bifrost: an OpenAI-compatible gateway with provider keys kept out of the app, plus failover, caching, budgets and logs. Our model chain is NVIDIA Nemotron 3 Ultra → Groq gpt-oss-120b → NVIDIA GLM-5.3 Flash, all through one endpoint. The app falls back to OpenAI, then Anthropic, then an extractive drafter, so the brief always ships.
+- Bifrost: an OpenAI-compatible gateway with provider keys kept out of the app, plus failover, caching, budgets and logs. Our model chain is NVIDIA Nemotron 3 Ultra → Groq gpt-oss-120b → NVIDIA GLM-5.3 Flash, all through one endpoint. The app falls back to OpenAI, then Anthropic, then an extractive drafter when model calls fail; research can still fail if search is unavailable.
 - *Talking point:* "Swapping models is a config change in Bifrost, not a code change."
 
 ## 7. Impact and who it's for
 - Sales/AEs before discovery calls, founders before investor meetings, BD and partnerships, recruiters before exec interviews.
-- Prep goes from ~30 minutes to ~1 minute, with lower risk of repeating a stale or false claim.
+- The goal is to shorten preparation and make sources and uncertainty easier to review; speed and accuracy have not been established in a controlled study.
 - Purpose-aware talking points and "confirm before relying on" questions turn research into a conversation plan.
 
 ## 8. Technical execution and scalability
@@ -49,4 +49,4 @@
 ## 9. Ask / close
 - Live demo link, GitHub repo, and a 2-minute video.
 - Team: _names and roles_
-- *Closing line:* "Don't just be prepared. Be right."
+- *Closing line:* "Prepare with sources you can inspect."

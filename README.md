@@ -2,7 +2,7 @@
 
 _Verified briefs before every meeting._
 
-**Walk into every meeting knowing what changed — with a source for every line.**
+**Prepare for meetings with a cited brief and clear uncertainty.**
 
 Geek Room Global AI Hackathon · Problem Statement 05 — *Build a Pre-Meeting Briefing Agent* · Tavily track
 Built with [BuilderIO Agent-Native](https://www.agent-native.com/docs/), [Tavily](https://docs.tavily.com) and [Bifrost](https://github.com/maximhq/bifrost) by Maxim AI.
@@ -24,20 +24,20 @@ Before a sales call, partner meeting or investor pitch, people spend 20–40 min
 Give the agent a **company or person**, the **meeting time**, and optionally the **meeting purpose** (sales, partnership, investor, BD, hiring). It:
 
 1. **Plans** 6–8 targeted searches: latest news, product launches, exec hires/departures, funding/M&A, partnerships, press releases, plus purpose-specific risk or financial signals (or role changes, talks and interviews for a person).
-2. **Searches Tavily** in parallel with a **hard published-date window** `[meeting − 30 days, meeting]` (`topic: news`, `start_date`/`end_date`, `include_answer: false` — we never let a search engine's answer stand in for evidence), plus a search restricted to the official domain, one undated background query, and **Tavily Map** on the company's newsroom to catch first-party announcements.
-3. **Cleans the evidence**: canonicalises URLs (strips `utm_*`), removes syndicated duplicates, drops anything dated outside the window, flags undated pages, ranks by relevance + recency + primary-source bonus, and uses **Tavily Extract** to pull full text for the top sources.
+2. **Searches Tavily** in parallel using a meeting-anchored published-date window (30 days by default), plus an official-domain search, an unfiltered background query, and **Tavily Map** on the company's newsroom. News searches send `start_date`/`end_date` and `include_answer: false`; results are evidence to inspect, not a search-generated answer.
+3. **Cleans the evidence**: canonicalises URLs (strips `utm_*`), removes URL duplicates and near-identical titles on the same domain, ranks results by relevance, recency and primary-source signals, and uses **Tavily Extract** for top sources. Normalization allows a six-hour grace after meeting time, retains undated sources, and retains older background material separately. Cross-domain syndicated copies may remain.
 4. **Drafts through Bifrost**: an LLM turns numbered sources `S1..Sn` into a strict JSON draft — TL;DR, dated claims with citations, talking points, open questions.
-5. **Verifies in code — the model proposes, the code decides**:
-   - a citation that points at a source we didn't retrieve → the statement is **dropped**
-   - **citation-drift guard**: every citation is checked *on its own* — the source must be about the target (name or official domain in its title / URL / text) **and** share the claim's key names or figures. Off-topic citations are removed (and counted in the brief's notes); if no supporting citation is left the item becomes **uncertain**, or is dropped when all its citations were off-topic. TL;DR bullets with no supporting citation are dropped.
+5. **Screens the draft with code** (and an optional model-based support check):
+   - invalid source IDs are discarded; a claim with no valid citations is **dropped**
+   - **citation-drift guard**: each valid citation for a claim or TL;DR bullet is checked for target relevance, lexical overlap and, where detected, shared names or figures. Rejected citations are recorded. A claim with no citation passing the guard is uncertain if an on-topic reference remains, or dropped if all references are off-topic; a TL;DR bullet with none passing is dropped.
    - optional **LLM support check** (`VERIFY_LLM=1`): one batched call to a cheap model (default `groq/openai/gpt-oss-120b` via Bifrost) judges which cited sources support each TL;DR bullet and claim. It can only remove citations; if it fails, the lexical guard still applies.
-   - any **figure** (amounts, %, counts) not present in the cited source text → **uncertain**
+   - a detected **figure** whose digits are not found in the cited text → **uncertain**; matching is heuristic and does not cover every number
    - weak lexical grounding of the claim's key terms in its sources → **uncertain**
-   - **verified** only with **2+ independent outlets** *or* a **primary source** (official site / press wire)
-   - hedged language ("reportedly", "expected to", "exploring"), single secondary sources and undated pages → **uncertain**
-6. **Renders a one-page brief**: TL;DR · key developments (dated, cited) · people & org changes · talking points · open questions · **Uncertain / unverified** · sources. Copy as Markdown, download `.md`, or print a one-pager.
+   - **verified** requires, among other checks, two distinct root domains or a source classified as primary (official site / press wire); distinct domains do not establish editorial independence
+   - hedged language ("reportedly", "expected to", "exploring"), a single secondary source, or no dated cited source → **uncertain**
+6. **Renders a brief**: TL;DR · key developments · people & org changes · talking points · open questions · **Uncertain / unverified** · sources. Copy as Markdown, download `.md`, or print a one-pager. Talking points and questions have lighter citation handling than claims, and may have no citations.
 
-The demo deliberately includes a model that invents a "300% revenue growth" figure and cites a non-existent source — the verifier catches both on screen.
+The fictional demo includes an invented "300% revenue growth" figure and a claim with only a non-existent source; the checks flag the former and drop the latter. These examples do not demonstrate that every unsupported claim will be caught.
 
 ## Architecture
 
@@ -75,7 +75,7 @@ flowchart LR
 | Path | What it does |
 | --- | --- |
 | `actions/research-target.ts` | Action: plan + Tavily fan-out + normalised sources `S1..Sn` |
-| `actions/generate-briefing.ts` | Action: full pipeline → verified briefing (accepts prior `research` to avoid re-searching) |
+| `actions/generate-briefing.ts` | Action: full pipeline → screened briefing (accepts prior `research` to avoid re-searching) |
 | `actions/export-briefing.ts` | Action: briefing → Markdown with citation links |
 | `actions/briefing-status.ts` | Action: which backends are active (no secrets) |
 | `server/lib/briefing/planner.ts` | Query plan per target type and meeting purpose; date window |
@@ -98,7 +98,7 @@ flowchart LR
 
 - **LLM synthesis (via Bifrost)** turns 10–40 raw articles into a structured, purpose-aware draft: merges duplicate coverage into single events, writes one-sentence claims, and proposes talking points and open questions tailored to a sales / partnership / investor / BD / hiring meeting.
 - **Agentic interface**: the same actions are tools for the built-in Agent-Native chat agent, so you can ask "brief me on Acme before Thursday's partnership call" or follow up with "what's the source for the CFO news?". They are also exposed over HTTP, CLI and MCP with no extra code.
-- **Guardrails, not vibes**: the model never decides what is "verified". Deterministic code checks every citation, figure and term against retrieved text, so hallucinations surface as ⚠ or get dropped and logged.
+- **Heuristic screening**: code checks citations and lexical signals for claims and TL;DR bullets. The optional model-based check can remove citations, while talking points and questions receive lighter checks. These checks can miss unsupported statements; inspect the cited sources before relying on the brief.
 
 ## Bifrost + Tavily integration
 
@@ -108,21 +108,21 @@ flowchart LR
 
 ## How Groundwork uses Tavily
 
-One brief = one small, fixed budget of Tavily calls (about **15–20 credits** for a company with a known domain; the free tier's 1,000 credits/month covers ~50 briefs). Every request sets `include_usage: true`, and the brief reports `tavilyCalls` / `tavilyCredits` in its stats.
+One brief = one small, fixed budget of Tavily calls (about **15–20 credits** for a company with a known domain; the free tier's 1,000 credits/month covers ~50 briefs). Requests ask for usage information where supported, and the brief reports `tavilyCalls` / `tavilyCredits` in its stats.
 
 | Step | Endpoint | Key params | Why |
 | --- | --- | --- | --- |
 | Recent developments (5–7 queries: latest news, launches, exec moves, funding/M&A, partnerships, + risk or financials by meeting purpose) | `POST /search` | `topic: "news"`, `search_depth: "advanced"`, `chunks_per_source: 3`, `max_results: 8`, `start_date` / `end_date` = **meeting − N days → meeting**, `include_published_date: true`, `include_answer: false` | The lookback window is anchored to the **meeting**, not today, so we use absolute `start_date`/`end_date` instead of `time_range` (which counts back from now). We never use Tavily's answer — only sources we can cite. |
-| First-party announcements (when `officialDomain` is given) | `POST /search` | `topic: "general"`, `include_domains: [officialDomain]`, same date window, `search_depth: "basic"` | Press releases on the company's own site are **primary sources** — a single one can verify a claim. Basic depth = 1 credit. |
+| First-party announcements (when `officialDomain` is given) | `POST /search` | `topic: "general"`, `include_domains: [officialDomain]`, same date window, `search_depth: "basic"` | Press releases on the company's own site are treated as **primary sources** — a single one can satisfy that part of the verification heuristic. Basic depth = 1 credit. |
 | Background (1 query) | `POST /search` | `topic: "general"`, **no date filter**, `search_depth: "basic"`, `max_results: 5` | Gives the model context (what the company does, who it sells to). These sources are tagged `background`, capped at 3, ranked last, labelled "BACKGROUND, outside window" in the prompt, and a claim backed only by them can never be verified. |
 | Newsroom discovery (when `officialDomain` is given) | `POST /map` | `url` = newsroom index found from the official search hits (e.g. `…/en/news/press-releases`, fallback `/newsroom`, `/news`, `/blog`), `max_depth: 1`, `limit: 25`, `allow_external: false`, no `instructions` | Finds first-party pages search missed (exec hires, financings, partner announcements). Depth 1 and no `instructions` keep it at ~2–3 credits; a failed map costs nothing and is reported in the brief's notes. |
-| Full text | `POST /extract` | **one batched call**: top `TAVILY_EXTRACT_TOP` (4) search results + up to `TAVILY_SITE_PAGES` (4) mapped newsroom pages, `extract_depth: "basic"`, `format: "text"` | Full text makes the verifier's figure/entity checks meaningful. Mapped pages get their date from the URL or page text and go through the same window filter; navigation is trimmed before the article. 5 URLs = 1 credit. |
+| Full text | `POST /extract` | **one batched call**: top `TAVILY_EXTRACT_TOP` (4) search results + up to `TAVILY_SITE_PAGES` (4) mapped newsroom pages, `extract_depth: "basic"`, `format: "text"` | Full text makes the verifier's figure/entity checks meaningful. Mapped pages get their date from the URL or page text and go through the same normalization, including the grace period and undated-source handling; navigation is trimmed before the article. 5 URLs = 1 credit. |
 
 `MOCK=1` makes no Tavily calls at all (fixtures stand in for search); the demo brief shows an estimate, marked "~ … (est.)", of the calls and credits the same plan costs live. Its fixture also includes a first-party newsroom page and an off-topic article the mock model cites, so the per-citation verifier visibly removes it. Set `TAVILY_SITE_PAGES=0` to skip Map, `TAVILY_EXTRACT_TOP=0` to skip Extract of search results.
 
 ## Evaluation
 
-Real runs (Tavily + Bifrost) on five companies, each with its official domain, for a sales call on 2026-11-20 with the default 30-day window. Main runs used **Groq `openai/gpt-oss-120b`** through Bifrost (`LLM_MAX_SOURCES=12`, `LLM_SOURCE_CHARS=450`); the last row uses **NVIDIA Nemotron 3 Ultra** as the drafter plus the optional `VERIFY_LLM=1` judge on Groq. Raw briefs and per-run JSON: [`docs/eval/`](docs/eval/) ([results.md](docs/eval/results.md), [results.jsonl](docs/eval/results.jsonl)). Rebuild with `pnpm exec tsx scripts/eval-briefs.ts <Company> <domain>`.
+Real runs (Tavily + Bifrost) on five companies, each with its official domain, for a sales call on 2026-11-20 with the default 30-day window. Main runs used **Groq `openai/gpt-oss-120b`** through Bifrost (`LLM_MAX_SOURCES=12`, `LLM_SOURCE_CHARS=450`); the last row uses **NVIDIA Nemotron 3 Ultra** as the drafter plus the optional `VERIFY_LLM=1` judge on Groq. Raw briefs and per-run JSON: [`docs/eval/`](docs/eval/) ([results.md](docs/eval/results.md), [results.jsonl](docs/eval/results.jsonl)). Run another evaluation with `pnpm exec tsx scripts/eval-briefs.ts <Company> <domain>`, then rebuild the table with `pnpm exec tsx scripts/eval-briefs.ts --table` (see the evaluation notes for setup and overwrite behavior).
 
 | Company | Sources found | Cited | Verified | Uncertain | Dropped claims | Citations removed | Newsroom pages (Map) | Tavily credits | Seconds | Model that served |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
@@ -135,7 +135,7 @@ Real runs (Tavily + Bifrost) on five companies, each with its official domain, f
 
 "Sources found" is capped at 40 by design. "Citations removed" counts citations the verifier rejected (removed, or kept only as a reference on a claim downgraded to uncertain). "Newsroom pages (Map)" is first-party pages found by Tavily Map and extracted; Snowflake's site timed out for Tavily's crawler and Figma's map calls returned HTTP 500, so both fell back to search only, which cost nothing extra.
 
-**Takeaway:** every brief stayed within 15–21 Tavily credits and ran in 12–42 s on Groq (about 58 s on Nemotron). Roughly half of the model's claims cleared the 2-outlet / primary-source bar, and the rest were shown as uncertain rather than stated as fact. On these runs Groq's citations passed the lexical drift guard untouched. The LLM judge is much stricter: it rejected 5 citations and left only 1 claim verified.
+**Takeaway:** in these recorded runs, costs were 15–21 Tavily credits and Groq elapsed times were 12–42 s (about 58 s for the Nemotron run). The labels and citation counts reflect the pipeline's own heuristics, not an independent accuracy assessment. The optional LLM judge rejected 5 citations in the Nemotron run. The sample is too small to establish accuracy or typical latency; review cited sources and dates before relying on any output.
 
 ## Setup
 
@@ -253,17 +253,12 @@ curl -X POST http://localhost:8080/_agent-native/actions/generate-briefing \
 ## Limitations
 
 - Coverage is only as good as what Tavily indexes in the window; paywalled or very small outlets may be missing. Published dates are Tavily's best estimate.
-- The default verification is lexical + entity-based: it proves the target, names and numbers are in each cited text, not that the sentence is a faithful paraphrase. `VERIFY_LLM=1` adds a batched semantic check, but that is itself a model judgment (it can only remove citations, never add trust).
+- Verification is heuristic, not proof of factual support. It uses lexical and entity signals; figure matching can miss numbers or match digit substrings, and a model-proposed claim date is not checked against source publication dates. TL;DR bullets do not inherit claim confidence; talking points and questions receive lighter citation checks and can lack citations. `VERIFY_LLM=1` adds a model judgment for claims and TL;DR citations and falls back to lexical checks on failure. Read the sources before relying on the output.
 - "Independent outlets" counts distinct root domains; syndicated wire copy on different domains can over-count.
 - Person disambiguation relies on the optional company field; common names can mix people.
 - Recent briefs are kept in browser localStorage only (no server-side history yet). Keys are read from deploy-level env vars; a multi-user deploy should move them to the framework's per-user credential store.
 - `node-pty` (the framework's optional in-app terminal) is set not to build (`pnpm-workspace.yaml`), so that feature is off; it is not used by this app.
 
-## Team
-
-- _Name — role — GitHub/LinkedIn_
-- _Name — role — GitHub/LinkedIn_
-
 ## License
 
-MIT (app code). Agent-Native, Tavily and Bifrost are used under their respective licenses.
+The app code is licensed under the [MIT License](LICENSE). Agent-Native, Tavily and Bifrost are used under their respective licenses.

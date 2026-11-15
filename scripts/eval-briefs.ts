@@ -3,7 +3,7 @@
  * friendly to free-tier rate limits), appending a row to docs/eval/results.jsonl and saving
  * the full brief as docs/eval/<slug>[-tag].json/.md.
  *
- *   MOCK=0 ... pnpm exec tsx scripts/eval-briefs.ts "Stripe" stripe.com [tag]
+ *   MOCK=0 ... pnpm exec tsx scripts/eval-briefs.ts "Stripe" stripe.com example-2
  *   pnpm exec tsx scripts/eval-briefs.ts --table      # rebuild docs/eval/results.md from the jsonl
  */
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -54,7 +54,7 @@ if (args[0] === "--table") {
   const rows = existsSync(`${DIR}/results.jsonl`)
     ? readFileSync(`${DIR}/results.jsonl`, "utf8").trim().split("\n").filter(Boolean).map((l) => JSON.parse(l) as Row)
     : [];
-  const md = `# Groundwork evaluation\n\nMeeting: ${MEETING} (sales call), 30-day window. Raw briefs: \`docs/eval/<company>.json\` / \`.md\`.\n\n${table(rows)}\n`;
+  const md = `# Groundwork evaluation\n\nMeeting: ${MEETING} (sales call), 30-day window. Raw briefs: \`docs/eval/<company>.json\` / \`.md\`.\n\n${table(rows)}\n\n## Interpretation and reproduction\n\nThese are recorded pipeline runs, not a benchmark against independently labeled answers. “Verified” and “uncertain” are the pipeline's own classifications; they do not establish factual accuracy, citation support, or precision and recall. Timings and credit use are observations from these runs, not guarantees. Review the cited sources before relying on a brief.\n\nTo run another live evaluation, configure Tavily and the desired model backend as described in the README and export the environment variables to the shell. Then run:\n\n\`\`\`bash\nMOCK=0 pnpm exec tsx scripts/eval-briefs.ts "Stripe" stripe.com example-2\npnpm exec tsx scripts/eval-briefs.ts --table\n\`\`\`\n\nThe first command performs live API calls, appends a row to \`results.jsonl\`, and overwrites the brief files for the same company and tag. Omit the optional tag or replace it with a distinct tag. The second regenerates this table from all rows. \`EVAL_MEETING\` overrides the meeting time; the table heading reflects the value used when rebuilding, while each JSONL row records its own meeting time. Runs can differ as source content, provider behavior, and model outputs change.\n`;
   writeFileSync(`${DIR}/results.md`, md);
   console.log(md);
 } else {

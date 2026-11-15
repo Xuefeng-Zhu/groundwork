@@ -24,7 +24,10 @@ app/                   # React frontend
   entry.client.tsx     # Client hydration entry
   routes.ts            # Route config — flatRoutes()
   routes/              # File-based page routes (auto-discovered)
-    _index.tsx         # / (chat page)
+    _index.tsx         # / (shared sign-in landing)
+    home.tsx           # /home (Groundwork briefing page)
+    chat._index.tsx    # /chat (new chat)
+    chat.$threadId.tsx # /chat/:threadId (existing chat)
   components/          # UI components
   hooks/               # React hooks
   lib/                 # Utilities (cn, etc)
@@ -53,18 +56,20 @@ react-router.config.ts # React Router framework config
 
 **SSR-first framework, CSR-by-default content:** This app uses React Router v8 framework mode with `ssr: true`. But virtually every route renders only an SSR shell (loading spinner + meta tags). Normal app data fetching happens on the client via action hooks. Server-side data fetching is the exception — only used for public pages that need SEO/OG tags.
 
-## Chat-First Shape
+## Chat Integration
 
 Agent-Native is the application framework and execution platform. AgentKit is
 its agent interaction and experience layer. Toolkit supplies the semantic
 composer, design-system primitives, and workspace UI used around the
 conversation.
 
-The `/` route is the app's primary AgentKit surface. Its default integration is:
+The Groundwork briefing page is at `/home`. The AgentKit chat surface is at
+`/chat` (or `/chat/:threadId` for an existing thread); `/` uses the shared
+sign-in landing. The chat integration uses:
 
 - `createAgentNativeAgentKitTransport()` from
-  `@agent-native/toolkit/app/chat/agentkit-chat` for the production Agent-Native
-  runtime.
+  `@agent-native/core/client/agentkit-chat/transport` for the production
+  Agent-Native runtime.
 - `CoreAgentKitRoot` from `@agent-native/toolkit/app/chat/agentkit-chat` for one
   managed controller, thread context, and the default action-widget renderer.
 - `AgentKitChat` for the reference transcript, composer, queue, approvals,
@@ -85,37 +90,23 @@ renderers can register with `registerActionChatRenderer()` from
 `@agent-native/toolkit/app/chat/agentkit-chat` using the same renderer id declared by
 the action. Built-in Core renderers need no app registration.
 
-This template is also the canonical AgentKit reference surface. Develop and
-verify shared chat UX here first, then use domain apps such as Dispatch as
-consumer smoke tests. Queue behavior can be exercised by submitting follow-ups
+Queue behavior can be exercised by submitting follow-ups
 while a run is active. The shared composer remains mounted throughout these
 states. The route does not provide fallback suggestions: contextual next
 actions appear only when the agent injects them through AgentKit's structured
 `suggestions` input.
 
-For a headless app that later needs UI, this template is the intended landing
-zone: bring the existing actions over, keep their names stable, and let the chat
-call them before adding extra screens. For a custom agent backend, keep the app
-shell and implement `AgentTransport`, or adapt an existing Core
+For a custom agent backend, keep the app shell and implement
+`AgentTransport`, or adapt an existing Core
 `AgentChatRuntime` with `createAgentKitProtocolAdapter()` from
 `@agent-native/core/client/agent-chat`.
 
 ### Package and scaffold path
 
-The Chat template depends on `@agent-native/core`,
-`@agent-native/agentkit`, and `@agent-native/toolkit` through workspace
-specifiers in this repository. The CLI resolves them for the generated shape:
-
-- A normal standalone scaffold receives published package ranges.
-- A local framework-development scaffold packages the local Core, AgentKit,
-  and Toolkit implementations. Missing compiled package exports are built
-  before the tarballs are created.
-- A workspacified Chat app inherits a concrete package version already pinned
-  by the workspace root. Otherwise it uses the compatible range supplied by
-  the running CLI.
-
-Do not replace these dependencies with direct `dist` paths or deep source
-imports. Install the generated manifest as written.
+This standalone app pins `@agent-native/core`, `@agent-native/agentkit`, and
+`@agent-native/toolkit` to published versions in `package.json`. Install the
+manifest as written; do not replace these dependencies with direct `dist`
+paths or deep source imports.
 
 ### Migrate an older Core chat surface
 
@@ -255,4 +246,5 @@ The framework provides **Extensions** — mini sandboxed Alpine.js apps that run
 - **Sharing**: Private by default, shareable with org or specific users (same model as other ownable resources)
 - **Security**: Iframe sandbox + CSP + SSRF protection on the proxy
 
-See the `extensions` skill in `.agents/skills/extensions/SKILL.md` for full implementation details.
+For current framework documentation, search the locally bundled docs with
+`pnpm action docs-search --query "extensions"`.
