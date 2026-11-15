@@ -1,18 +1,14 @@
 /**
- * The trust layer. The model PROPOSES claims with citations; this code DECIDES
- * what is verified. Nothing the model says is accepted on its word:
- *  - citations must point at sources we actually retrieved (else the claim is dropped)
- *  - every figure in a claim (amounts, %, counts) must appear in the cited source text
- *  - key terms must be grounded in the cited text (lexical support score)
- *  - "verified" needs 2+ independent outlets OR a primary source (official site / press wire)
- *  - undated sources, single-source reports and hedged language stay "uncertain"
- *  - EACH citation is checked on its own (citation-drift guard): the source must be about
- *    the target AND share the claim's key entities/figures. Off-topic citations are removed;
- *    if nothing supporting remains the item is downgraded to uncertain (or dropped).
+ * Heuristic screening for model-proposed claims and citations. A verified label
+ * indicates the checks passed; lexical overlap cannot prove semantic support.
+ * Sources must be relevant, figures must match whole numeric tokens, and a
+ * proposed event date must appear in cited text. Dated, non-background sources
+ * must include a primary source or distinct coverage; obvious copied headlines
+ * and snippets are not counted twice. Inspect sources before relying on claims.
  */
 import type { BriefingRequest, Category, Claim, Source } from "../../../shared/briefing/schema";
 import { CATEGORIES } from "../../../shared/briefing/schema";
-import { rootDomain } from "./sources";
+import { coverageCount } from "./independent";
 
 export interface ProposedClaim {
   text: string;
@@ -36,27 +32,25 @@ export function sourceText(srcs: Source[]): string {
   return norm(srcs.map((s) => `${s.title} ${s.snippet} ${s.content ?? ""}`).join(" \n "));
 }
 
-/** Figures like $120M, 1.4 billion, 500, 30% -> their digit core ("120", "1.4", "500", "30"). */
+/** Normalize numeric formatting without converting to Number (and losing precision). */
+function normalizeFigure(figure: string): string {
+  const [integer = "0", fraction = ""] = figure.replace(/,/g, "").split(".");
+  const whole = integer.replace(/^0+(?=\d)/, "");
+  const decimal = fraction.replace(/0+$/, "");
+  return decimal ? `${whole}.${decimal}` : whole;
+}
+
+/**
+ * Extract complete numeric tokens, including single digits and years. Date components
+ * are retained too: omitting them could let a claim introduce an unsupported date.
+ * This is a lexical screen, not a semantic comparison of quantities or dates.
+ */
 export function extractFigures(text: string): string[] {
-  const out = new Set<string>();
-  // Dates (2026-11-07, Nov 7 2026) are checked separately against the source date, not as figures.
-  text = text
-    .replace(/\b(19|20)\d{2}-\d{1,2}-\d{1,2}\b/g, " ")
-    .replace(/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\s+\d{1,2}\b/gi, " ");
-  for (const m of text.matchAll(/\d[\d,]*(?:\.\d+)?/g)) {
-    const core = m[0].replace(/,/g, "");
-    // Ignore years and day-of-month style numbers; dates are checked separately.
-    if (/^(19|20)\d{2}$/.test(core)) continue;
-    if (core.length <= 1 && !/%|\$|million|billion/i.test(text.slice(m.index ?? 0, (m.index ?? 0) + 12))) continue;
-    out.add(core);
-  }
-  return [...out];
+  return [...new Set([...text.matchAll(/\d+(?:,\d{3})*(?:\.\d+)?/g)].map((m) => normalizeFigure(m[0])))];
 }
 
 function figureInText(fig: string, text: string): boolean {
-  if (text.includes(fig)) return true;
-  const withCommas = Number(fig).toLocaleString("en-US");
-  return text.includes(withCommas);
+  return extractFigures(text).includes(normalizeFigure(fig));
 }
 
 export function keyTerms(text: string): string[] {
@@ -246,6 +240,54 @@ export interface VerifyOutcome {
   downgraded?: boolean;
 }
 
+/**
+ * Extract the civil date the model supplied, without shifting it through UTC.
+ * Reject invalid calendar dates (Date.parse otherwise normalizes e.g. Feb 30).
+ */
+function proposedDay(value: string): string | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/.exec(value.trim());
+  if (!m) return null;
+  const day = `${m[1]}-${m[2]}-${m[3]}`;
+  const parsed = new Date(`${day}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== day) return null;
+  // If a timestamp was provided, it must also be a valid ISO timestamp.
+  if (value.trim().length > 10 && Number.isNaN(new Date(value).getTime())) return null;
+  return day;
+}
+
+/** A publication timestamp by itself does not establish when the event happened. */
+function sourceMentionsDay(day: string, cited: Source[]): boolean {
+  const [year, month, date] = day.split("-");
+  const monthName = ["jan(?:uary)?", "feb(?:ruary)?", "mar(?:ch)?", "apr(?:il)?", "may", "jun(?:e)?", "jul(?:y)?", "aug(?:ust)?", "sep(?:t(?:ember)?)?", "oct(?:ober)?", "nov(?:ember)?", "dec(?:ember)?"][Number(month) - 1]!;
+  const d = `0?${Number(date)}(?:st|nd|rd|th)?`;
+  const patterns = [
+    new RegExp(`(?:^|[^0-9])${year}-0?${Number(month)}-0?${Number(date)}(?![0-9])`, "i"),
+    new RegExp(`\\b${monthName}\\.?\\s+${d},?\\s+${year}(?![0-9])`, "i"),
+    new RegExp(`(?:^|[^0-9])${d}\\s+${monthName}\\.?[,]?\\s+${year}(?![0-9])`, "i"),
+  ];
+  return cited.some((s) => patterns.some((pattern) => pattern.test(`${s.title} ${s.snippet} ${s.content ?? ""}`)));
+}
+
+/** Find complete, unambiguous dates written in the claim itself. */
+function claimDays(text: string): Array<string | null> {
+  const days: Array<string | null> = [];
+  for (const m of text.matchAll(/\b\d{4}-\d{2}-\d{2}\b/g)) days.push(proposedDay(m[0]));
+  const months = "jan feb mar apr may jun jul aug sep oct nov dec".split(" ");
+  const names = "(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)";
+  const patterns = [
+    new RegExp(`\\b(${names})\\.?\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s+(\\d{4})\\b`, "gi"),
+    new RegExp(`\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+(${names})\\.?[,]?\\s+(\\d{4})\\b`, "gi"),
+  ];
+  for (const [index, pattern] of patterns.entries()) {
+    for (const m of text.matchAll(pattern)) {
+      const month = months.indexOf(m[index === 0 ? 1 : 2]!.slice(0, 3).toLowerCase()) + 1;
+      const day = Number(m[index === 0 ? 2 : 1]);
+      days.push(proposedDay(`${m[3]}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`));
+    }
+  }
+  return days;
+}
+
 export function verifyClaim(
   p: ProposedClaim,
   idx: number,
@@ -273,28 +315,36 @@ export function verifyClaim(
   }
   const cited = ids.map((id) => byId.get(id)!);
   const g = ground(text, cited);
-  const outlets = new Set(cited.map((s) => rootDomain(s.domain))).size;
-  const primary = cited.some((s) => s.isPrimary);
-  const dated = cited.some((s) => !!s.publishedAt);
+  // Undated and out-of-window background references may provide context, but
+  // cannot turn a single recent secondary report into a verified claim.
+  const eligible = cited.filter((s) => s.origin !== "background" && !!s.publishedAt && !Number.isNaN(new Date(s.publishedAt).getTime()));
+  const outlets = coverageCount(eligible);
+  const primary = eligible.some((s) => s.isPrimary);
+  const dated = cited.some((s) => !!s.publishedAt && !Number.isNaN(new Date(s.publishedAt).getTime()));
   const hedged = !!p.hedged || HEDGES.test(text) || cited.every((s) => HEDGES.test(`${s.title} ${s.snippet}`));
+  // Model JSON is not trusted to respect the TypeScript type.
+  const suppliedDate = typeof p.date === "string" ? p.date.trim() : p.date == null ? "" : "invalid";
+  const day = suppliedDate ? proposedDay(suppliedDate) : null;
+  const dateSupported = day ? sourceMentionsDay(day, cited) : false;
 
   const reasons: string[] = [];
   if (unsupported) reasons.push(`no cited source clearly supports this (${f.removed.map((r) => `${r.id}: ${r.reason}`).join("; ")})`);
   if (g.missingFigures.length) reasons.push(`figure(s) ${g.missingFigures.join(", ")} not found in cited sources`);
   if (g.score < 0.5) reasons.push(`weak support in source text (${Math.round(g.score * 100)}%)`);
   if (!dated) reasons.push("source has no publication date");
+  if (suppliedDate && !day) reasons.push("claim date is invalid");
+  else if (day && !dateSupported) reasons.push(`claim date ${day} is not found in cited source text`);
+  for (const mentionedDay of new Set(claimDays(text))) {
+    if (!mentionedDay) reasons.push("date in claim text is invalid");
+    else if (!sourceMentionsDay(mentionedDay, cited) && !(mentionedDay === day && !dateSupported))
+      reasons.push(`date ${mentionedDay} in claim text is not found in cited source text`);
+  }
   if (cited.every((s) => s.origin === "background")) reasons.push("background source only (outside the research window)");
   if (hedged) reasons.push("reported as rumour / unconfirmed");
-  if (outlets < 2 && !primary) reasons.push("single secondary source");
+  if (outlets < 2 && !primary) reasons.push(outlets === 0 ? "no dated non-background source" : "single secondary source");
 
   const verified = reasons.length === 0;
-  const date =
-    (p.date && !Number.isNaN(new Date(p.date).getTime()) ? new Date(p.date).toISOString() : null) ??
-    cited
-      .map((s) => s.publishedAt)
-      .filter((d): d is string => !!d)
-      .sort()[0] ??
-    null;
+  const date = day && dateSupported ? `${day}T00:00:00.000Z` : null;
 
   return {
     claim: {
@@ -307,7 +357,7 @@ export function verifyClaim(
       confidenceReason: verified
         ? primary
           ? `primary source${outlets > 1 ? ` + ${outlets} outlets` : ""}`
-          : `${outlets} independent outlets`
+          : `${outlets} distinct sources of coverage`
         : reasons.join("; "),
       grounding: g.score,
     },

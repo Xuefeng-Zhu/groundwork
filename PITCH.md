@@ -18,7 +18,7 @@
 - *Talking point:* show the screenshot and point at the green ✓ vs amber ⚠ items.
 
 ## 4. How it works (architecture)
-- Plan 6–8 targeted queries, then Tavily news search for the 30 days before the meeting, deduplicate and filter results, and use Tavily Extract for full text. The local filter allows a six-hour grace period, retains undated results, and may retain older background sources for context.
+- Plan 6–8 targeted queries, then Tavily news search for the 30 days before the meeting, deduplicate and filter results, and use Tavily Extract for full text. The local filter excludes dated sources outside the exact window and ambiguous date-only boundary sources; it retains undated results and older background sources for context.
 - The LLM drafts through the **Bifrost** gateway. **verify.ts** applies heuristic checks to decide which claims receive the verified label; readers should still check sources.
 - One set of Agent-Native **actions** (`research-target`, `generate-briefing`, `export-briefing`) powers the UI, the chat agent, HTTP, CLI and MCP.
 - *Talking point:* "Defined once, usable everywhere: the form and the chat agent call the exact same code."

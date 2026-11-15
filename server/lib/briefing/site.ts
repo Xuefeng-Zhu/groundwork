@@ -117,8 +117,9 @@ function monthIdx(m: string): number {
 
 function iso(y: number, m: number, d: number): string | null {
   if (m < 1 || m > 12 || d < 1 || d > 31) return null;
-  const t = Date.UTC(y, m - 1, d, 12);
-  return Number.isNaN(t) ? null : new Date(t).toISOString();
+  const date = new Date(Date.UTC(y, m - 1, d));
+  if (date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) return null;
+  return date.toISOString().slice(0, 10);
 }
 
 /** Drop site navigation before the article: start at the first occurrence of the slug's words. */

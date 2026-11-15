@@ -13,7 +13,7 @@ import {
 } from "../../../shared/briefing/schema";
 import { fixtureKey } from "./fixtures";
 import { titleTokens } from "./sources";
-import { filterCitations, ground, isAboutTarget, verifyClaim, type ProposedClaim, type TargetRef } from "./verify";
+import { isAboutTarget, verifyClaim, type ProposedClaim, type TargetRef } from "./verify";
 
 export interface Draft {
   tldr: Array<{ text: string; sourceIds?: string[] | undefined }>;
@@ -277,31 +277,20 @@ export function assemble(draft: Draft, sources: Source[], opts: AssembleOptions 
   const verified = claims.filter((c) => c.confidence === "verified").sort(byDate);
   const uncertain = claims.filter((c) => c.confidence === "uncertain").sort(byDate);
 
-  // TL;DR bullets are factual too: they must cite, be grounded, and carry no unsupported figures.
+  // The TL;DR has no uncertainty label, so apply the same confidence bar as
+  // claims and omit bullets that only have uncertain support.
   const tldr: CitedText[] = [];
   (draft.tldr ?? []).forEach((b, i) => {
-    const valid = validIds(b.sourceIds);
-    if (!valid.length) {
-      dropped.push(`TL;DR without valid citation: "${b.text.slice(0, 80)}"`);
+    const r = verifyClaim({ text: b.text, sourceIds: b.sourceIds }, i, byId, t, opts.llmUnsupported?.get(`tldr:${i}`));
+    if (r.removedCitations?.length) {
+      citationsRemoved += r.removedCitations.length;
+      citationNotes.push(`TL;DR "${b.text.slice(0, 60)}": rejected ${r.removedCitations.map((c) => `${c.id} (${c.reason})`).join(", ")}`);
+    }
+    if (!r.claim || r.claim.confidence !== "verified") {
+      dropped.push(`TL;DR omitted: ${r.droppedReason ?? r.claim?.confidenceReason ?? "insufficient support"}: "${b.text.slice(0, 80)}"`);
       return;
     }
-    // Each citation must stand on its own: about the target and sharing the bullet's names/figures.
-    const f = t ? filterCitations(b.text, valid, byId, t, opts.llmUnsupported?.get(`tldr:${i}`)) : { kept: valid, removed: [] };
-    if (f.removed.length) {
-      citationsRemoved += f.removed.length;
-      citationNotes.push(`TL;DR "${b.text.slice(0, 60)}": removed ${f.removed.map((c) => `${c.id} (${c.reason})`).join(", ")}`);
-    }
-    const ids = f.kept;
-    if (!ids.length) {
-      dropped.push(`TL;DR has no citation that supports it: "${b.text.slice(0, 80)}"`);
-      return;
-    }
-    const g = ground(b.text, ids.map((x) => byId.get(x)!));
-    if (g.missingFigures.length || g.score < 0.4) {
-      dropped.push(`TL;DR not supported by its sources: "${b.text.slice(0, 80)}"`);
-      return;
-    }
-    tldr.push({ text: b.text.trim(), sourceIds: ids });
+    tldr.push({ text: r.claim.text, sourceIds: r.claim.sourceIds });
   });
 
   const talkingPoints = (draft.talkingPoints ?? [])

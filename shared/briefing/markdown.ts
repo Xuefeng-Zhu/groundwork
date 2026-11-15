@@ -23,7 +23,7 @@ export function formatDay(iso: string | null | undefined): string {
 
 function claimLine(c: Claim, b: Briefing): string {
   const tag = c.confidence === "verified" ? "✅" : "⚠️";
-  return `- ${tag} **${formatDay(c.date)}** · _${CATEGORY_LABELS[c.category]}_ — ${c.text}${cite(c.sourceIds, b)}`;
+  return `- ${tag} **${c.date ? formatDay(c.date) : "event date not stated"}** · _${CATEGORY_LABELS[c.category]}_ — ${c.text}${cite(c.sourceIds, b)}`;
 }
 
 /** Render a briefing as portable one-page Markdown with inline citations. */
@@ -79,7 +79,7 @@ export function briefingToMarkdown(b: Briefing): string {
   }
   lines.push("");
   lines.push(
-    `_Generated ${b.generatedAt} by Groundwork. ✅ = verified (2+ independent sources or a primary source, key terms found in source text). ⚠️ = single secondary source, undated, or not fully supported by source text._`,
+    `_Generated ${b.generatedAt} by Groundwork. ✅ = passed heuristic checks with a dated primary source or distinct coverage. ⚠️ = insufficient or uncertain support. Checks can miss errors; review the cited sources._`,
   );
   return lines.join("\n");
 }

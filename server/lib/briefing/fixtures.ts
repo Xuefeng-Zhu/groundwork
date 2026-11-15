@@ -138,7 +138,7 @@ export function mockSearch(req: BriefingRequest, queries: PlannedQuery[], window
       title: fill(f.title, req),
       content: fill(f.content, req),
       publishedDate:
-        f.daysBefore === null ? null : new Date(end - f.daysBefore * 86_400_000 - 3_600_000).toUTCString(),
+        f.daysBefore === null ? null : new Date(end - f.daysBefore * 86_400_000 - 3_600_000).toISOString(),
       score: f.score,
       ...(f.origin ? { origin: f.origin } : {}),
     });

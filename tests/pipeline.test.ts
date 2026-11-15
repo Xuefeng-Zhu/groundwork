@@ -171,14 +171,14 @@ describe("live path with stand-in Tavily + Bifrost", () => {
 
 describe("verification primitives", () => {
   it("extracts figures and checks them against sources", () => {
-    expect(extractFigures("raised $120M at $1.4B, 30% growth in 2026")).toEqual(["120", "1.4", "30"]);
+    expect(extractFigures("raised $120M at $1.4B, 30% growth in 2026")).toEqual(["120", "1.4", "30", "2026"]);
     const src = [{ id: "S1", url: "u", title: "t", domain: "d", publishedAt: null, snippet: "raised $120 million", queryIds: [], categories: [], score: 0, isPrimary: false }];
     expect(ground("raised $120M", src as any).missingFigures).toEqual([]);
     expect(ground("raised $300M", src as any).missingFigures).toEqual(["300"]);
   });
   it("parses page dates and picks newest newsroom pages", () => {
-    expect(parsePageDate("https://x.com/blog/2026/11/04/foo", "")).toBe("2026-11-04T12:00:00.000Z");
-    expect(parsePageDate("https://x.com/news/foo", "Posted Nov 4, 2026 by team")).toBe("2026-11-04T12:00:00.000Z");
+    expect(parsePageDate("https://x.com/blog/2026/11/04/foo", "")).toBe("2026-11-04");
+    expect(parsePageDate("https://x.com/news/foo", "Posted Nov 4, 2026 by team")).toBe("2026-11-04");
     expect(parsePageDate("https://x.com/news/foo", "no date here")).toBeNull();
     const picked = pickSitePages(
       ["https://x.com/news", "https://x.com/news/old-2019-thing", "https://x.com/news/new-launch-2026", "https://x.com/news/plain-story-here", "https://x.com/about"],

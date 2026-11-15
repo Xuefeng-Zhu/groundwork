@@ -102,7 +102,7 @@ describe("citation-drift guard", () => {
     expect(r.claim?.confidenceReason).toMatch(/no cited source clearly supports/);
   });
 
-  it("strips the drifted citation from the TL;DR and counts it (regression)", () => {
+  it("omits a TL;DR with only one remaining secondary source and counts rejected citations", () => {
     const a = assemble(
       {
         tldr: [
@@ -116,8 +116,8 @@ describe("citation-drift guard", () => {
       S,
       { target: T },
     );
-    expect(a.tldr).toHaveLength(1);
-    expect(a.tldr[0]!.sourceIds).toEqual(["S1"]);
+    expect(a.tldr).toHaveLength(0);
+    expect(a.dropped.some((d) => d.includes("single secondary source"))).toBe(true);
     expect(a.keyDevelopments[0]!.sourceIds).toEqual(["S3"]);
     expect(a.keyDevelopments[0]!.confidence).toBe("verified"); // primary source
     expect(a.talkingPoints[0]!.sourceIds).toEqual(["S3"]);

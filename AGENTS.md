@@ -11,7 +11,7 @@ This app produces one-page, fully cited pre-meeting briefings for a company or p
 | `export-briefing` | Turn a briefing object into Markdown with citation links | Read-only. |
 | `briefing-status` | See whether mock mode, Tavily and which LLM chain are configured | Never returns secrets. |
 
-Rules for the agent: never state a fact that is not in a briefing's cited sources; keep verified and uncertain findings separate; say so when `demoData` is true. Pipeline code: `server/lib/briefing/` (planner, tavily, sources, llm, synthesize, verify, pipeline). Shared contracts: `shared/briefing/schema.ts`.
+Rules for the agent: never state a fact that is not in a briefing's cited sources; keep verified and uncertain findings separate; say so when `demoData` is true. Verification is heuristic: review cited text for meaning, quantity and dates. Numeric matching is lexical, and copied coverage detection is incomplete. Recent dated sources are filtered to the exact meeting window; date-only boundary sources are excluded when their possible timezones overlap the boundary, and undated sources cannot satisfy the verification threshold. Supplied research is rechecked against the meeting window. Pipeline code: `server/lib/briefing/` (planner, tavily, sources, llm, synthesize, verify, pipeline). Shared contracts: `shared/briefing/schema.ts`.
 
 ---
 

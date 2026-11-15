@@ -235,7 +235,7 @@ function Progress({ stage, research, error }: { stage: Stage; research: Research
     },
     {
       key: "synth",
-      label: research?.searchMode === "mock" ? "Draft (mock LLM) + verify every claim" : "Draft via Bifrost LLM gateway + verify every claim",
+      label: research?.searchMode === "mock" ? "Draft (mock LLM) + screen claims" : "Draft via Bifrost LLM gateway + screen claims",
     },
     { key: "done", label: "Brief ready" },
   ];
@@ -318,7 +318,7 @@ function ClaimItem({ c, byId, showReason }: { c: Claim; byId: Map<string, Source
         )}
       </span>
       <span>
-        <span className="me-1.5 font-mono text-[11px] text-muted-foreground">{formatDay(c.date)}</span>
+        <span className="me-1.5 font-mono text-[11px] text-muted-foreground">{c.date ? formatDay(c.date) : "event date not stated"}</span>
         <span className="me-1.5 rounded border border-border px-1 text-[10px] uppercase text-muted-foreground">{CATEGORY_LABELS[c.category]}</span>
         {c.text}
         <Cites ids={c.sourceIds} byId={byId} />
@@ -492,8 +492,8 @@ function BriefCard({ b }: { b: Briefing }) {
           </details>
         ) : null}
         <footer className="text-[10px] text-muted-foreground">
-          ✓ verified = 2+ independent outlets or a primary source, and every figure/key term found in the cited text. ⚠ = single secondary source,
-          hedged/rumoured, undated, or not fully supported. Generated {new Date(b.generatedAt).toLocaleString()}.
+          ✓ verified = passed heuristic checks with a dated primary source or distinct coverage. ⚠ = insufficient or uncertain support.
+          Checks can miss errors; review the cited sources. Generated {new Date(b.generatedAt).toLocaleString()}.
         </footer>
       </article>
     </div>
@@ -552,7 +552,7 @@ export default function BriefPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Walk in knowing what changed.</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           Enter a company or person and your meeting time. The agent researches the 30 days before it with Tavily, drafts through the Bifrost
-          gateway, and verifies every claim against its sources — so you get a one-page brief you can trust, with uncertain items called out.
+          gateway, and screens claims against sources. Review the cited material before relying on the brief.
         </p>
         <EngineStatus />
       </div>
@@ -603,7 +603,7 @@ export default function BriefPage() {
               <p className="max-w-sm">
                 {busy
                   ? "Researching… searches run in parallel; synthesis and verification follow."
-                  : "Your one-page brief appears here: TL;DR, dated developments, people changes, talking points, open questions, and what's still unverified — every line cited."}
+                  : "Your brief appears here: TL;DR, developments, people changes, talking points, open questions, and uncertain items."}
               </p>
             </div>
           )}

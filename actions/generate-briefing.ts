@@ -10,7 +10,7 @@ import {
 
 export default defineAction({
   description:
-    "Generate a one-page pre-meeting briefing for a company or person: TL;DR, dated key developments, people/org changes, talking points, open questions, an 'uncertain / unverified' section, and a sources list. Every factual line cites source ids; claims are verified in code (2+ independent outlets or a primary source, figures must appear in source text). Pass `research` from research-target to reuse it, otherwise research runs first. LLM calls go through the Bifrost gateway.",
+    "Generate a one-page pre-meeting briefing for a company or person: TL;DR, dated key developments, people/org changes, talking points, open questions, an 'uncertain / unverified' section, and a sources list. Claims and TL;DR citations are screened by heuristic code; verified labels are not proof of factual support. Undated and background sources do not count toward the verification threshold. Review cited sources before relying on the result. Pass `research` from research-target to reuse it, otherwise research runs first. LLM calls go through the Bifrost gateway.",
   schema: briefingRequestSchema.extend({
     research: researchResultSchema
       .optional()

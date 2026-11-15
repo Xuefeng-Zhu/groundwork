@@ -18,7 +18,7 @@ import { estimateTavilyUsage, fixtureOrg, mockSearch } from "./fixtures";
 import { completeJson, parseJsonLoose } from "./llm";
 import { computeWindow, planQueries } from "./planner";
 import { bareDomain, guessNewsroomUrls, newsroomCandidates, parsePageDate, pickSitePages, titleFromPage, trimToArticle } from "./site";
-import { canonicalUrl, normalizeHits, selectForPrompt, type RawHit } from "./sources";
+import { canonicalUrl, classifySourceDate, normalizeHits, parseDate, selectForPrompt, type RawHit } from "./sources";
 import { assemble, buildMessages, heuristicDraft, mockDraft, type Draft } from "./synthesize";
 import { llmSupportCheck } from "./support-check";
 import { newUsage, tavilyExtract, tavilyMap, tavilySearch, type TavilyClient } from "./tavily";
@@ -37,8 +37,8 @@ export function normalizeRequest(input: BriefingRequestInput, cfg: BriefingConfi
   const parsed = briefingRequestSchema.safeParse(input);
   if (!parsed.success) throw new BriefingError(parsed.error.issues.map((i) => i.message).join("; "), "invalid_request");
   const req = parsed.data;
-  if (Number.isNaN(new Date(req.meetingAt).getTime()))
-    throw new BriefingError(`meetingAt is not a valid date: ${req.meetingAt}`, "invalid_request");
+  if (!/^\d{4}-\d{2}-\d{2}T/.test(req.meetingAt) || !parseDate(req.meetingAt))
+    throw new BriefingError(`meetingAt must be a valid ISO timestamp with timezone: ${req.meetingAt}`, "invalid_request");
   if (cfg.mock && req.targetType === "person" && !req.organization) req.organization = fixtureOrg(req);
   return req;
 }
@@ -169,9 +169,17 @@ export async function generateBriefing(
   const cfg = opts.cfg ?? getConfig();
   const t0 = Date.now();
   const research = opts.research ?? (await researchTarget(input, cfg));
-  const req = research.request;
+  const req = normalizeRequest(research.request, cfg);
+  const window = computeWindow(req);
   const warnings = [...research.warnings];
-  const sources = research.sources;
+  // Recheck supplied research too: it can have been created with an older
+  // window policy or supplied directly by a caller.
+  const sources = research.sources.flatMap((source) => {
+    const date = classifySourceDate(source.publishedAt, source.origin, window);
+    if (!date.keep) return [];
+    return [{ ...source, publishedAt: date.publishedAt, origin: date.background ? "background" as const : source.origin }];
+  });
+  if (sources.length !== research.sources.length) warnings.push(`Excluded ${research.sources.length - sources.length} source(s) outside the meeting window.`);
 
   let draft: Draft;
   let engine: Briefing["engine"] = { search: research.searchMode, llm: "heuristic" };
@@ -181,7 +189,7 @@ export async function generateBriefing(
   } else if (!sources.length) {
     draft = { tldr: [], claims: [], talkingPoints: [], openQuestions: [] };
   } else {
-    const llm = await completeJson(cfg, buildMessages(req, research.window, selectForPrompt(sources, cfg.llmMaxSources), cfg.llmSourceChars), warnings);
+    const llm = await completeJson(cfg, buildMessages(req, window, selectForPrompt(sources, cfg.llmMaxSources), cfg.llmSourceChars), warnings);
     if (llm) {
       try {
         draft = parseJsonLoose(llm.text) as Draft;
@@ -216,7 +224,7 @@ export async function generateBriefing(
     id: randomUUID(),
     title: `Pre-meeting brief: ${req.target}`,
     request: req,
-    window: research.window,
+    window,
     generatedAt: new Date().toISOString(),
     engine,
     tldr: a.tldr,

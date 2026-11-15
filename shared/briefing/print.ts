@@ -10,7 +10,7 @@ export function briefingToPrintHtml(b: Briefing): string {
   const cite = (ids: string[]) =>
     ids.map((id) => `<a class="c" href="${esc(urls.get(id) ?? "#")}">${id}</a>`).join("");
   const claim = (c: Claim, reason = false) =>
-    `<li><span class="m">${c.confidence === "verified" ? "✓" : "⚠"} ${formatDay(c.date)} · ${CATEGORY_LABELS[c.category]}</span> ${esc(c.text)}${cite(c.sourceIds)}${reason ? `<div class="r">${esc(c.confidenceReason)}</div>` : ""}</li>`;
+    `<li><span class="m">${c.confidence === "verified" ? "✓" : "⚠"} ${c.date ? formatDay(c.date) : "event date not stated"} · ${CATEGORY_LABELS[c.category]}</span> ${esc(c.text)}${cite(c.sourceIds)}${reason ? `<div class="r">${esc(c.confidenceReason)}</div>` : ""}</li>`;
   const list = (items: string[], empty: string) => (items.length ? items.join("") : `<li class="e">${empty}</li>`);
   const r = b.request;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(b.title)}</title><style>
@@ -37,6 +37,6 @@ ${b.demoData ? `<div class="demo">DEMO MODE — fictional fixture data on .examp
 <div><h2>Open questions</h2><ul>${list(b.openQuestions.map((q) => `<li>${esc(q.text)}${q.why ? ` <span class="m">(${esc(q.why)})</span>` : ""}${cite(q.sourceIds)}</li>`), "—")}</ul></div></div>
 <h2>Uncertain / unverified — confirm before relying on these</h2><div class="u"><ul>${list(b.uncertain.map((c) => claim(c, true)), "Nothing flagged.")}</ul></div>
 <h2>Sources</h2><ol class="src">${b.sources.map((s) => `<li><b>[${s.id}]</b> <a href="${esc(s.url)}">${esc(s.title)}</a> — ${esc(s.domain)}, ${formatDay(s.publishedAt)}${s.isPrimary ? ", primary" : ""}</li>`).join("")}</ol>
-<div class="f">✓ verified = 2+ independent outlets or a primary source, with every figure and key term found in the cited text. ⚠ = single secondary source, hedged, undated, or not fully supported. Generated ${esc(new Date(b.generatedAt).toLocaleString())} by Groundwork.</div>
+<div class="f">✓ verified = passed heuristic checks with a dated primary source or distinct coverage. ⚠ = insufficient or uncertain support. Checks can miss errors; review the cited sources. Generated ${esc(new Date(b.generatedAt).toLocaleString())} by Groundwork.</div>
 </body></html>`;
 }

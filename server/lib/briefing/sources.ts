@@ -105,8 +105,43 @@ export function selectForPrompt(sources: Source[], max: number, reservePrimary =
 
 export function parseDate(v: string | null | undefined): Date | null {
   if (!v) return null;
-  const d = new Date(v);
-  return Number.isNaN(d.getTime()) ? null : d;
+  const value = v.trim();
+  // Accept ISO dates, timestamps with explicit timezone, and RFC 2822 timestamps
+  // with an explicit GMT/UTC or numeric offset. Local times are ambiguous.
+  const rfc = /^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),? (\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4}) \d{2}:\d{2}:\d{2} (?:GMT|UTC|[+-]\d{4})$/i.exec(value);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) &&
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})$/i.test(value) && !rfc) return null;
+  if (rfc) {
+    const month = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"].indexOf(rfc[2]!.toLowerCase());
+    const calendar = new Date(Date.UTC(Number(rfc[3]), month, Number(rfc[1])));
+    if (calendar.getUTCMonth() !== month || calendar.getUTCDate() !== Number(rfc[1])) return null;
+  }
+  // Date.parse normalizes invalid ISO dates such as February 30; reject them
+  // before parsing, including when the value also contains a time and offset.
+  const isoDate = value.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T ])/);
+  if (isoDate) {
+    const [, year, month, day] = isoDate;
+    const calendar = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+    if (calendar.getUTCFullYear() !== Number(year) || calendar.getUTCMonth() !== Number(month) - 1 || calendar.getUTCDate() !== Number(day)) return null;
+  }
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+/** Classify source dates conservatively against a meeting-anchored window. */
+export function classifySourceDate(value: string | null | undefined, origin: RawHit["origin"], window: DateWindow) {
+  const d = parseDate(value);
+  const ts = d?.getTime() ?? null;
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value?.trim() ?? "") && ts !== null;
+  const earliest = ts === null ? null : ts - (dateOnly ? 14 * 3_600_000 : 0);
+  const latest = ts === null ? null : ts + (dateOnly ? 38 * 3_600_000 - 1 : 0);
+  const start = new Date(window.start).getTime();
+  const end = new Date(window.end).getTime();
+  const inWindow = ts === null || (earliest! >= start && latest! <= end);
+  const background = origin === "background" && !(ts !== null && inWindow);
+  const keep = inWindow || (background && latest !== null && latest <= end);
+  return { keep, background, ts, publishedAt: d ? (dateOnly ? value!.trim() : d.toISOString()) : null };
 }
 
 export interface NormalizeStats {
@@ -131,8 +166,10 @@ export function titleTokens(title: string): Set<string> {
 
 /**
  * Merge raw hits into numbered sources: dedupe by canonical URL (and near-identical
- * syndicated titles on the same domain), drop anything dated outside the window,
- * keep undated items (flagged later as lower confidence), rank by score + recency.
+ * syndicated titles on the same domain), and filter against the exact window.
+ * Date-only values represent a calendar day of unknown timezone; every possible
+ * instant within the day must fit the window, otherwise it is excluded. Undated items remain for review,
+ * and older background items are retained separately as context.
  */
 export function normalizeHits(
   hits: RawHit[],
@@ -142,8 +179,7 @@ export function normalizeHits(
   maxSources = 40,
 ): { sources: Source[]; stats: NormalizeStats } {
   const start = new Date(window.start).getTime();
-  // Allow a small grace after the meeting start for timezone skew in published dates.
-  const end = new Date(window.end).getTime() + 6 * 3_600_000;
+  const end = new Date(window.end).getTime();
   const byUrl = new Map<string, Source & { _ts: number | null }>();
   const qCat = new Map(queries.map((q) => [q.id, q.category] as const));
   let duplicates = 0;
@@ -152,15 +188,13 @@ export function normalizeHits(
   for (const h of hits) {
     if (!h.url || !h.title) continue;
     const url = canonicalUrl(h.url);
-    const d = parseDate(h.publishedDate ?? null);
-    const ts = d ? d.getTime() : null;
-    const inWindow = ts === null || (ts >= start && ts <= end);
-    const isBackground = h.origin === "background" && !(ts !== null && inWindow);
-    if (!inWindow && !isBackground) {
+    const date = classifySourceDate(h.publishedDate, h.origin, window);
+    const { ts } = date;
+    const isBackground = date.background;
+    if (!date.keep) {
       outOfWindow++;
       continue;
     }
-    if (isBackground && ts !== null && ts > end) continue; // never "future" context
     const cat = qCat.get(h.queryId) ?? "news";
     const existing = byUrl.get(url);
     if (existing) {
@@ -189,7 +223,7 @@ export function normalizeHits(
       url,
       title: h.title.trim(),
       domain,
-      publishedAt: d ? d.toISOString() : null,
+      publishedAt: date.publishedAt,
       snippet: (h.content ?? "").replace(/\s+/g, " ").trim().slice(0, 1500),
       queryIds: [h.queryId],
       categories: [cat as Category],
